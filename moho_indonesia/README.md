@@ -57,8 +57,14 @@ python moho_indonesia/11_gravity_disturbance.py
 
   The real spherical forward (`moho_utils.make_tesseroid_forward`, Harmonica) is
   implemented but needs the `fbt` env + input grids to run.
-- **Still scaffolded (`TODO`):** data acquisition (10), corrections (11–13),
-  hyperparameter search (15), figures (16). Fill in that order.
+- **`10`–`13` — implemented.** Acquisition (`10`, ICGEM/ETOPO/CRUST1.0 via pooch
+  with manual fallback), gravity disturbance (`11`), topographic correction →
+  Bouguer (`12`), sediment correction → sediment-free Bouguer (`13`). The
+  tesseroid geometry builders are unit-tested (numpy-only); the full forward runs
+  need the `fbt` env + downloaded data and were **not** yet run end-to-end.
+  Verify before trusting: ICGEM tide system, ETOPO variable names, and the
+  CRUST1.0 column order (`load_crust1_sediments`).
+- **Still scaffolded (`TODO`):** hyperparameter search (15), figures (16).
 
 ## Notes / risks specific to Indonesia
 
