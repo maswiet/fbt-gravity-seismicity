@@ -3,7 +3,7 @@
 
 This is the content map for the `.brain` second brain. Read this file before answering from or editing the wiki. Update it on every ingest and every durable query that changes the vault.
 
-Last updated: 2026-07-28 — first ingest (Uieda & Barbosa 2017)
+Last updated: 2026-07-28 — added Moho-Indonesia replication plan
 
 ## Start Here
 
@@ -55,7 +55,7 @@ Last updated: 2026-07-28 — first ingest (Uieda & Barbosa 2017)
 
 ## Syntheses
 
-- No synthesis pages yet.
+- [[wiki/syntheses/moho-indonesia-replication-plan]] - Plan to replicate Uieda & Barbosa (2017) for the whole-Indonesia Moho; pipeline in `moho_indonesia/`.
 
 ## Outputs
 
