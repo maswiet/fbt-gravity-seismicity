@@ -47,10 +47,18 @@ python moho_indonesia/11_gravity_disturbance.py
 
 ## Status
 
-**Scaffold** — structure, data flow, and the core algorithm are laid out; the
-heavy pieces are marked `TODO` / `NotImplementedError`. Fill in, in order:
-data acquisition (10) → corrections (11–13) → inversion core (14: tesseroid
-forward model + roughness matrix) → hyperparameters (15) → figures (16).
+- **`14_moho_inversion.py` — implemented & tested.** Full Bott + Tikhonov
+  Gauss-Newton loop; injectable forward model; sparse roughness operator.
+  Synthetic self-test recovers a known Moho at RMS ≈ 0.03 km:
+
+  ```bash
+  python moho_indonesia/14_moho_inversion.py --selftest
+  ```
+
+  The real spherical forward (`moho_utils.make_tesseroid_forward`, Harmonica) is
+  implemented but needs the `fbt` env + input grids to run.
+- **Still scaffolded (`TODO`):** data acquisition (10), corrections (11–13),
+  hyperparameter search (15), figures (16). Fill in that order.
 
 ## Notes / risks specific to Indonesia
 
