@@ -46,3 +46,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Files changed (.brain):** `wiki/syntheses/moho-indonesia-replication-plan.md` (status), `wiki/log.md` (this entry).
 - **Key result:** inversion machinery verified — synthetic self-test recovers a known Moho at RMS 0.027 km, 3 iterations. Runs with numpy/scipy only (no harmonica/download needed). Real tesseroid forward implemented, pending `fbt` env + input grids.
 - **Follow-ups:** implement acquisition (10) + corrections (11–13) to produce a real sediment-free Bouguer grid, then run the tesseroid inversion end-to-end; then 15 (hyperparameters) and 16 (figures).
+
+## [2026-07-28] maintenance | Implement acquisition + corrections (10-13)
+
+- **Trigger:** user asked to continue with steps 10-13.
+- **Files changed (code):** `moho_indonesia/10_fetch_grav_topo_sed.py` (pooch downloads: ICGEM manual-fallback, ETOPO 2022, CRUST1.0; + subset/unpack), `11_gravity_disturbance.py` (load ICGEM .gdf or observed − WGS84 normal gravity), `12_topographic_correction.py` (topo/ocean tesseroids → Bouguer), `13_sediment_correction.py` (CRUST1.0 sediment tesseroids → sediment-free Bouguer), `moho_utils.py` (topography_to_tesseroids, layer_to_tesseroids, tesseroid_gravity_grid, load_crust1_sediments), `environment.yml` (+pooch), `README.md`.
+- **Files changed (.brain):** synthesis status, this log entry.
+- **Key result:** full correction chain implemented. Tesseroid geometry builders unit-tested numpy-only (bottom<=top, land/ocean & sediment density signs, radius mapping); inversion self-test still passes. End-to-end tesseroid forward NOT run (needs `fbt` env + network + data).
+- **Verify before trusting:** ICGEM tide system; ETOPO netCDF var/coord names; CRUST1.0 column order + sign in `load_crust1_sediments`.
+- **Follow-ups:** run 10→14 end-to-end in `fbt` (start coarse, e.g. 0.4°); then implement 15 (hyperparameters) and 16 (figures).
