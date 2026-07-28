@@ -42,8 +42,44 @@ def _make_ax(fig, position, extent, title):
     return ax
 
 
+# Approximate tectonic context lines (lon, lat), for orientation only — NOT
+# authoritative geometry. Replace with Bird (2003) / official traces for figures.
+def _tectonic_features():
+    sunda_banda_trench = [
+        (92.5, 6.0), (93.5, 3.5), (95.0, 1.0), (97.0, -1.5), (99.0, -3.5),
+        (101.0, -5.2), (103.5, -6.6), (106.5, -8.0), (110.0, -9.2),
+        (113.0, -10.2), (116.0, -10.8), (119.0, -10.9), (121.5, -10.4),
+        (123.5, -9.2), (125.0, -7.8), (126.5, -6.8), (128.0, -6.5),
+    ]
+    sumatran_fault = [
+        (95.5, 5.3), (97.0, 4.0), (98.5, 2.4), (99.6, 0.9), (100.6, -0.6),
+        (101.6, -2.1), (102.6, -3.6), (103.6, -5.0), (104.3, -5.9),
+    ]
+    return {"Sunda–Banda trench (approx.)": (sunda_banda_trench, dict(color="k", lw=1.6, ls="-")),
+            "Sumatran Fault (approx.)": (sumatran_fault, dict(color="red", lw=1.4, ls="-"))}
+
+
+def _add_tectonics(ax):
+    import cartopy.crs as ccrs
+    for label, (pts, style) in _tectonic_features().items():
+        arr = np.array(pts)
+        ax.plot(arr[:, 0], arr[:, 1], transform=ccrs.PlateCarree(),
+                label=label, **style)
+
+
+def _add_moho_contours(ax, lon, lat, moho_km):
+    import cartopy.crs as ccrs
+    levels = np.arange(15, 55, 5)
+    cs = ax.contour(lon, lat, moho_km, levels=levels, colors="k",
+                    linewidths=0.4, alpha=0.6, transform=ccrs.PlateCarree())
+    ax.clabel(cs, fmt="%d", fontsize=6, inline=True)
+    ax.contour(lon, lat, moho_km, levels=[35], colors="white", linewidths=1.4,
+               transform=ccrs.PlateCarree())
+
+
 def plot_moho_map(moho_km, lon, lat, seismic_df=None, out=None,
-                  title="Estimated Moho depth (km)"):
+                  title="Estimated Moho depth (km)",
+                  contours=True, tectonics=True):
     import cartopy.crs as ccrs
     import matplotlib.pyplot as plt
 
@@ -52,11 +88,15 @@ def plot_moho_map(moho_km, lon, lat, seismic_df=None, out=None,
     pcm = ax.pcolormesh(lon, lat, moho_km, cmap="viridis", shading="auto",
                         transform=ccrs.PlateCarree())
     fig.colorbar(pcm, ax=ax, shrink=0.8, label="Moho depth (km)")
+    if contours:
+        _add_moho_contours(ax, lon, lat, moho_km)
+    if tectonics:
+        _add_tectonics(ax)
     if seismic_df is not None:
         ax.scatter(seismic_df.longitude, seismic_df.latitude, c=seismic_df.depth_km,
                    cmap="viridis", edgecolor="k", linewidth=0.4, s=28,
                    transform=ccrs.PlateCarree(), label="seismic Moho")
-        ax.legend(loc="lower left", fontsize=8)
+    ax.legend(loc="lower left", fontsize=7, framealpha=0.9)
     fig.tight_layout()
     if out:
         fig.savefig(out, dpi=150)
@@ -99,10 +139,12 @@ def plot_difference_from_seismic(moho_km, lon, lat, seismic_df, out=None):
 
     fig = plt.figure(figsize=(12, 4.6))
     ax = _make_ax(fig, 121, C.REGION, "Estimated − seismic Moho (km)")
+    _add_tectonics(ax)
     sc = ax.scatter(seismic_df.longitude[ok], seismic_df.latitude[ok], c=diff[ok],
                     cmap="PuOr", vmin=-vmax, vmax=vmax, edgecolor="k", linewidth=0.4,
                     s=34, transform=ccrs.PlateCarree())
     fig.colorbar(sc, ax=ax, shrink=0.8, label="km")
+    ax.legend(loc="lower left", fontsize=7, framealpha=0.9)
     ax2 = fig.add_subplot(122)
     ax2.hist(diff[ok], bins=25, color="peru")
     ax2.set(xlabel="estimated − seismic (km)", ylabel="count",
