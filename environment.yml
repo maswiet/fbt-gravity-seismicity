@@ -1,0 +1,36 @@
+name: fbt
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  # Core scientific
+  - numpy>=1.24
+  - scipy>=1.11
+  - pandas>=2.0
+  - xarray>=2023.6
+  - netCDF4
+  - h5py
+  # Geospatial
+  - rasterio
+  - geopandas
+  - shapely
+  - pyproj
+  - rioxarray
+  # Geophysics-specific
+  - harmonica>=0.7        # Gravity & magnetic processing (Fatiando a Terra)
+  - verde>=1.8            # Spatial gridding & regression
+  - boule>=0.5            # Reference ellipsoids & normal gravity
+  - obspy>=1.4            # Seismology toolkit
+  - pygmt>=0.11           # Mapping (membutuhkan GMT 6.4+)
+  - gmt>=6.4
+  # Visualization
+  - matplotlib>=3.7
+  - cartopy>=0.22
+  - pyvista>=0.42
+  - jupyterlab
+  # Untuk inversi (Tahap 2 nanti)
+  - pip
+  - pip:
+    - simpeg>=0.21        # 3D geophysical inversion
+    - discretize>=0.10
+    - utm

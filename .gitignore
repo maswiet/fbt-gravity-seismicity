@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+env/
+
+# Archives / snapshots
+*.tar.gz
+
+# Large / downloaded / generated data (keep folder structure, ignore contents)
+data/raw/**
+data/processed/**
+data/external/**
+!data/**/.gitkeep
+
+# Generated figures (uncomment if figures should not be tracked)
+# figures/**
