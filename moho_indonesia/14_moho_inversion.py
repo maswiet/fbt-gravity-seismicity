@@ -66,7 +66,8 @@ def invert(observed, longitude, latitude,
     n_lat, n_lon = observed.shape
     n_params = n_lat * n_lon
 
-    a = mu.bouguer_plate_jacobian(drho)                 # mGal per metre (eq. 15)
+    # Signed Jacobian: deeper Moho -> negative anomaly, so A = -2*pi*G*drho (eq. 15).
+    a = -mu.bouguer_plate_jacobian(drho)                # mGal per metre
     R = mu.finite_difference_matrix(n_lat, n_lon)       # (n_edges, n_params)
     RtR = (R.T @ R).tocsr()
 
@@ -119,12 +120,11 @@ def _self_test() -> None:
     true_moho_km = z_ref_km + bump                      # ~30..38 km
     z_ref_m = z_ref_km * 1000.0
 
-    a = mu.bouguer_plate_jacobian(drho)
-    clean = a * (true_moho_km.ravel() * 1000.0 - z_ref_m)
-    obs = (clean + rng.normal(0.0, 0.5, clean.shape)).reshape(n_lat, n_lon)
-
     def forward(p_m):
         return mu.forward_gravity_bouguer_plate(p_m, z_ref_m, drho)
+
+    clean = forward(true_moho_km.ravel() * 1000.0)
+    obs = (clean + rng.normal(0.0, 0.5, clean.shape)).reshape(n_lat, n_lon)
 
     result = invert(obs, lon, lat, drho=drho, z_ref_km=z_ref_km,
                     mu_reg=1e-5, forward_fn=forward, max_iter=30, tol=1e-3)

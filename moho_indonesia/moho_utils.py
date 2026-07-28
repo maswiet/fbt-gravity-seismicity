@@ -83,12 +83,13 @@ def bouguer_plate_jacobian(drho: float) -> float:
 def forward_gravity_bouguer_plate(moho_depth_m, z_ref_m: float, drho: float):
     """Cheap linear forward model: the Bouguer-plate response of the relief.
 
-    g = 2*pi*G*drho * (moho_depth - z_ref). This is the approximation Bott's
-    method is built on; used to (a) unit-test the inversion machinery without
-    harmonica, and (b) provide a fast first-pass forward. `moho_depth_m` may be
-    any shape; returns the same shape in mGal.
+    g = -2*pi*G*drho * (moho_depth - z_ref). The minus sign matches the physical
+    convention (deeper Moho -> mass deficit -> negative anomaly) and the tesseroid
+    sign convention in `moho_to_tesseroids`. Used to (a) unit-test the inversion
+    machinery without harmonica, and (b) provide a fast first-pass forward.
+    `moho_depth_m` may be any shape; returns the same shape in mGal.
     """
-    a = bouguer_plate_jacobian(drho)
+    a = -bouguer_plate_jacobian(drho)
     return a * (np.asarray(moho_depth_m, dtype=float) - z_ref_m)
 
 
@@ -134,7 +135,9 @@ def moho_to_tesseroids(moho_depth_km, longitude, latitude,
     radius_ref = R - z_ref_m
     bottom = np.minimum(radius_moho, radius_ref)
     top = np.maximum(radius_moho, radius_ref)
-    density = np.where(depth_m > z_ref_m, drho, -drho).astype(float)
+    # Paper Fig. 1f: Moho BELOW z_ref (deeper) -> the zone is crust where the
+    # reference has mantle -> NEGATIVE density contrast; shallower -> positive.
+    density = np.where(depth_m > z_ref_m, -drho, drho).astype(float)
 
     tesseroids = np.column_stack([w, e, s, n, bottom, top])
     return tesseroids, density

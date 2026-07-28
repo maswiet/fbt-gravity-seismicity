@@ -50,7 +50,7 @@ def _masked_inversion(observed, lon, lat, drho, z_ref_km, mu_reg,
         train_mask = np.ones(observed.shape, bool)
     w = train_mask.ravel().astype(float)          # 1 on training nodes
 
-    a = mu.bouguer_plate_jacobian(drho)
+    a = -mu.bouguer_plate_jacobian(drho)   # signed: deeper Moho -> negative anomaly
     R = mu.finite_difference_matrix(n_lat, n_lon)
     RtR = (R.T @ R).tocsr()
     # A^T A is diagonal a^2 restricted to training nodes.

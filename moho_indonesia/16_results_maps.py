@@ -163,9 +163,11 @@ def final_inversion():
     """Run the inversion with the chosen hyperparameters; return (moho, residual, lon, lat)."""
     import importlib.util as ilu
     import pathlib as pl
+    import sys as _sys
     spec = ilu.spec_from_file_location(
         "moho_inversion", pl.Path(__file__).with_name("14_moho_inversion.py"))
     moho_inversion = ilu.module_from_spec(spec)
+    _sys.modules[spec.name] = moho_inversion      # register so @dataclass resolves
     spec.loader.exec_module(moho_inversion)
 
     hp = json.loads(C.HYPERPARAMS_JSON.read_text())
