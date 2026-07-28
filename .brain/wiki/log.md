@@ -38,3 +38,11 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Code scaffold (separate commit, repo track `moho_indonesia/`):** config.py, moho_utils.py, _bootstrap.py, 10–16 numbered scripts, README.md. All syntax-valid; config + Moho loader verified against `data/external/Depth_Moho.txt` (105 points parsed).
 - **Key result:** durable plan recorded; pipeline structure + Bott/Tikhonov core algorithm skeleton in place with TODOs.
 - **Follow-ups:** confirm `Depth_Moho.txt` depth datum + cite source study; pick exact GGM; implement 10→16 in order. Validation Moho kept local (gitignored) pending provenance/publication rights.
+
+## [2026-07-28] maintenance | Implement + test inversion core (14)
+
+- **Trigger:** user asked to continue implementation.
+- **Files changed (code):** `moho_indonesia/14_moho_inversion.py` (full Bott+Tikhonov loop, injectable forward, `--selftest`), `moho_indonesia/moho_utils.py` (real finite_difference_matrix, Bouguer-plate forward, tesseroid model builder + Harmonica forward, lazy heavy imports), `moho_indonesia/README.md` (status).
+- **Files changed (.brain):** `wiki/syntheses/moho-indonesia-replication-plan.md` (status), `wiki/log.md` (this entry).
+- **Key result:** inversion machinery verified — synthetic self-test recovers a known Moho at RMS 0.027 km, 3 iterations. Runs with numpy/scipy only (no harmonica/download needed). Real tesseroid forward implemented, pending `fbt` env + input grids.
+- **Follow-ups:** implement acquisition (10) + corrections (11–13) to produce a real sediment-free Bouguer grid, then run the tesseroid inversion end-to-end; then 15 (hyperparameters) and 16 (figures).

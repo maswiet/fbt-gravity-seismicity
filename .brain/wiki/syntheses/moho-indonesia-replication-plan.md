@@ -53,7 +53,10 @@ Corrections [[wiki/concepts/gravity-data-corrections]] → inversion [[wiki/conc
 
 ## Status
 
-Scaffold built (structure + core algorithm skeleton; heavy parts are TODO). Validation data staged locally at `data/external/Depth_Moho.txt` (kept local / gitignored pending provenance + publication rights).
+- Scaffold built (`moho_indonesia/`, scripts 10–16 + config/utils).
+- **`14_moho_inversion.py` implemented and unit-tested** (2026-07-28): full Bott + Tikhonov Gauss-Newton loop with a diagonal Bouguer-plate Jacobian and a sparse first-order roughness operator; forward model is injectable. Synthetic self-test (numpy/scipy only, `--selftest`) recovers a known Moho at RMS 0.027 km. Real tesseroid forward (`moho_utils.make_tesseroid_forward`) implemented via Harmonica but not yet run (needs `fbt` env + input grids).
+- Still TODO: data acquisition (10), corrections (11–13), hyperparameter search (15), figures (16).
+- Validation data staged locally at `data/external/Depth_Moho.txt` (gitignored pending provenance + publication rights).
 
 ## Open questions / next actions
 
