@@ -26,3 +26,10 @@ node_modules/
 
 # afk-research local/generated state
 .outputs/
+
+# Keep raw source binaries (copyrighted papers, etc.) LOCAL only — never publish
+# to the public repo. Provenance is recorded in each raw folder's provenance.md.
+.brain/raw/**/*.pdf
+.brain/raw/**/*.docx
+.brain/raw/**/*.pptx
+.brain/raw/**/*.epub

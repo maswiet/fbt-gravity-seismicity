@@ -3,7 +3,7 @@
 
 This is the content map for the `.brain` second brain. Read this file before answering from or editing the wiki. Update it on every ingest and every durable query that changes the vault.
 
-Last updated: Initial setup baseline
+Last updated: 2026-07-28 — first ingest (Uieda & Barbosa 2017)
 
 ## Start Here
 
@@ -31,15 +31,19 @@ Last updated: Initial setup baseline
 
 ## Sources
 
-- No source pages currently.
+- [[wiki/sources/uieda-barbosa-2017-spherical-gravity-inversion]] - Uieda & Barbosa (2017), GJI: fast nonlinear gravity inversion in spherical coords; South American Moho.
 
 ## Concepts
 
-- No concept pages currently.
+- [[wiki/concepts/tesseroid-forward-modeling]] - Spherical-prism gravity forward modelling (GLQ + adaptive discretization).
+- [[wiki/concepts/botts-method-gravity-inversion]] - Efficient iterative interface inversion; diagonal Bouguer-plate Jacobian.
+- [[wiki/concepts/regularized-interface-gravity-inversion]] - Nonlinear interface inversion stabilized by Tikhonov smoothness.
+- [[wiki/concepts/gravity-inversion-hyperparameters]] - μ, Δρ, z_ref and the two-step cross-validation to estimate them.
+- [[wiki/concepts/gravity-data-corrections]] - Disturbance → Bouguer → sediment-free Bouguer inversion input.
 
 ## Entities
 
-- No entity pages currently.
+- [[wiki/entities/fatiando-a-terra]] - Open-source Python geophysics toolkit (Harmonica lineage) by Uieda; project tooling.
 
 ## Claims
 
@@ -47,7 +51,7 @@ Last updated: Initial setup baseline
 
 ## Questions
 
-- No durable question pages yet.
+- [[wiki/questions/applying-spherical-gravity-inversion-to-indonesia]] - Fit of the method to Sumatra fore-arc / Flores FBT interface targets (seed).
 
 ## Syntheses
 
