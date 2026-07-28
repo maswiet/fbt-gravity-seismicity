@@ -64,3 +64,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Key result:** all pipeline steps 10–16 implemented. Rendered preview figures (`figures/moho/preview_*.png`) from the REAL 105 seismic Moho points + a synthetic Moho background; coastlines render fine. Sent to user for design review. Real hyperparameter/inversion runs still need the `fbt` env + data.
 - **Note:** preview PNGs left untracked (regenerable via `16 --demo`). Depth_Moho.txt still local-only pending provenance.
 - **Follow-ups:** run end-to-end in `fbt`; cite Depth_Moho.txt source; verify ICGEM tide / ETOPO vars / CRUST1.0 columns.
+
+## [2026-07-28] maintenance | First REAL end-to-end run + sign-bug fix
+
+- **Trigger:** user asked to set up the real run (demo background was "hallucinated").
+- **Environment:** discovered the `fbt` conda env exists with harmonica 0.7 / verde 1.9 / boule 0.6 / pooch 1.9 / pygmt 0.17, and network works. Ran with `/opt/homebrew/Caskroom/miniforge/base/envs/fbt/bin/python`.
+- **New file:** `moho_indonesia/run_real.py` — coarse real run using GMT `earth_relief` + `earth_faa` (Sandwell/IGPP) via pygmt, tesseroid Bouguer correction, Bott+Tikhonov inversion, figures + seismic validation.
+- **BUG FIXED (sign):** `moho_to_tesseroids` had the density-contrast sign backwards (deeper Moho → +anomaly; physically should be −). Fixed to match paper Fig. 1f (deeper → −Δρ); made `forward_gravity_bouguer_plate` and the inversion Jacobian `a = -2πGΔρ` consistent (files `moho_utils.py`, `14`, `15`). Self-test still passes (RMS 0.028 km) and tesseroid forward now gives deeper→negative. Also fixed an importlib `@dataclass` load error by registering loaded modules in `sys.modules` (`16`, `run_real`).
+- **Result:** real 0.5° Moho of Indonesia — thick (~35–40 km) under Sumatra/Java/arc, thin (~5–15 km) oceanic; converged 13 iters, RMS 0.54 mGal; difference vs 105 seismic points mean −4.55 km, std 6.27 km (paper std 6.8 km). Figures `figures/moho/real_*.png` (untracked, regenerable).
+- **Follow-ups:** swap in real GGM disturbance (ICGEM); add CRUST1.0 sediments; calibrate hyperparameters (15); finer grid; handle oceanic shallow/negative artefacts; cite Depth_Moho.txt source.
