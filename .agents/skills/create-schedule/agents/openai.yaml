@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Schedule"
+  short_description: "Create a scheduled Task Prompt"
+  default_prompt: "Use $create-schedule to create a bounded scheduled Task Prompt."

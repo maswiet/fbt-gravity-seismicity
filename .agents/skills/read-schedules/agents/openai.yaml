@@ -1,0 +1,4 @@
+interface:
+  display_name: "Read Schedules"
+  short_description: "List or inspect scheduled prompts"
+  default_prompt: "Use $read-schedules to list schedules or inspect a specific Task Prompt."

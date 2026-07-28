@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brain Workspace"
+  short_description: "Use .brain as the agent work folder"
+  default_prompt: "Use $brain-workspace to keep agent notes and working artifacts in .brain."

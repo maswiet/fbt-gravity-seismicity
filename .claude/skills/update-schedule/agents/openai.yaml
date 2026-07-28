@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Schedule"
+  short_description: "Update a scheduled Task Prompt"
+  default_prompt: "Use $update-schedule to revise an existing scheduled Task Prompt."

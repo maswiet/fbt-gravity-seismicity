@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delete Schedules"
+  short_description: "Remove scheduled Task Prompts"
+  default_prompt: "Use $delete-schedules to delete selected schedules or clear all Task Prompts."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Design"
+  short_description: "Update a selected Design System"
+  default_prompt: "Use $update-design to refine a project Design System through a documented grill session."

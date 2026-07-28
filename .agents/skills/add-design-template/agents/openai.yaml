@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add Design Template"
+  short_description: "Create HTML templates from DESIGN.md"
+  default_prompt: "Use $add-design-template to interview me and create a DESIGN.md-guided HTML template."

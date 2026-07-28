@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Design Sample"
+  short_description: "Generate samples from a Design System"
+  default_prompt: "Use $create-design-sample to generate a visual sample from the selected Design System."

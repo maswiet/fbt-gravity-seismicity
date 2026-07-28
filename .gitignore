@@ -20,3 +20,9 @@ data/external/**
 
 # Generated figures (uncomment if figures should not be tracked)
 # figures/**
+
+# Node / dependencies
+node_modules/
+
+# afk-research local/generated state
+.outputs/

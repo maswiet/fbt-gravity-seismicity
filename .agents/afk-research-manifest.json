@@ -1,0 +1,1243 @@
+{
+  "schemaVersion": 1,
+  "installer": {
+    "name": "afk-research",
+    "version": "0.1.0"
+  },
+  "options": {
+    "claude": true,
+    "issueTracker": "github",
+    "sandcastle": true,
+    "design": true,
+    "schedule": true
+  },
+  "files": [
+    {
+      "path": ".agents/lib/brain_transfer_paths.py",
+      "templateHash": "sha256:7334c5e4c236b74a12b1a13cd25c2af4fd75bc9e35f8e2f6d855a52f58b5964f",
+      "installedHash": "sha256:7334c5e4c236b74a12b1a13cd25c2af4fd75bc9e35f8e2f6d855a52f58b5964f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-example/agents/openai.yaml",
+      "templateHash": "sha256:e93ec339f9d70acac379af5fb71be226cbcead685812e91119d57c05e8dacf1c",
+      "installedHash": "sha256:e93ec339f9d70acac379af5fb71be226cbcead685812e91119d57c05e8dacf1c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-example/references/extraction-rubric.md",
+      "templateHash": "sha256:82004880d1255ae69a7c218e8f1cc07ca7bba0a2cc585e2908804ed4031dbe49",
+      "installedHash": "sha256:82004880d1255ae69a7c218e8f1cc07ca7bba0a2cc585e2908804ed4031dbe49",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-example/scripts/apply_design_example_extraction.py",
+      "templateHash": "sha256:8bbd48328bd4c0003bcce72ac14fc29b81afa098a6c383d6265e76f7b7036ac5",
+      "installedHash": "sha256:8bbd48328bd4c0003bcce72ac14fc29b81afa098a6c383d6265e76f7b7036ac5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-example/scripts/prepare_design_example.py",
+      "templateHash": "sha256:6558d63a2b9ac7d368eccdce3350704addd81550b27510a00f6b1214233bd8cc",
+      "installedHash": "sha256:6558d63a2b9ac7d368eccdce3350704addd81550b27510a00f6b1214233bd8cc",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-example/SKILL.md",
+      "templateHash": "sha256:821e8dc2bfe16574694c58f8fe9e57e804fcbde4d36182210bdbb14862d98be9",
+      "installedHash": "sha256:821e8dc2bfe16574694c58f8fe9e57e804fcbde4d36182210bdbb14862d98be9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-template/agents/openai.yaml",
+      "templateHash": "sha256:e1548f6da05d7c72ec6c06b9685a4173fd0bfe5b3e701084bb29cb14a29edfac",
+      "installedHash": "sha256:e1548f6da05d7c72ec6c06b9685a4173fd0bfe5b3e701084bb29cb14a29edfac",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/add-design-template/SKILL.md",
+      "templateHash": "sha256:48553e01fc6d78fd7f86aa7b99c2bb1553dd04de96884c5c39cf185a5008d7b1",
+      "installedHash": "sha256:48553e01fc6d78fd7f86aa7b99c2bb1553dd04de96884c5c39cf185a5008d7b1",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/archive-implementation/agents/openai.yaml",
+      "templateHash": "sha256:c17e7c6ef426539861b91021a407776d2b755af0d0896cdc8df2d0e92f10c553",
+      "installedHash": "sha256:c17e7c6ef426539861b91021a407776d2b755af0d0896cdc8df2d0e92f10c553",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/archive-implementation/scripts/archive_implementation.py",
+      "templateHash": "sha256:af0642a145e9d35d6113e3a4202b417440772384fba1635c6f8a96017ac1a48a",
+      "installedHash": "sha256:af0642a145e9d35d6113e3a4202b417440772384fba1635c6f8a96017ac1a48a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/archive-implementation/SKILL.md",
+      "templateHash": "sha256:6b016696dff499e4cffd1fdc2ecfb53da2706f3dcdb06509292e0c81269f37b0",
+      "installedHash": "sha256:6b016696dff499e4cffd1fdc2ecfb53da2706f3dcdb06509292e0c81269f37b0",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/ask-matt/SKILL.md",
+      "templateHash": "sha256:063b351f9de9859773812a98a4c8915d3af5cba9b7f4f74671769d9ccc203863",
+      "installedHash": "sha256:063b351f9de9859773812a98a4c8915d3af5cba9b7f4f74671769d9ccc203863",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/brain-workspace/agents/openai.yaml",
+      "templateHash": "sha256:7b16aa962fb1c2c57acf07ec6a2ab3341f25f711368628531248426d81ec6280",
+      "installedHash": "sha256:7b16aa962fb1c2c57acf07ec6a2ab3341f25f711368628531248426d81ec6280",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/brain-workspace/SKILL.md",
+      "templateHash": "sha256:5a40aa74a3b8be81a0d77e4ca4da6c8d542670dda16ad4ec144e74bffe32cbd5",
+      "installedHash": "sha256:5a40aa74a3b8be81a0d77e4ca4da6c8d542670dda16ad4ec144e74bffe32cbd5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/check-schedule-runner-status/SKILL.md",
+      "templateHash": "sha256:3899ff3b9ca1c6d546d1f41f77e17863a35eed6597968550b2e40e5b78e1dbec",
+      "installedHash": "sha256:3899ff3b9ca1c6d546d1f41f77e17863a35eed6597968550b2e40e5b78e1dbec",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/code-review/SKILL.md",
+      "templateHash": "sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
+      "installedHash": "sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/codebase-design/DEEPENING.md",
+      "templateHash": "sha256:125e6b77413ad2bc7cf7a772bc74336d580a50f9e797db2178ed133d62333d06",
+      "installedHash": "sha256:125e6b77413ad2bc7cf7a772bc74336d580a50f9e797db2178ed133d62333d06",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/codebase-design/DESIGN-IT-TWICE.md",
+      "templateHash": "sha256:21c3264953bd30ee87b181a3ccaf0e70649f461e5ffd7dc654acee4ba1788b31",
+      "installedHash": "sha256:21c3264953bd30ee87b181a3ccaf0e70649f461e5ffd7dc654acee4ba1788b31",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "templateHash": "sha256:a8d50abac5a4018f60e1d911d4b6f4e36454ca14d6c390c0695a578c7de65dad",
+      "installedHash": "sha256:a8d50abac5a4018f60e1d911d4b6f4e36454ca14d6c390c0695a578c7de65dad",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-design-sample/agents/openai.yaml",
+      "templateHash": "sha256:288690faac3da0d4e7859101e5073c15b3e95c8a709792fdc67a243bad556bde",
+      "installedHash": "sha256:288690faac3da0d4e7859101e5073c15b3e95c8a709792fdc67a243bad556bde",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-design-sample/scripts/prepare_design_sample.py",
+      "templateHash": "sha256:9e9edc2b343fb2bc16c646c93d430e47c87a5b640396e6af634342b1d72d8f1b",
+      "installedHash": "sha256:9e9edc2b343fb2bc16c646c93d430e47c87a5b640396e6af634342b1d72d8f1b",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-design-sample/SKILL.md",
+      "templateHash": "sha256:a31fc09ee386a972bd49c0ff1505b35720a5519e22b55cf287cdb8c4723048c9",
+      "installedHash": "sha256:a31fc09ee386a972bd49c0ff1505b35720a5519e22b55cf287cdb8c4723048c9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-design/agents/openai.yaml",
+      "templateHash": "sha256:a6ff5e99b81ab02fdb2dd39b2aa5132e7ad5a541e80be11b21505a24a66f7782",
+      "installedHash": "sha256:a6ff5e99b81ab02fdb2dd39b2aa5132e7ad5a541e80be11b21505a24a66f7782",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-design/references/design-md-format.md",
+      "templateHash": "sha256:5415c9b1e9f9eacabff43a75b1234d36bad34b8eee44ac24d762bd86fe60c2f7",
+      "installedHash": "sha256:5415c9b1e9f9eacabff43a75b1234d36bad34b8eee44ac24d762bd86fe60c2f7",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-design/SKILL.md",
+      "templateHash": "sha256:05db87165560781f31ec641f6c461e8e518eb3f92715ee6cce1d89f814bfd8c9",
+      "installedHash": "sha256:05db87165560781f31ec641f6c461e8e518eb3f92715ee6cce1d89f814bfd8c9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-schedule/agents/openai.yaml",
+      "templateHash": "sha256:4c0205b7bfc123127a93d9c05d81c8ee5f4392b27ec05f500985fd938e5d7c37",
+      "installedHash": "sha256:4c0205b7bfc123127a93d9c05d81c8ee5f4392b27ec05f500985fd938e5d7c37",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/create-schedule/SKILL.md",
+      "templateHash": "sha256:dc7a2e058f03f7486c3bfcf766b14b093ddc076a1ff43754c54bdc4dbd439ca9",
+      "installedHash": "sha256:dc7a2e058f03f7486c3bfcf766b14b093ddc076a1ff43754c54bdc4dbd439ca9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/delete-design/agents/openai.yaml",
+      "templateHash": "sha256:87802d63f3ce1b6da7bb398de0dbad980b9a2973c557652109252a0d82ce52f8",
+      "installedHash": "sha256:87802d63f3ce1b6da7bb398de0dbad980b9a2973c557652109252a0d82ce52f8",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/delete-design/SKILL.md",
+      "templateHash": "sha256:22aa8ceaa32683684ce368c2f039e37b882ccf5bc1f5ce60b823a3e34cc8ed32",
+      "installedHash": "sha256:22aa8ceaa32683684ce368c2f039e37b882ccf5bc1f5ce60b823a3e34cc8ed32",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/delete-schedules/agents/openai.yaml",
+      "templateHash": "sha256:11299d54f34c8444144aeff08708941676d8d67ff159cb4187a536dfec2db422",
+      "installedHash": "sha256:11299d54f34c8444144aeff08708941676d8d67ff159cb4187a536dfec2db422",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/delete-schedules/SKILL.md",
+      "templateHash": "sha256:968e0323fda2fcfb3df0246908b5f858cd85dd4b94268d289ff1a6629ae8a51c",
+      "installedHash": "sha256:968e0323fda2fcfb3df0246908b5f858cd85dd4b94268d289ff1a6629ae8a51c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/design-workspace/agents/openai.yaml",
+      "templateHash": "sha256:8e73f77978631d1ea1bb685aa347fa29dafbc40f5618983e701c62f235c1a7c1",
+      "installedHash": "sha256:8e73f77978631d1ea1bb685aa347fa29dafbc40f5618983e701c62f235c1a7c1",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/design-workspace/SKILL.md",
+      "templateHash": "sha256:be6fe5752fef7834d04fbf89e61452e617ea647b900c1e875db7ad77f6dbd2cc",
+      "installedHash": "sha256:be6fe5752fef7834d04fbf89e61452e617ea647b900c1e875db7ad77f6dbd2cc",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/diagnosing-bugs/scripts/hitl-loop.template.sh",
+      "templateHash": "sha256:b2932630950e5210075bcd6f850e5accf30c101c5367b29eac3a29b4dd8084c8",
+      "installedHash": "sha256:b2932630950e5210075bcd6f850e5accf30c101c5367b29eac3a29b4dd8084c8",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/diagnosing-bugs/SKILL.md",
+      "templateHash": "sha256:7a0779480f323a66d109404646bcc1a14bf0232b45b3e3ea93b652a035718acb",
+      "installedHash": "sha256:7a0779480f323a66d109404646bcc1a14bf0232b45b3e3ea93b652a035718acb",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/ADR-FORMAT.md",
+      "templateHash": "sha256:f1f36cd3f8d3b6474ddd5855da4e233bfc4ae1a1c5024909ccf11871819a41b2",
+      "installedHash": "sha256:f1f36cd3f8d3b6474ddd5855da4e233bfc4ae1a1c5024909ccf11871819a41b2",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/CONTEXT-FORMAT.md",
+      "templateHash": "sha256:b8cc318f2a4285b530e908b6bc43901c3c5cd11100362636bbc4216639bef597",
+      "installedHash": "sha256:b8cc318f2a4285b530e908b6bc43901c3c5cd11100362636bbc4216639bef597",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "templateHash": "sha256:152e2c97239affb12a60c5f4a7e74ab546a49ae169688c81f4e2ccc42dafa579",
+      "installedHash": "sha256:152e2c97239affb12a60c5f4a7e74ab546a49ae169688c81f4e2ccc42dafa579",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/export-brain/agents/openai.yaml",
+      "templateHash": "sha256:432f44c22efbabb6fb8abfa872cc08184060d4805e28f41d1a8452731772dec5",
+      "installedHash": "sha256:432f44c22efbabb6fb8abfa872cc08184060d4805e28f41d1a8452731772dec5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/export-brain/scripts/export_brain.py",
+      "templateHash": "sha256:ebe80f1b4faa3c752549a529e4a767825f784e5e545d304ea1c72a7e69878f07",
+      "installedHash": "sha256:ebe80f1b4faa3c752549a529e4a767825f784e5e545d304ea1c72a7e69878f07",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/export-brain/SKILL.md",
+      "templateHash": "sha256:6b4aff72631d06937c10f035845e17238a4d87c9055694508864366a0ab5275e",
+      "installedHash": "sha256:6b4aff72631d06937c10f035845e17238a4d87c9055694508864366a0ab5275e",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "templateHash": "sha256:6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
+      "installedHash": "sha256:6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "templateHash": "sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
+      "installedHash": "sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/grilling/SKILL.md",
+      "templateHash": "sha256:fe00af3e1815f97c0a7644605479328a726b5cd95ba6ef56a4be2a92fae6c20f",
+      "installedHash": "sha256:fe00af3e1815f97c0a7644605479328a726b5cd95ba6ef56a4be2a92fae6c20f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/handoff/SKILL.md",
+      "templateHash": "sha256:94bee8c16cbfcf9f1e15187f7e5d0d5a93c4adb7c512feceecaab80c8ff7c059",
+      "installedHash": "sha256:94bee8c16cbfcf9f1e15187f7e5d0d5a93c4adb7c512feceecaab80c8ff7c059",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/implement/SKILL.md",
+      "templateHash": "sha256:5b55552c4a0d90fe15c9ee44abce4498faa03b73e332024e30ab69c2b7065770",
+      "installedHash": "sha256:5b55552c4a0d90fe15c9ee44abce4498faa03b73e332024e30ab69c2b7065770",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/import-brain/agents/openai.yaml",
+      "templateHash": "sha256:1aa1a9309da94342b4d01daf9162893bec537553fc0c5a7bf188468e4a0399ed",
+      "installedHash": "sha256:1aa1a9309da94342b4d01daf9162893bec537553fc0c5a7bf188468e4a0399ed",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/import-brain/scripts/plan_import.py",
+      "templateHash": "sha256:ca45b424174c96660b90ddc8a27583f21ab6df4b07aa14105447702697be524f",
+      "installedHash": "sha256:ca45b424174c96660b90ddc8a27583f21ab6df4b07aa14105447702697be524f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/import-brain/SKILL.md",
+      "templateHash": "sha256:48716923daaa4b08f8521180825427a75d06f4a1080173bf69a706495ece1dc4",
+      "installedHash": "sha256:48716923daaa4b08f8521180825427a75d06f4a1080173bf69a706495ece1dc4",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/HTML-REPORT.md",
+      "templateHash": "sha256:0b0936104158abeef7246ff6cbabefa4dc055f17589f2833f2d93001421910a1",
+      "installedHash": "sha256:0b0936104158abeef7246ff6cbabefa4dc055f17589f2833f2d93001421910a1",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "templateHash": "sha256:0026900866ed2a542af0559cef11dd7ae707633b75cc6f668c2e7c0a33e35032",
+      "installedHash": "sha256:0026900866ed2a542af0559cef11dd7ae707633b75cc6f668c2e7c0a33e35032",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/ingest/agents/openai.yaml",
+      "templateHash": "sha256:7edafc0eda74ad240a48073d5e8c1961c843c930d81b4532597b41c226269014",
+      "installedHash": "sha256:7edafc0eda74ad240a48073d5e8c1961c843c930d81b4532597b41c226269014",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/ingest/SKILL.md",
+      "templateHash": "sha256:27ba78ec0270a0ef37f962f6d60ed0160a8a3aaac8ef030a994eedd68421b53b",
+      "installedHash": "sha256:27ba78ec0270a0ef37f962f6d60ed0160a8a3aaac8ef030a994eedd68421b53b",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/lint/agents/openai.yaml",
+      "templateHash": "sha256:58e2635d37a168ef843e4e752e03f722058ba3b029081d31fddd8499a28da280",
+      "installedHash": "sha256:58e2635d37a168ef843e4e752e03f722058ba3b029081d31fddd8499a28da280",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/lint/SKILL.md",
+      "templateHash": "sha256:1a83bb490547e3409c4f2de445b41a98888c9832e5223e45d7101864474f83be",
+      "installedHash": "sha256:1a83bb490547e3409c4f2de445b41a98888c9832e5223e45d7101864474f83be",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/load/SKILL.md",
+      "templateHash": "sha256:91184db4ea6131b8c0a3f02854efebbf4dd0775c83400ceee36c168fb3a5fca5",
+      "installedHash": "sha256:91184db4ea6131b8c0a3f02854efebbf4dd0775c83400ceee36c168fb3a5fca5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/prototype/LOGIC.md",
+      "templateHash": "sha256:da91dc92195c00d5dc33863b8c1a030998025a0f8583ebf2babd770825b7f70c",
+      "installedHash": "sha256:da91dc92195c00d5dc33863b8c1a030998025a0f8583ebf2babd770825b7f70c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/prototype/SKILL.md",
+      "templateHash": "sha256:863611f7fb65b78265188466cacdb365cbad129d36844ec57603c708d2026b50",
+      "installedHash": "sha256:863611f7fb65b78265188466cacdb365cbad129d36844ec57603c708d2026b50",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/prototype/UI.md",
+      "templateHash": "sha256:d76d565149ee50456c5ddc5e29c27fec8737637874fe5c37d970db085a200b27",
+      "installedHash": "sha256:d76d565149ee50456c5ddc5e29c27fec8737637874fe5c37d970db085a200b27",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/query/agents/openai.yaml",
+      "templateHash": "sha256:c05a995ef45c2a94cc456e2cf4b968f02a471f85181bc5675720c0193a425c50",
+      "installedHash": "sha256:c05a995ef45c2a94cc456e2cf4b968f02a471f85181bc5675720c0193a425c50",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/query/SKILL.md",
+      "templateHash": "sha256:391e2c1f6a1243b69318bbc74eda7ae10ff7fd814d1796dac03c62eb8d00e2f9",
+      "installedHash": "sha256:391e2c1f6a1243b69318bbc74eda7ae10ff7fd814d1796dac03c62eb8d00e2f9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/read-design/agents/openai.yaml",
+      "templateHash": "sha256:2b1c0862aee2edbc0dc44e53d5115617c8d6563d853db2837e8ce2ab91dfaaac",
+      "installedHash": "sha256:2b1c0862aee2edbc0dc44e53d5115617c8d6563d853db2837e8ce2ab91dfaaac",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/read-design/SKILL.md",
+      "templateHash": "sha256:bdb988ae22113e75e3050cb43480eb6ac67a0fc4ab9ba8f98d24914148710345",
+      "installedHash": "sha256:bdb988ae22113e75e3050cb43480eb6ac67a0fc4ab9ba8f98d24914148710345",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/read-schedules/agents/openai.yaml",
+      "templateHash": "sha256:00d91c61d3b6b91aabce8df69866bdbea282e0c0ad0eaf14a46ba68e29e5510a",
+      "installedHash": "sha256:00d91c61d3b6b91aabce8df69866bdbea282e0c0ad0eaf14a46ba68e29e5510a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/read-schedules/SKILL.md",
+      "templateHash": "sha256:d8d9c8c0dd34b190719730d53270c8fe432ba9c4eaa56d342e0ccf73fea2d4a7",
+      "installedHash": "sha256:d8d9c8c0dd34b190719730d53270c8fe432ba9c4eaa56d342e0ccf73fea2d4a7",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/save/SKILL.md",
+      "templateHash": "sha256:75dd7dd451bb8ee367d86df28fd948c469e0eeae8fc76d171e0458ae2ec42d6e",
+      "installedHash": "sha256:75dd7dd451bb8ee367d86df28fd948c469e0eeae8fc76d171e0458ae2ec42d6e",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/schedule-workspace/SKILL.md",
+      "templateHash": "sha256:a3b73f8218f9480e887c91629797511821b8ad3fde93f4fa1c0f561a371f6095",
+      "installedHash": "sha256:a3b73f8218f9480e887c91629797511821b8ad3fde93f4fa1c0f561a371f6095",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-brain/agents/openai.yaml",
+      "templateHash": "sha256:862c818817264a3dc591c6ec6b8f8d5ad00a1a1359f3a18b155bf765a72a5106",
+      "installedHash": "sha256:862c818817264a3dc591c6ec6b8f8d5ad00a1a1359f3a18b155bf765a72a5106",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-brain/scripts/setup_brain.py",
+      "templateHash": "sha256:7038ef9927b397f7a7cbe8d22cb82bf27e34faf81b3fbbc6de698fce49c82997",
+      "installedHash": "sha256:7038ef9927b397f7a7cbe8d22cb82bf27e34faf81b3fbbc6de698fce49c82997",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-brain/SKILL.md",
+      "templateHash": "sha256:50c0850d16b8ad0a262591250a3195817ae8326c0a1df96d895be0edc85e6a71",
+      "installedHash": "sha256:50c0850d16b8ad0a262591250a3195817ae8326c0a1df96d895be0edc85e6a71",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/domain.md",
+      "templateHash": "sha256:25be404b58798b3cb2d51c93dba2ab052fc3a425632185726ac3f5fcff193b99",
+      "installedHash": "sha256:25be404b58798b3cb2d51c93dba2ab052fc3a425632185726ac3f5fcff193b99",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/issue-tracker-github.md",
+      "templateHash": "sha256:1e7ac76d3dd7f0ce41d6bf86912619a4bac164a70c6e246ae48f6825e222d56d",
+      "installedHash": "sha256:1e7ac76d3dd7f0ce41d6bf86912619a4bac164a70c6e246ae48f6825e222d56d",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "templateHash": "sha256:3dff92af4e306f98425edf433123fb0f18116c854132b695b9b4360aa05156a8",
+      "installedHash": "sha256:3dff92af4e306f98425edf433123fb0f18116c854132b695b9b4360aa05156a8",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/triage-labels.md",
+      "templateHash": "sha256:4f53c9b40ce2651e3611aa090eaedbd6dbc9b71ef8c5f7e65eac0d8263190d0d",
+      "installedHash": "sha256:4f53c9b40ce2651e3611aa090eaedbd6dbc9b71ef8c5f7e65eac0d8263190d0d",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/start-schedule-runner/SKILL.md",
+      "templateHash": "sha256:270e09c71ad8048e31d8ed05a4b22b1564e881145eafd942f98d15d1c6c8bbfe",
+      "installedHash": "sha256:270e09c71ad8048e31d8ed05a4b22b1564e881145eafd942f98d15d1c6c8bbfe",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/stop-schedule-runner/SKILL.md",
+      "templateHash": "sha256:90d165d66c02b8fa6ba16d493153b061c5fc9bd522ec8d29e44634d249e23950",
+      "installedHash": "sha256:90d165d66c02b8fa6ba16d493153b061c5fc9bd522ec8d29e44634d249e23950",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/tdd/mocking.md",
+      "templateHash": "sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+      "installedHash": "sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/tdd/SKILL.md",
+      "templateHash": "sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f",
+      "installedHash": "sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/tdd/tests.md",
+      "templateHash": "sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+      "installedHash": "sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/teach/GLOSSARY-FORMAT.md",
+      "templateHash": "sha256:d177def491519d97873291f2e860d8f1d60ead78feecb82eee022177958069c6",
+      "installedHash": "sha256:d177def491519d97873291f2e860d8f1d60ead78feecb82eee022177958069c6",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/teach/LEARNING-RECORD-FORMAT.md",
+      "templateHash": "sha256:855f81017625256584bbf62bd5edb9b0c86605c4cc1139c56acc36b802595d17",
+      "installedHash": "sha256:855f81017625256584bbf62bd5edb9b0c86605c4cc1139c56acc36b802595d17",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/teach/MISSION-FORMAT.md",
+      "templateHash": "sha256:8da6d3ac84eb2eb19f17c260b6acf01c560d3ac7a4501c415eea0e985602f4d7",
+      "installedHash": "sha256:8da6d3ac84eb2eb19f17c260b6acf01c560d3ac7a4501c415eea0e985602f4d7",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/teach/RESOURCES-FORMAT.md",
+      "templateHash": "sha256:2bc634a64b0d0daa10904f9222e7aa0d361420dfacabbf092fbe3a72222edc08",
+      "installedHash": "sha256:2bc634a64b0d0daa10904f9222e7aa0d361420dfacabbf092fbe3a72222edc08",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/teach/SKILL.md",
+      "templateHash": "sha256:6d2dbe5e03084cf26fef66b535127b36cd1bcbe9478e26b0626029cd51dc2259",
+      "installedHash": "sha256:6d2dbe5e03084cf26fef66b535127b36cd1bcbe9478e26b0626029cd51dc2259",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/test-schedule/agents/openai.yaml",
+      "templateHash": "sha256:a3e9a95b018c08942ccfdf6f2a799a2afe2e1f3a458ccd2a18102c21b6aae756",
+      "installedHash": "sha256:a3e9a95b018c08942ccfdf6f2a799a2afe2e1f3a458ccd2a18102c21b6aae756",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/test-schedule/SKILL.md",
+      "templateHash": "sha256:73ca90d2e6fbbed110cb1a83784ed112d961b9c9dc5dd59c313fd8ecb9a02f12",
+      "installedHash": "sha256:73ca90d2e6fbbed110cb1a83784ed112d961b9c9dc5dd59c313fd8ecb9a02f12",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/to-issues/SKILL.md",
+      "templateHash": "sha256:f8a72a5bc88aa830ae62b323a52b08934da52851b010984c55829a644c7f6ba6",
+      "installedHash": "sha256:f8a72a5bc88aa830ae62b323a52b08934da52851b010984c55829a644c7f6ba6",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/to-prd/SKILL.md",
+      "templateHash": "sha256:db7e7188ac4fd47f4925ae6550e0233365b3b05be40f45235ab3a0a6b0165156",
+      "installedHash": "sha256:db7e7188ac4fd47f4925ae6550e0233365b3b05be40f45235ab3a0a6b0165156",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/update-design/agents/openai.yaml",
+      "templateHash": "sha256:b660645690c24cc07d8451e83ed0cddbe90428f7d6db3b53b9b779ae0d893f78",
+      "installedHash": "sha256:b660645690c24cc07d8451e83ed0cddbe90428f7d6db3b53b9b779ae0d893f78",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/update-design/SKILL.md",
+      "templateHash": "sha256:23e11c96495704627ea92742e0080fbcd01d0805409baa37ed6af214db43dd03",
+      "installedHash": "sha256:23e11c96495704627ea92742e0080fbcd01d0805409baa37ed6af214db43dd03",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/update-schedule/agents/openai.yaml",
+      "templateHash": "sha256:7e8535b97c06f287f6a3c50f17827a3579600eef925f5889e5e10372bdf28cfc",
+      "installedHash": "sha256:7e8535b97c06f287f6a3c50f17827a3579600eef925f5889e5e10372bdf28cfc",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/update-schedule/SKILL.md",
+      "templateHash": "sha256:f3d000909f6eb26f9940f11eb5020813574d1cc1210224585066472568b009fb",
+      "installedHash": "sha256:f3d000909f6eb26f9940f11eb5020813574d1cc1210224585066472568b009fb",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".agents/skills/update-setup/SKILL.md",
+      "templateHash": "sha256:9ee6a971555a10e93124db1737cbb3abbc10ca3a0b9f3c441f366d75a04dee0f",
+      "installedHash": "sha256:9ee6a971555a10e93124db1737cbb3abbc10ca3a0b9f3c441f366d75a04dee0f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/AGENTS.md",
+      "templateHash": "sha256:07776e93c8ee597ceed920e86778e3bb5096d75c7247dac145749dd0d7808b3a",
+      "installedHash": "sha256:07776e93c8ee597ceed920e86778e3bb5096d75c7247dac145749dd0d7808b3a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/CLAUDE.md",
+      "templateHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "installedHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/wiki/index.md",
+      "templateHash": "sha256:9e484f50b7839864747d1bc47a433bfdff6d2805aa65a30d78147cf68219aa20",
+      "installedHash": "sha256:9e484f50b7839864747d1bc47a433bfdff6d2805aa65a30d78147cf68219aa20",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/wiki/log.md",
+      "templateHash": "sha256:506b69d15573626b426627908abc725e93543722ff1df45e78c7db541c82049f",
+      "installedHash": "sha256:506b69d15573626b426627908abc725e93543722ff1df45e78c7db541c82049f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/wiki/templates/concept-page.md",
+      "templateHash": "sha256:d7db8a0f9940094e2f9354cc4d773e87e97b49b8a5833850ba57051e2978a344",
+      "installedHash": "sha256:d7db8a0f9940094e2f9354cc4d773e87e97b49b8a5833850ba57051e2978a344",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/wiki/templates/entity-page.md",
+      "templateHash": "sha256:1bf1cc4c85d6fe32e8874f1564a2d57213090b0ab18939048464f9ab1465c3b9",
+      "installedHash": "sha256:1bf1cc4c85d6fe32e8874f1564a2d57213090b0ab18939048464f9ab1465c3b9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/wiki/templates/ingest-checklist.md",
+      "templateHash": "sha256:eeb30267653c29a55be2640c81f836d2884a11950557a9bbfc9559f04479fea2",
+      "installedHash": "sha256:eeb30267653c29a55be2640c81f836d2884a11950557a9bbfc9559f04479fea2",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".brain/wiki/templates/source-page.md",
+      "templateHash": "sha256:f46d19982c3aa97ddb8f2944a426973eff3ad8e108893ad030e04aa7a2302f2e",
+      "installedHash": "sha256:f46d19982c3aa97ddb8f2944a426973eff3ad8e108893ad030e04aa7a2302f2e",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/lib/brain_transfer_paths.py",
+      "templateHash": "sha256:7334c5e4c236b74a12b1a13cd25c2af4fd75bc9e35f8e2f6d855a52f58b5964f",
+      "installedHash": "sha256:7334c5e4c236b74a12b1a13cd25c2af4fd75bc9e35f8e2f6d855a52f58b5964f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-example/agents/openai.yaml",
+      "templateHash": "sha256:e93ec339f9d70acac379af5fb71be226cbcead685812e91119d57c05e8dacf1c",
+      "installedHash": "sha256:e93ec339f9d70acac379af5fb71be226cbcead685812e91119d57c05e8dacf1c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-example/references/extraction-rubric.md",
+      "templateHash": "sha256:82004880d1255ae69a7c218e8f1cc07ca7bba0a2cc585e2908804ed4031dbe49",
+      "installedHash": "sha256:82004880d1255ae69a7c218e8f1cc07ca7bba0a2cc585e2908804ed4031dbe49",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-example/scripts/apply_design_example_extraction.py",
+      "templateHash": "sha256:8bbd48328bd4c0003bcce72ac14fc29b81afa098a6c383d6265e76f7b7036ac5",
+      "installedHash": "sha256:8bbd48328bd4c0003bcce72ac14fc29b81afa098a6c383d6265e76f7b7036ac5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-example/scripts/prepare_design_example.py",
+      "templateHash": "sha256:6558d63a2b9ac7d368eccdce3350704addd81550b27510a00f6b1214233bd8cc",
+      "installedHash": "sha256:6558d63a2b9ac7d368eccdce3350704addd81550b27510a00f6b1214233bd8cc",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-example/SKILL.md",
+      "templateHash": "sha256:821e8dc2bfe16574694c58f8fe9e57e804fcbde4d36182210bdbb14862d98be9",
+      "installedHash": "sha256:821e8dc2bfe16574694c58f8fe9e57e804fcbde4d36182210bdbb14862d98be9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-template/agents/openai.yaml",
+      "templateHash": "sha256:e1548f6da05d7c72ec6c06b9685a4173fd0bfe5b3e701084bb29cb14a29edfac",
+      "installedHash": "sha256:e1548f6da05d7c72ec6c06b9685a4173fd0bfe5b3e701084bb29cb14a29edfac",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/add-design-template/SKILL.md",
+      "templateHash": "sha256:48553e01fc6d78fd7f86aa7b99c2bb1553dd04de96884c5c39cf185a5008d7b1",
+      "installedHash": "sha256:48553e01fc6d78fd7f86aa7b99c2bb1553dd04de96884c5c39cf185a5008d7b1",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/archive-implementation/agents/openai.yaml",
+      "templateHash": "sha256:c17e7c6ef426539861b91021a407776d2b755af0d0896cdc8df2d0e92f10c553",
+      "installedHash": "sha256:c17e7c6ef426539861b91021a407776d2b755af0d0896cdc8df2d0e92f10c553",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/archive-implementation/scripts/archive_implementation.py",
+      "templateHash": "sha256:af0642a145e9d35d6113e3a4202b417440772384fba1635c6f8a96017ac1a48a",
+      "installedHash": "sha256:af0642a145e9d35d6113e3a4202b417440772384fba1635c6f8a96017ac1a48a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/archive-implementation/SKILL.md",
+      "templateHash": "sha256:6b016696dff499e4cffd1fdc2ecfb53da2706f3dcdb06509292e0c81269f37b0",
+      "installedHash": "sha256:6b016696dff499e4cffd1fdc2ecfb53da2706f3dcdb06509292e0c81269f37b0",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/ask-matt/SKILL.md",
+      "templateHash": "sha256:063b351f9de9859773812a98a4c8915d3af5cba9b7f4f74671769d9ccc203863",
+      "installedHash": "sha256:063b351f9de9859773812a98a4c8915d3af5cba9b7f4f74671769d9ccc203863",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/brain-workspace/agents/openai.yaml",
+      "templateHash": "sha256:7b16aa962fb1c2c57acf07ec6a2ab3341f25f711368628531248426d81ec6280",
+      "installedHash": "sha256:7b16aa962fb1c2c57acf07ec6a2ab3341f25f711368628531248426d81ec6280",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/brain-workspace/SKILL.md",
+      "templateHash": "sha256:5a40aa74a3b8be81a0d77e4ca4da6c8d542670dda16ad4ec144e74bffe32cbd5",
+      "installedHash": "sha256:5a40aa74a3b8be81a0d77e4ca4da6c8d542670dda16ad4ec144e74bffe32cbd5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/check-schedule-runner-status/SKILL.md",
+      "templateHash": "sha256:3899ff3b9ca1c6d546d1f41f77e17863a35eed6597968550b2e40e5b78e1dbec",
+      "installedHash": "sha256:3899ff3b9ca1c6d546d1f41f77e17863a35eed6597968550b2e40e5b78e1dbec",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/code-review/SKILL.md",
+      "templateHash": "sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
+      "installedHash": "sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/codebase-design/DEEPENING.md",
+      "templateHash": "sha256:125e6b77413ad2bc7cf7a772bc74336d580a50f9e797db2178ed133d62333d06",
+      "installedHash": "sha256:125e6b77413ad2bc7cf7a772bc74336d580a50f9e797db2178ed133d62333d06",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/codebase-design/DESIGN-IT-TWICE.md",
+      "templateHash": "sha256:21c3264953bd30ee87b181a3ccaf0e70649f461e5ffd7dc654acee4ba1788b31",
+      "installedHash": "sha256:21c3264953bd30ee87b181a3ccaf0e70649f461e5ffd7dc654acee4ba1788b31",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/codebase-design/SKILL.md",
+      "templateHash": "sha256:a8d50abac5a4018f60e1d911d4b6f4e36454ca14d6c390c0695a578c7de65dad",
+      "installedHash": "sha256:a8d50abac5a4018f60e1d911d4b6f4e36454ca14d6c390c0695a578c7de65dad",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-design-sample/agents/openai.yaml",
+      "templateHash": "sha256:288690faac3da0d4e7859101e5073c15b3e95c8a709792fdc67a243bad556bde",
+      "installedHash": "sha256:288690faac3da0d4e7859101e5073c15b3e95c8a709792fdc67a243bad556bde",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-design-sample/scripts/prepare_design_sample.py",
+      "templateHash": "sha256:9e9edc2b343fb2bc16c646c93d430e47c87a5b640396e6af634342b1d72d8f1b",
+      "installedHash": "sha256:9e9edc2b343fb2bc16c646c93d430e47c87a5b640396e6af634342b1d72d8f1b",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-design-sample/SKILL.md",
+      "templateHash": "sha256:a31fc09ee386a972bd49c0ff1505b35720a5519e22b55cf287cdb8c4723048c9",
+      "installedHash": "sha256:a31fc09ee386a972bd49c0ff1505b35720a5519e22b55cf287cdb8c4723048c9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-design/agents/openai.yaml",
+      "templateHash": "sha256:a6ff5e99b81ab02fdb2dd39b2aa5132e7ad5a541e80be11b21505a24a66f7782",
+      "installedHash": "sha256:a6ff5e99b81ab02fdb2dd39b2aa5132e7ad5a541e80be11b21505a24a66f7782",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-design/references/design-md-format.md",
+      "templateHash": "sha256:5415c9b1e9f9eacabff43a75b1234d36bad34b8eee44ac24d762bd86fe60c2f7",
+      "installedHash": "sha256:5415c9b1e9f9eacabff43a75b1234d36bad34b8eee44ac24d762bd86fe60c2f7",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-design/SKILL.md",
+      "templateHash": "sha256:05db87165560781f31ec641f6c461e8e518eb3f92715ee6cce1d89f814bfd8c9",
+      "installedHash": "sha256:05db87165560781f31ec641f6c461e8e518eb3f92715ee6cce1d89f814bfd8c9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-schedule/agents/openai.yaml",
+      "templateHash": "sha256:4c0205b7bfc123127a93d9c05d81c8ee5f4392b27ec05f500985fd938e5d7c37",
+      "installedHash": "sha256:4c0205b7bfc123127a93d9c05d81c8ee5f4392b27ec05f500985fd938e5d7c37",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/create-schedule/SKILL.md",
+      "templateHash": "sha256:dc7a2e058f03f7486c3bfcf766b14b093ddc076a1ff43754c54bdc4dbd439ca9",
+      "installedHash": "sha256:dc7a2e058f03f7486c3bfcf766b14b093ddc076a1ff43754c54bdc4dbd439ca9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/delete-design/agents/openai.yaml",
+      "templateHash": "sha256:87802d63f3ce1b6da7bb398de0dbad980b9a2973c557652109252a0d82ce52f8",
+      "installedHash": "sha256:87802d63f3ce1b6da7bb398de0dbad980b9a2973c557652109252a0d82ce52f8",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/delete-design/SKILL.md",
+      "templateHash": "sha256:22aa8ceaa32683684ce368c2f039e37b882ccf5bc1f5ce60b823a3e34cc8ed32",
+      "installedHash": "sha256:22aa8ceaa32683684ce368c2f039e37b882ccf5bc1f5ce60b823a3e34cc8ed32",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/delete-schedules/agents/openai.yaml",
+      "templateHash": "sha256:11299d54f34c8444144aeff08708941676d8d67ff159cb4187a536dfec2db422",
+      "installedHash": "sha256:11299d54f34c8444144aeff08708941676d8d67ff159cb4187a536dfec2db422",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/delete-schedules/SKILL.md",
+      "templateHash": "sha256:968e0323fda2fcfb3df0246908b5f858cd85dd4b94268d289ff1a6629ae8a51c",
+      "installedHash": "sha256:968e0323fda2fcfb3df0246908b5f858cd85dd4b94268d289ff1a6629ae8a51c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/design-workspace/agents/openai.yaml",
+      "templateHash": "sha256:8e73f77978631d1ea1bb685aa347fa29dafbc40f5618983e701c62f235c1a7c1",
+      "installedHash": "sha256:8e73f77978631d1ea1bb685aa347fa29dafbc40f5618983e701c62f235c1a7c1",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/design-workspace/SKILL.md",
+      "templateHash": "sha256:be6fe5752fef7834d04fbf89e61452e617ea647b900c1e875db7ad77f6dbd2cc",
+      "installedHash": "sha256:be6fe5752fef7834d04fbf89e61452e617ea647b900c1e875db7ad77f6dbd2cc",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/diagnosing-bugs/scripts/hitl-loop.template.sh",
+      "templateHash": "sha256:b2932630950e5210075bcd6f850e5accf30c101c5367b29eac3a29b4dd8084c8",
+      "installedHash": "sha256:b2932630950e5210075bcd6f850e5accf30c101c5367b29eac3a29b4dd8084c8",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/diagnosing-bugs/SKILL.md",
+      "templateHash": "sha256:7a0779480f323a66d109404646bcc1a14bf0232b45b3e3ea93b652a035718acb",
+      "installedHash": "sha256:7a0779480f323a66d109404646bcc1a14bf0232b45b3e3ea93b652a035718acb",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/domain-modeling/ADR-FORMAT.md",
+      "templateHash": "sha256:f1f36cd3f8d3b6474ddd5855da4e233bfc4ae1a1c5024909ccf11871819a41b2",
+      "installedHash": "sha256:f1f36cd3f8d3b6474ddd5855da4e233bfc4ae1a1c5024909ccf11871819a41b2",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/domain-modeling/CONTEXT-FORMAT.md",
+      "templateHash": "sha256:b8cc318f2a4285b530e908b6bc43901c3c5cd11100362636bbc4216639bef597",
+      "installedHash": "sha256:b8cc318f2a4285b530e908b6bc43901c3c5cd11100362636bbc4216639bef597",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/domain-modeling/SKILL.md",
+      "templateHash": "sha256:152e2c97239affb12a60c5f4a7e74ab546a49ae169688c81f4e2ccc42dafa579",
+      "installedHash": "sha256:152e2c97239affb12a60c5f4a7e74ab546a49ae169688c81f4e2ccc42dafa579",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/export-brain/agents/openai.yaml",
+      "templateHash": "sha256:432f44c22efbabb6fb8abfa872cc08184060d4805e28f41d1a8452731772dec5",
+      "installedHash": "sha256:432f44c22efbabb6fb8abfa872cc08184060d4805e28f41d1a8452731772dec5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/export-brain/scripts/export_brain.py",
+      "templateHash": "sha256:ebe80f1b4faa3c752549a529e4a767825f784e5e545d304ea1c72a7e69878f07",
+      "installedHash": "sha256:ebe80f1b4faa3c752549a529e4a767825f784e5e545d304ea1c72a7e69878f07",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/export-brain/SKILL.md",
+      "templateHash": "sha256:6b4aff72631d06937c10f035845e17238a4d87c9055694508864366a0ab5275e",
+      "installedHash": "sha256:6b4aff72631d06937c10f035845e17238a4d87c9055694508864366a0ab5275e",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/grill-me/SKILL.md",
+      "templateHash": "sha256:6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
+      "installedHash": "sha256:6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/grill-with-docs/SKILL.md",
+      "templateHash": "sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
+      "installedHash": "sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/grilling/SKILL.md",
+      "templateHash": "sha256:fe00af3e1815f97c0a7644605479328a726b5cd95ba6ef56a4be2a92fae6c20f",
+      "installedHash": "sha256:fe00af3e1815f97c0a7644605479328a726b5cd95ba6ef56a4be2a92fae6c20f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/handoff/SKILL.md",
+      "templateHash": "sha256:94bee8c16cbfcf9f1e15187f7e5d0d5a93c4adb7c512feceecaab80c8ff7c059",
+      "installedHash": "sha256:94bee8c16cbfcf9f1e15187f7e5d0d5a93c4adb7c512feceecaab80c8ff7c059",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/implement/SKILL.md",
+      "templateHash": "sha256:5b55552c4a0d90fe15c9ee44abce4498faa03b73e332024e30ab69c2b7065770",
+      "installedHash": "sha256:5b55552c4a0d90fe15c9ee44abce4498faa03b73e332024e30ab69c2b7065770",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/import-brain/agents/openai.yaml",
+      "templateHash": "sha256:1aa1a9309da94342b4d01daf9162893bec537553fc0c5a7bf188468e4a0399ed",
+      "installedHash": "sha256:1aa1a9309da94342b4d01daf9162893bec537553fc0c5a7bf188468e4a0399ed",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/import-brain/scripts/plan_import.py",
+      "templateHash": "sha256:ca45b424174c96660b90ddc8a27583f21ab6df4b07aa14105447702697be524f",
+      "installedHash": "sha256:ca45b424174c96660b90ddc8a27583f21ab6df4b07aa14105447702697be524f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/import-brain/SKILL.md",
+      "templateHash": "sha256:48716923daaa4b08f8521180825427a75d06f4a1080173bf69a706495ece1dc4",
+      "installedHash": "sha256:48716923daaa4b08f8521180825427a75d06f4a1080173bf69a706495ece1dc4",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/improve-codebase-architecture/HTML-REPORT.md",
+      "templateHash": "sha256:0b0936104158abeef7246ff6cbabefa4dc055f17589f2833f2d93001421910a1",
+      "installedHash": "sha256:0b0936104158abeef7246ff6cbabefa4dc055f17589f2833f2d93001421910a1",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/improve-codebase-architecture/SKILL.md",
+      "templateHash": "sha256:0026900866ed2a542af0559cef11dd7ae707633b75cc6f668c2e7c0a33e35032",
+      "installedHash": "sha256:0026900866ed2a542af0559cef11dd7ae707633b75cc6f668c2e7c0a33e35032",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/ingest/agents/openai.yaml",
+      "templateHash": "sha256:7edafc0eda74ad240a48073d5e8c1961c843c930d81b4532597b41c226269014",
+      "installedHash": "sha256:7edafc0eda74ad240a48073d5e8c1961c843c930d81b4532597b41c226269014",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/ingest/SKILL.md",
+      "templateHash": "sha256:27ba78ec0270a0ef37f962f6d60ed0160a8a3aaac8ef030a994eedd68421b53b",
+      "installedHash": "sha256:27ba78ec0270a0ef37f962f6d60ed0160a8a3aaac8ef030a994eedd68421b53b",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/lint/agents/openai.yaml",
+      "templateHash": "sha256:58e2635d37a168ef843e4e752e03f722058ba3b029081d31fddd8499a28da280",
+      "installedHash": "sha256:58e2635d37a168ef843e4e752e03f722058ba3b029081d31fddd8499a28da280",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/lint/SKILL.md",
+      "templateHash": "sha256:1a83bb490547e3409c4f2de445b41a98888c9832e5223e45d7101864474f83be",
+      "installedHash": "sha256:1a83bb490547e3409c4f2de445b41a98888c9832e5223e45d7101864474f83be",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/load/SKILL.md",
+      "templateHash": "sha256:91184db4ea6131b8c0a3f02854efebbf4dd0775c83400ceee36c168fb3a5fca5",
+      "installedHash": "sha256:91184db4ea6131b8c0a3f02854efebbf4dd0775c83400ceee36c168fb3a5fca5",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/prototype/LOGIC.md",
+      "templateHash": "sha256:da91dc92195c00d5dc33863b8c1a030998025a0f8583ebf2babd770825b7f70c",
+      "installedHash": "sha256:da91dc92195c00d5dc33863b8c1a030998025a0f8583ebf2babd770825b7f70c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/prototype/SKILL.md",
+      "templateHash": "sha256:863611f7fb65b78265188466cacdb365cbad129d36844ec57603c708d2026b50",
+      "installedHash": "sha256:863611f7fb65b78265188466cacdb365cbad129d36844ec57603c708d2026b50",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/prototype/UI.md",
+      "templateHash": "sha256:d76d565149ee50456c5ddc5e29c27fec8737637874fe5c37d970db085a200b27",
+      "installedHash": "sha256:d76d565149ee50456c5ddc5e29c27fec8737637874fe5c37d970db085a200b27",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/query/agents/openai.yaml",
+      "templateHash": "sha256:c05a995ef45c2a94cc456e2cf4b968f02a471f85181bc5675720c0193a425c50",
+      "installedHash": "sha256:c05a995ef45c2a94cc456e2cf4b968f02a471f85181bc5675720c0193a425c50",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/query/SKILL.md",
+      "templateHash": "sha256:391e2c1f6a1243b69318bbc74eda7ae10ff7fd814d1796dac03c62eb8d00e2f9",
+      "installedHash": "sha256:391e2c1f6a1243b69318bbc74eda7ae10ff7fd814d1796dac03c62eb8d00e2f9",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/read-design/agents/openai.yaml",
+      "templateHash": "sha256:2b1c0862aee2edbc0dc44e53d5115617c8d6563d853db2837e8ce2ab91dfaaac",
+      "installedHash": "sha256:2b1c0862aee2edbc0dc44e53d5115617c8d6563d853db2837e8ce2ab91dfaaac",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/read-design/SKILL.md",
+      "templateHash": "sha256:bdb988ae22113e75e3050cb43480eb6ac67a0fc4ab9ba8f98d24914148710345",
+      "installedHash": "sha256:bdb988ae22113e75e3050cb43480eb6ac67a0fc4ab9ba8f98d24914148710345",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/read-schedules/agents/openai.yaml",
+      "templateHash": "sha256:00d91c61d3b6b91aabce8df69866bdbea282e0c0ad0eaf14a46ba68e29e5510a",
+      "installedHash": "sha256:00d91c61d3b6b91aabce8df69866bdbea282e0c0ad0eaf14a46ba68e29e5510a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/read-schedules/SKILL.md",
+      "templateHash": "sha256:d8d9c8c0dd34b190719730d53270c8fe432ba9c4eaa56d342e0ccf73fea2d4a7",
+      "installedHash": "sha256:d8d9c8c0dd34b190719730d53270c8fe432ba9c4eaa56d342e0ccf73fea2d4a7",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/save/SKILL.md",
+      "templateHash": "sha256:75dd7dd451bb8ee367d86df28fd948c469e0eeae8fc76d171e0458ae2ec42d6e",
+      "installedHash": "sha256:75dd7dd451bb8ee367d86df28fd948c469e0eeae8fc76d171e0458ae2ec42d6e",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/schedule-workspace/SKILL.md",
+      "templateHash": "sha256:a3b73f8218f9480e887c91629797511821b8ad3fde93f4fa1c0f561a371f6095",
+      "installedHash": "sha256:a3b73f8218f9480e887c91629797511821b8ad3fde93f4fa1c0f561a371f6095",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-brain/agents/openai.yaml",
+      "templateHash": "sha256:862c818817264a3dc591c6ec6b8f8d5ad00a1a1359f3a18b155bf765a72a5106",
+      "installedHash": "sha256:862c818817264a3dc591c6ec6b8f8d5ad00a1a1359f3a18b155bf765a72a5106",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-brain/scripts/setup_brain.py",
+      "templateHash": "sha256:7038ef9927b397f7a7cbe8d22cb82bf27e34faf81b3fbbc6de698fce49c82997",
+      "installedHash": "sha256:7038ef9927b397f7a7cbe8d22cb82bf27e34faf81b3fbbc6de698fce49c82997",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-brain/SKILL.md",
+      "templateHash": "sha256:50c0850d16b8ad0a262591250a3195817ae8326c0a1df96d895be0edc85e6a71",
+      "installedHash": "sha256:50c0850d16b8ad0a262591250a3195817ae8326c0a1df96d895be0edc85e6a71",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-matt-pocock-skills/domain.md",
+      "templateHash": "sha256:25be404b58798b3cb2d51c93dba2ab052fc3a425632185726ac3f5fcff193b99",
+      "installedHash": "sha256:25be404b58798b3cb2d51c93dba2ab052fc3a425632185726ac3f5fcff193b99",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-matt-pocock-skills/issue-tracker-github.md",
+      "templateHash": "sha256:1e7ac76d3dd7f0ce41d6bf86912619a4bac164a70c6e246ae48f6825e222d56d",
+      "installedHash": "sha256:1e7ac76d3dd7f0ce41d6bf86912619a4bac164a70c6e246ae48f6825e222d56d",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-matt-pocock-skills/SKILL.md",
+      "templateHash": "sha256:3dff92af4e306f98425edf433123fb0f18116c854132b695b9b4360aa05156a8",
+      "installedHash": "sha256:3dff92af4e306f98425edf433123fb0f18116c854132b695b9b4360aa05156a8",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/setup-matt-pocock-skills/triage-labels.md",
+      "templateHash": "sha256:4f53c9b40ce2651e3611aa090eaedbd6dbc9b71ef8c5f7e65eac0d8263190d0d",
+      "installedHash": "sha256:4f53c9b40ce2651e3611aa090eaedbd6dbc9b71ef8c5f7e65eac0d8263190d0d",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/start-schedule-runner/SKILL.md",
+      "templateHash": "sha256:270e09c71ad8048e31d8ed05a4b22b1564e881145eafd942f98d15d1c6c8bbfe",
+      "installedHash": "sha256:270e09c71ad8048e31d8ed05a4b22b1564e881145eafd942f98d15d1c6c8bbfe",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/stop-schedule-runner/SKILL.md",
+      "templateHash": "sha256:90d165d66c02b8fa6ba16d493153b061c5fc9bd522ec8d29e44634d249e23950",
+      "installedHash": "sha256:90d165d66c02b8fa6ba16d493153b061c5fc9bd522ec8d29e44634d249e23950",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/tdd/mocking.md",
+      "templateHash": "sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+      "installedHash": "sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/tdd/SKILL.md",
+      "templateHash": "sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f",
+      "installedHash": "sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/tdd/tests.md",
+      "templateHash": "sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+      "installedHash": "sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/teach/GLOSSARY-FORMAT.md",
+      "templateHash": "sha256:d177def491519d97873291f2e860d8f1d60ead78feecb82eee022177958069c6",
+      "installedHash": "sha256:d177def491519d97873291f2e860d8f1d60ead78feecb82eee022177958069c6",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/teach/LEARNING-RECORD-FORMAT.md",
+      "templateHash": "sha256:855f81017625256584bbf62bd5edb9b0c86605c4cc1139c56acc36b802595d17",
+      "installedHash": "sha256:855f81017625256584bbf62bd5edb9b0c86605c4cc1139c56acc36b802595d17",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/teach/MISSION-FORMAT.md",
+      "templateHash": "sha256:8da6d3ac84eb2eb19f17c260b6acf01c560d3ac7a4501c415eea0e985602f4d7",
+      "installedHash": "sha256:8da6d3ac84eb2eb19f17c260b6acf01c560d3ac7a4501c415eea0e985602f4d7",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/teach/RESOURCES-FORMAT.md",
+      "templateHash": "sha256:2bc634a64b0d0daa10904f9222e7aa0d361420dfacabbf092fbe3a72222edc08",
+      "installedHash": "sha256:2bc634a64b0d0daa10904f9222e7aa0d361420dfacabbf092fbe3a72222edc08",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/teach/SKILL.md",
+      "templateHash": "sha256:6d2dbe5e03084cf26fef66b535127b36cd1bcbe9478e26b0626029cd51dc2259",
+      "installedHash": "sha256:6d2dbe5e03084cf26fef66b535127b36cd1bcbe9478e26b0626029cd51dc2259",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/test-schedule/agents/openai.yaml",
+      "templateHash": "sha256:a3e9a95b018c08942ccfdf6f2a799a2afe2e1f3a458ccd2a18102c21b6aae756",
+      "installedHash": "sha256:a3e9a95b018c08942ccfdf6f2a799a2afe2e1f3a458ccd2a18102c21b6aae756",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/test-schedule/SKILL.md",
+      "templateHash": "sha256:73ca90d2e6fbbed110cb1a83784ed112d961b9c9dc5dd59c313fd8ecb9a02f12",
+      "installedHash": "sha256:73ca90d2e6fbbed110cb1a83784ed112d961b9c9dc5dd59c313fd8ecb9a02f12",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/to-issues/SKILL.md",
+      "templateHash": "sha256:f8a72a5bc88aa830ae62b323a52b08934da52851b010984c55829a644c7f6ba6",
+      "installedHash": "sha256:f8a72a5bc88aa830ae62b323a52b08934da52851b010984c55829a644c7f6ba6",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/to-prd/SKILL.md",
+      "templateHash": "sha256:db7e7188ac4fd47f4925ae6550e0233365b3b05be40f45235ab3a0a6b0165156",
+      "installedHash": "sha256:db7e7188ac4fd47f4925ae6550e0233365b3b05be40f45235ab3a0a6b0165156",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/update-design/agents/openai.yaml",
+      "templateHash": "sha256:b660645690c24cc07d8451e83ed0cddbe90428f7d6db3b53b9b779ae0d893f78",
+      "installedHash": "sha256:b660645690c24cc07d8451e83ed0cddbe90428f7d6db3b53b9b779ae0d893f78",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/update-design/SKILL.md",
+      "templateHash": "sha256:23e11c96495704627ea92742e0080fbcd01d0805409baa37ed6af214db43dd03",
+      "installedHash": "sha256:23e11c96495704627ea92742e0080fbcd01d0805409baa37ed6af214db43dd03",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/update-schedule/agents/openai.yaml",
+      "templateHash": "sha256:7e8535b97c06f287f6a3c50f17827a3579600eef925f5889e5e10372bdf28cfc",
+      "installedHash": "sha256:7e8535b97c06f287f6a3c50f17827a3579600eef925f5889e5e10372bdf28cfc",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/update-schedule/SKILL.md",
+      "templateHash": "sha256:f3d000909f6eb26f9940f11eb5020813574d1cc1210224585066472568b009fb",
+      "installedHash": "sha256:f3d000909f6eb26f9940f11eb5020813574d1cc1210224585066472568b009fb",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".claude/skills/update-setup/SKILL.md",
+      "templateHash": "sha256:9ee6a971555a10e93124db1737cbb3abbc10ca3a0b9f3c441f366d75a04dee0f",
+      "installedHash": "sha256:9ee6a971555a10e93124db1737cbb3abbc10ca3a0b9f3c441f366d75a04dee0f",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".design/AGENTS.md",
+      "templateHash": "sha256:b8949eeb42b0db90db3f347b785e6e0bd1c0a1f75bf881a8f3429fb8a6939f9a",
+      "installedHash": "sha256:b8949eeb42b0db90db3f347b785e6e0bd1c0a1f75bf881a8f3429fb8a6939f9a",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".design/CLAUDE.md",
+      "templateHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "installedHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".gitignore",
+      "templateHash": "sha256:445eaaf9524c3533a7eacb567424b38c0bfdf9dc0bb1f8bc31110ea77e3b8f3c",
+      "installedHash": "sha256:445eaaf9524c3533a7eacb567424b38c0bfdf9dc0bb1f8bc31110ea77e3b8f3c",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".schedule/AGENTS.md",
+      "templateHash": "sha256:af46c0f4faa0763fcc9dc8c8dac711e438778ca4fc8a4a90276df788ea35e5f3",
+      "installedHash": "sha256:af46c0f4faa0763fcc9dc8c8dac711e438778ca4fc8a4a90276df788ea35e5f3",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": ".schedule/CLAUDE.md",
+      "templateHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "installedHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": "AGENTS.md",
+      "templateHash": "sha256:0afe1070ff9d05d46723f7d320b3eb4e74b7fc2c9d246290a06aa5504e2d3b95",
+      "installedHash": "sha256:0afe1070ff9d05d46723f7d320b3eb4e74b7fc2c9d246290a06aa5504e2d3b95",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": "CLAUDE.md",
+      "templateHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "installedHash": "sha256:336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": "docs/agents/domain.md",
+      "templateHash": "sha256:2e50e29f6b5e47c5459420e131a86010cf4ee0adfeb47f7e436d81b05893bcf0",
+      "installedHash": "sha256:2e50e29f6b5e47c5459420e131a86010cf4ee0adfeb47f7e436d81b05893bcf0",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": "docs/agents/issue-tracker.md",
+      "templateHash": "sha256:a3b1feda08bebea763507df0c41d023628cbd37511415ce3373b4d0fac3c9569",
+      "installedHash": "sha256:a3b1feda08bebea763507df0c41d023628cbd37511415ce3373b4d0fac3c9569",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    },
+    {
+      "path": "docs/agents/triage-labels.md",
+      "templateHash": "sha256:54dbd7f6c71cd8f43db870d96bab378f595135eaedc2e66f3d5db65f82f00127",
+      "installedHash": "sha256:54dbd7f6c71cd8f43db870d96bab378f595135eaedc2e66f3d5db65f82f00127",
+      "updatedAt": "2026-07-28T05:17:17.220Z"
+    }
+  ],
+  "conflicts": [],
+  "packageJsonCreated": true,
+  "updatedAt": "2026-07-28T05:17:17.220Z"
+}

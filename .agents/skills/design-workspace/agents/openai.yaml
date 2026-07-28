@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Workspace"
+  short_description: "Focus agent work in .design"
+  default_prompt: "Use $design-workspace to focus this task in the project Design Workspace."

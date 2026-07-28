@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lint"
+  short_description: "Audit and repair the .brain wiki"
+  default_prompt: "Use $lint to audit the .brain wiki and report focused fixes."

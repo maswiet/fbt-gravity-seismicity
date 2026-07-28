@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Schedule"
+  short_description: "Run a schedule through the CLI"
+  default_prompt: "Use $test-schedule to run and verify a scheduled Task Prompt."

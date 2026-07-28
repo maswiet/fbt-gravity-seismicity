@@ -1,0 +1,4 @@
+interface:
+  display_name: "Archive Implementation"
+  short_description: "Move implementation work into .archive"
+  default_prompt: "Use $archive-implementation to move current implementation work into a named .archive folder."

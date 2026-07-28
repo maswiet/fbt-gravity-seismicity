@@ -1,0 +1,4 @@
+interface:
+  display_name: "Import Brain"
+  short_description: "Merge a .brain archive into this vault"
+  default_prompt: "Use $import-brain to validate and merge this .brain archive into the current vault."

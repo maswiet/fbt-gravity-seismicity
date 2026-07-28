@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ingest"
+  short_description: "Ingest sources into .brain one by one"
+  default_prompt: "Use $ingest to capture these materials into .brain and ingest them one source at a time."

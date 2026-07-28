@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delete Design"
+  short_description: "Delete selected Design Systems"
+  default_prompt: "Use $delete-design to delete Design Systems through afk-research design delete."

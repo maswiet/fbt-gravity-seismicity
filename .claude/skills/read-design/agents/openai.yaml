@@ -1,0 +1,4 @@
+interface:
+  display_name: "Read Design"
+  short_description: "List or read Design Systems"
+  default_prompt: "Use $read-design to run CLI-backed Design System list or read commands."

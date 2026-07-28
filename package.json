@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@ai-hero/sandcastle": "^0.12.0",
+    "afk-research": "github:RTTJogja/afk-research"
+  }
+}

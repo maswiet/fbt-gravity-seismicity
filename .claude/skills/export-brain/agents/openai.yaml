@@ -1,0 +1,4 @@
+interface:
+  display_name: "Export Brain"
+  short_description: "Export .brain as a portable zip"
+  default_prompt: "Use $export-brain to package the current .brain vault into .outputs/."

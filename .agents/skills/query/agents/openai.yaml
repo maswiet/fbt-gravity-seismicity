@@ -1,0 +1,4 @@
+interface:
+  display_name: "Query"
+  short_description: "Answer questions from the .brain wiki"
+  default_prompt: "Use $query to answer this from the .brain wiki and cite the pages you used."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Setup Brain"
+  short_description: "Initialize or repair a .brain vault"
+  default_prompt: "Use $setup-brain to initialize or repair the repository .brain vault."
