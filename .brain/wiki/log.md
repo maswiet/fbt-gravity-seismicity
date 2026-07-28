@@ -55,3 +55,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Key result:** full correction chain implemented. Tesseroid geometry builders unit-tested numpy-only (bottom<=top, land/ocean & sediment density signs, radius mapping); inversion self-test still passes. End-to-end tesseroid forward NOT run (needs `fbt` env + network + data).
 - **Verify before trusting:** ICGEM tide system; ETOPO netCDF var/coord names; CRUST1.0 column order + sign in `load_crust1_sediments`.
 - **Follow-ups:** run 10→14 end-to-end in `fbt` (start coarse, e.g. 0.4°); then implement 15 (hyperparameters) and 16 (figures).
+
+## [2026-07-28] maintenance | Implement hyperparameters (15) + figures (16) + preview
+
+- **Trigger:** user asked to continue with 15/16 and wanted to review a map/figure.
+- **Files changed (code):** `moho_indonesia/15_hyperparameters.py` (masked Bott+Tikhonov CV for μ; z_ref/Δρ validation vs seismic Moho; MSE curve/surface plot), `16_results_maps.py` (final inversion + Moho/residual/difference figures via matplotlib+cartopy; `--demo` preview mode), `README.md`.
+- **Files changed (.brain):** synthesis status, this log entry.
+- **Key result:** all pipeline steps 10–16 implemented. Rendered preview figures (`figures/moho/preview_*.png`) from the REAL 105 seismic Moho points + a synthetic Moho background; coastlines render fine. Sent to user for design review. Real hyperparameter/inversion runs still need the `fbt` env + data.
+- **Note:** preview PNGs left untracked (regenerable via `16 --demo`). Depth_Moho.txt still local-only pending provenance.
+- **Follow-ups:** run end-to-end in `fbt`; cite Depth_Moho.txt source; verify ICGEM tide / ETOPO vars / CRUST1.0 columns.

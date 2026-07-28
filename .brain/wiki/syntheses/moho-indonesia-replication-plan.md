@@ -56,7 +56,8 @@ Corrections [[wiki/concepts/gravity-data-corrections]] → inversion [[wiki/conc
 - Scaffold built (`moho_indonesia/`, scripts 10–16 + config/utils).
 - **`14_moho_inversion.py` implemented and unit-tested** (2026-07-28): full Bott + Tikhonov Gauss-Newton loop with a diagonal Bouguer-plate Jacobian and a sparse first-order roughness operator; forward model is injectable. Synthetic self-test (numpy/scipy only, `--selftest`) recovers a known Moho at RMS 0.027 km. Real tesseroid forward (`moho_utils.make_tesseroid_forward`) implemented via Harmonica but not yet run (needs `fbt` env + input grids).
 - **`10`–`13` implemented** (2026-07-28): acquisition (ICGEM/ETOPO/CRUST1.0 via pooch + manual fallback), gravity disturbance, topographic→Bouguer correction, sediment→sediment-free Bouguer. Tesseroid geometry builders (`topography_to_tesseroids`, `layer_to_tesseroids`) unit-tested numpy-only; full tesseroid forward not yet run end-to-end (needs `fbt` env + data). Verify: ICGEM tide system, ETOPO var names, CRUST1.0 column order.
-- Still TODO: hyperparameter search (15), figures (16).
+- **`15`–`16` implemented** (2026-07-28): `15` = μ hold-out cross-validation (masked Bott+Tikhonov) + z_ref/Δρ validation vs seismic Moho, with MSE curve/surface plots; `16` = final inversion + Moho map, gravity-residual, and estimated−seismic figures (matplotlib+cartopy). Preview mode `16 --demo` renders the figure design from the real seismic points + a synthetic Moho (verified rendering, coastlines OK). **All 10–16 now implemented.**
+- Remaining: run 10→16 end-to-end in the `fbt` env with real data (start coarse); verify the three runtime items (ICGEM tide system, ETOPO var names, CRUST1.0 column order).
 - Validation data staged locally at `data/external/Depth_Moho.txt` (gitignored pending provenance + publication rights).
 
 ## Open questions / next actions
