@@ -64,7 +64,20 @@ python moho_indonesia/11_gravity_disturbance.py
   need the `fbt` env + downloaded data and were **not** yet run end-to-end.
   Verify before trusting: ICGEM tide system, ETOPO variable names, and the
   CRUST1.0 column order (`load_crust1_sediments`).
-- **Still scaffolded (`TODO`):** hyperparameter search (15), figures (16).
+- **`15`–`16` — implemented.** `15` estimates μ (hold-out cross-validation with a
+  masked Bott+Tikhonov inversion) and z_ref/Δρ (validation vs the seismic Moho),
+  and plots the MSE curve/surface. `16` runs the final inversion and plots the
+  Moho map, gravity residuals, and estimated−seismic difference (matplotlib +
+  cartopy). Both real runs need the `fbt` env + data.
+- **Preview the figure design now** (uses the real seismic points + a synthetic
+  Moho, no data needed):
+
+  ```bash
+  MPLBACKEND=Agg python moho_indonesia/16_results_maps.py --demo
+  # -> figures/moho/preview_*.png
+  ```
+
+All seven pipeline steps (10–16) are now implemented.
 
 ## Notes / risks specific to Indonesia
 
