@@ -24,11 +24,17 @@ import moho_utils as mu     # noqa: E402
 import run_real             # noqa: E402
 
 
-def main(spacing, resolution, gravity, sediments):
+def main(spacing, resolution, gravity, sediments, model=None, lmax=None):
+    # Override the GGM model/truncation (shared config, read by ggm_gravity at call time).
+    if model:
+        C.GGM_NAME = model
+    if lmax:
+        C.GGM_MAX_DEGREE = lmax
     w, e, s, n = C.REGION
     lon2d, lat2d = np.meshgrid(np.arange(w, e + 1e-9, spacing),
                                np.arange(s, n + 1e-9, spacing))
-    print(f"Grid {lon2d.shape} ({lon2d.size} cells) @ {spacing} deg | gravity={gravity}")
+    print(f"Grid {lon2d.shape} ({lon2d.size} cells) @ {spacing} deg | "
+          f"gravity={gravity} model={C.GGM_NAME} lmax={C.GGM_MAX_DEGREE}")
 
     hp = json.loads(C.HYPERPARAMS_JSON.read_text())
     drho, z_ref, mu_reg = hp["drho"], hp["z_ref_km"], hp["mu"]
@@ -86,5 +92,7 @@ if __name__ == "__main__":
     ap.add_argument("--resolution", default="15m")
     ap.add_argument("--gravity", choices=["faa", "ggm"], default="ggm")
     ap.add_argument("--sediments", action="store_true")
+    ap.add_argument("--model", default=None, help="GGM name (e.g. XGM2019E, GOCO06S).")
+    ap.add_argument("--lmax", type=int, default=None, help="SH truncation degree.")
     a = ap.parse_args()
-    main(a.spacing, a.resolution, a.gravity, a.sediments)
+    main(a.spacing, a.resolution, a.gravity, a.sediments, a.model, a.lmax)

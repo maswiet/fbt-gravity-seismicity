@@ -142,3 +142,11 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **FINDING:** the 0.25° grid (13,041 cells) does NOT improve the seismic fit — it slightly worsens it (mean +3.18 km, std 7.97 km vs 0.5° mean +1.11, std 5.78). With μ≈0 the finer mesh overfits short-wavelength gravity/topo-correction residuals and hits the 70 km clip; the resolution limit is the **GGM gravity signal (~0.5°, d/o 300)**, not the grid. Higher resolution needs more regularization and/or finer gravity data. The 0.5° GGM model remains the best-validated (regenerate with `calibrate.py --gravity ggm`).
 - **Note:** GRID_MOHO currently holds the 0.25° result (for the high-res figures).
 - **Follow-ups:** if finer detail is wanted, increase μ at 0.25° or use a higher-degree combined GGM (e.g. XGM2019e).
+
+## [2026-07-29] maintenance | High-res gravity at 0.25° — XGM2019e vs altimetry (faa)
+
+- **Trigger:** user asked to try XGM2019e for genuinely higher-resolution gravity at 0.25°.
+- **XGM2019E failed to download:** pyshtools fetches the full d/o 2159 coefficient file (~281 MB); the connection (~46 kB/s) broke at 17 MB (would take >1.5 h). Added `hires_moho.py --model/--lmax` for when a faster connection is available. EIGEN_6C4 / EGM2008 are similarly large.
+- **Practical high-res source = `earth_faa`** (Sandwell/IGPP altimetry free-air anomaly, ~2 km offshore) — already cached via GMT, genuinely finer than GOCO06S (~0.5°), and is essentially what XGM2019e's high degrees encode offshore.
+- **Result (faa, 0.25°):** difference vs seismic **mean +0.91 km, std 6.94 km** — better than GGM 0.25° (3.18/7.97) and near-zero bias; cleaner, more coherent map. Std still > 0.5° (5.78) because the smooth station-based seismic Moho cannot validate the added short-wavelength detail (resolution-vs-validation tradeoff). GRID_MOHO now holds faa-0.25°; 3 panels regenerated.
+- **Bottom line:** for best seismic-validated numbers use GGM 0.5°; for the most detailed map use faa 0.25°. True 0.25° improvement needs a high-degree combined GGM (XGM2019e) downloaded on a faster link.
