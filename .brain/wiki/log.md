@@ -82,3 +82,16 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Changed:** `run_real.py` now takes `--gravity ggm|faa`; `config.GGM_NAME='GOCO06S'`; README.
 - **Result (GGM, 0.5°):** disturbance −216..224 mGal; Moho map smoother/more coherent than faa; difference vs 105 seismic points mean −4.97 km, std 6.02 km (paper 6.8). Figures `figures/moho/real_*_ggm.png`.
 - **Follow-ups:** add CRUST1.0 sediments; calibrate hyperparameters (15); finer grid; oceanic artefacts; cite Depth_Moho.txt.
+
+## [2026-07-29] ingest | GMT Tutorials (gmt-tutorials.org)
+
+- **Trigger:** user ran `/ingest https://gmt-tutorials.org/en/`.
+- **Files changed:**
+  - `raw/2026-07-29_gmt-tutorials/provenance.md`
+  - `wiki/sources/gmt-tutorials.md`
+  - `wiki/entities/gmt-pygmt.md`
+  - `wiki/concepts/gmt-remote-datasets.md`
+  - `wiki/index.md` (Sources/Concepts/Entities + timestamp)
+  - `wiki/log.md` (this entry)
+- **Key result:** captured the GMT 6 / PyGMT tutorial reference (Whyjay Zheng; MIT + CC-BY 4.0). Linked it to the project's actual use of PyGMT (figures) and GMT remote datasets (earth_relief, earth_faa in run_real.py). Only the landing page/TOC was captured, not every chapter.
+- **Follow-ups:** consider moving publication figures from matplotlib/cartopy to PyGMT (beachballs for seismic stations, hillshaded bathymetry, consistent CPTs).

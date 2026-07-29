@@ -3,7 +3,7 @@
 
 This is the content map for the `.brain` second brain. Read this file before answering from or editing the wiki. Update it on every ingest and every durable query that changes the vault.
 
-Last updated: 2026-07-28 — added Moho-Indonesia replication plan
+Last updated: 2026-07-29 — ingested GMT Tutorials
 
 ## Start Here
 
@@ -32,6 +32,7 @@ Last updated: 2026-07-28 — added Moho-Indonesia replication plan
 ## Sources
 
 - [[wiki/sources/uieda-barbosa-2017-spherical-gravity-inversion]] - Uieda & Barbosa (2017), GJI: fast nonlinear gravity inversion in spherical coords; South American Moho.
+- [[wiki/sources/gmt-tutorials]] - GMT/PyGMT tutorial site (gmt-tutorials.org); mapping reference for the project figures.
 
 ## Concepts
 
@@ -40,10 +41,12 @@ Last updated: 2026-07-28 — added Moho-Indonesia replication plan
 - [[wiki/concepts/regularized-interface-gravity-inversion]] - Nonlinear interface inversion stabilized by Tikhonov smoothness.
 - [[wiki/concepts/gravity-inversion-hyperparameters]] - μ, Δρ, z_ref and the two-step cross-validation to estimate them.
 - [[wiki/concepts/gravity-data-corrections]] - Disturbance → Bouguer → sediment-free Bouguer inversion input.
+- [[wiki/concepts/gmt-remote-datasets]] - GMT earth_relief / earth_faa on-demand grids used by run_real.py.
 
 ## Entities
 
 - [[wiki/entities/fatiando-a-terra]] - Open-source Python geophysics toolkit (Harmonica lineage) by Uieda; project tooling.
+- [[wiki/entities/gmt-pygmt]] - GMT / PyGMT mapping toolkit + remote datasets; used for data access & figures.
 
 ## Claims
 
