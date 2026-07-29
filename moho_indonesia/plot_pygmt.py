@@ -42,10 +42,14 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
     region = list(C.REGION)
     proj = "M20c"
 
-    # Resample to ~0.1 deg (bilinear) so the coarse 0.5 deg grid renders smoothly.
+    # Resample to a fine mesh, then apply a Gaussian filter so both the image and
+    # the contour lines are smooth and flowing (the raw 0.5 deg grid gives angular
+    # contours). grdfilter uses spherical distances; "g150k" ~ 25 km sigma.
     fine_lon = np.arange(region[0], region[1] + 1e-9, 0.1)
     fine_lat = np.arange(region[2], region[3] + 1e-9, 0.1)
-    grid = grid.interp(lon=fine_lon, lat=fine_lat, method="linear")
+    from scipy.ndimage import gaussian_filter
+    grid = grid.interp(lon=fine_lon, lat=fine_lat, method="cubic")
+    grid = grid.copy(data=gaussian_filter(grid.values, sigma=2.5, mode="nearest"))
 
     seismic = mu.load_seismic_moho()
 
@@ -60,10 +64,10 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
     # Moho grid image.
     fig.grdimage(grid=grid, region=region, projection=proj, cmap=True,
                  frame=["af", f'WSne+t{title}'])
-    # Thin contours every 5 km, annotated every 10 km; bold 35 km line.
+    # Smooth thin contours every 5 km, annotated every 10 km; bold 35 km line.
     fig.grdcontour(grid=grid, levels=5, annotation=10,
-                   pen="0.25p,gray30", region=region, projection=proj)
-    fig.grdcontour(grid=grid, levels=[35], pen="1.3p,white",
+                   pen="0.3p,gray25", region=region, projection=proj)
+    fig.grdcontour(grid=grid, levels=[35], pen="1.4p,white",
                    region=region, projection=proj)
     # High-resolution coastlines (GSHHG).
     fig.coast(region=region, projection=proj, resolution=resolution,
