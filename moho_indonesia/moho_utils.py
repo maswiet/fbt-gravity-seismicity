@@ -223,7 +223,8 @@ def layer_to_tesseroids(top_depth_m, bottom_depth_m, longitude, latitude,
     bottom_radius = R - bd
     bottom = np.minimum(bottom_radius, top_radius)
     top = np.maximum(bottom_radius, top_radius)
-    density = np.broadcast_to(np.asarray(density_contrast, float), td.shape).astype(float)
+    density = np.broadcast_to(np.ravel(np.asarray(density_contrast, float)),
+                              td.shape).astype(float)
     tesseroids = np.column_stack([lon.ravel() - dlon, lon.ravel() + dlon,
                                   lat.ravel() - dlat, lat.ravel() + dlat,
                                   bottom, top])
@@ -290,10 +291,13 @@ def load_crust1_sediments(model_longitude, model_latitude, crust1_dir=C.CRUST1_D
         top_km = sample(bnds[:, :, k])        # boundary depth (km, +up)
         bot_km = sample(bnds[:, :, k + 1])
         dens = sample(rho[:, :, k]) * 1000.0  # g/cm^3 -> kg/m^3
+        # Absent layers have rho==0 in CRUST1.0; give them zero contrast so they
+        # never contribute (their thickness is ~0 anyway).
+        contrast = np.where(dens > 0, dens - C.RHO_CRUST, 0.0)
         layers.append({
             "top_depth_m": -top_km * 1000.0,          # +up -> +down
             "bottom_depth_m": -bot_km * 1000.0,
-            "density_contrast": dens - C.RHO_CRUST,
+            "density_contrast": contrast,
         })
     return layers
 

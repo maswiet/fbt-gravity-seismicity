@@ -37,14 +37,34 @@ MAX_ITER = 25
 TOL = 0.15
 
 
-def main(gravity_source="faa"):
+def sediment_effect(lon2d, lat2d):
+    """Tesseroid gravitational effect (mGal) of the CRUST1.0 sediment layers."""
+    layers = mu.load_crust1_sediments(lon2d, lat2d)
+    eff = np.zeros(lon2d.shape)
+    for L in layers:
+        thick = L["bottom_depth_m"] - L["top_depth_m"]
+        contrast = np.where(thick > 1.0, L["density_contrast"], 0.0)
+        t, d = mu.layer_to_tesseroids(L["top_depth_m"], L["bottom_depth_m"],
+                                      lon2d, lat2d, contrast)
+        eff += mu.tesseroid_gravity_grid(t, d, lon2d, lat2d, height_m=run_real.HEIGHT)
+    return eff
+
+
+def main(gravity_source="faa", sediments=False):
     lon2d, lat2d = run_real.build_grid(SPACING)
-    print(f"Grid {lon2d.shape} ({lon2d.size} cells) @ {SPACING} deg | gravity={gravity_source}")
+    print(f"Grid {lon2d.shape} ({lon2d.size} cells) @ {SPACING} deg | "
+          f"gravity={gravity_source} | sediments={sediments}")
     topo, disturbance = run_real.fetch_data(lon2d, lat2d, "30m", gravity_source)
 
     tess, dens = mu.topography_to_tesseroids(topo, lon2d, lat2d)
     topo_eff = mu.tesseroid_gravity_grid(tess, dens, lon2d, lat2d, height_m=run_real.HEIGHT)
-    sed_free = disturbance - topo_eff            # v1: sediments skipped
+    bouguer = disturbance - topo_eff
+    if sediments:
+        sed_eff = sediment_effect(lon2d, lat2d)
+        print(f"Sediment effect: {sed_eff.min():.0f}..{sed_eff.max():.0f} mGal (removed)")
+        sed_free = bouguer - sed_eff
+    else:
+        sed_free = bouguer
     obs = sed_free.ravel()
 
     n_lat, n_lon = sed_free.shape
@@ -133,4 +153,7 @@ def main(gravity_source="faa"):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--gravity", choices=["faa", "ggm"], default="faa")
-    main(ap.parse_args().gravity)
+    ap.add_argument("--sediments", action="store_true",
+                    help="Remove the CRUST1.0 sediment effect before inversion.")
+    args = ap.parse_args()
+    main(args.gravity, args.sediments)
