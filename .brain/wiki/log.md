@@ -73,3 +73,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **BUG FIXED (sign):** `moho_to_tesseroids` had the density-contrast sign backwards (deeper Moho → +anomaly; physically should be −). Fixed to match paper Fig. 1f (deeper → −Δρ); made `forward_gravity_bouguer_plate` and the inversion Jacobian `a = -2πGΔρ` consistent (files `moho_utils.py`, `14`, `15`). Self-test still passes (RMS 0.028 km) and tesseroid forward now gives deeper→negative. Also fixed an importlib `@dataclass` load error by registering loaded modules in `sys.modules` (`16`, `run_real`).
 - **Result:** real 0.5° Moho of Indonesia — thick (~35–40 km) under Sumatra/Java/arc, thin (~5–15 km) oceanic; converged 13 iters, RMS 0.54 mGal; difference vs 105 seismic points mean −4.55 km, std 6.27 km (paper std 6.8 km). Figures `figures/moho/real_*.png` (untracked, regenerable).
 - **Follow-ups:** swap in real GGM disturbance (ICGEM); add CRUST1.0 sediments; calibrate hyperparameters (15); finer grid; handle oceanic shallow/negative artefacts; cite Depth_Moho.txt source.
+
+## [2026-07-29] maintenance | Paper-faithful GGM gravity (GOCO06S via pyshtools)
+
+- **Trigger:** user chose the "exact paper" satellite GGM gravity path.
+- **Environment:** installed `pyshtools` 4.14 into the `fbt` env (pip); added to environment.yml.
+- **New file:** `moho_indonesia/ggm_gravity.py` — synthesises the GOCO06S gravity disturbance (pyshtools.datasets.Earth.GOCO06S) on the WGS84 ellipsoid at the computation height, with `omega` set and `expand(a=WGS84.a, f=WGS84.f, normal_gravity=True)`. Fixed a ~1600 mGal offset caused by evaluating on the sphere r0 without the ellipsoid/centrifugal reference.
+- **Changed:** `run_real.py` now takes `--gravity ggm|faa`; `config.GGM_NAME='GOCO06S'`; README.
+- **Result (GGM, 0.5°):** disturbance −216..224 mGal; Moho map smoother/more coherent than faa; difference vs 105 seismic points mean −4.97 km, std 6.02 km (paper 6.8). Figures `figures/moho/real_*_ggm.png`.
+- **Follow-ups:** add CRUST1.0 sediments; calibrate hyperparameters (15); finer grid; oceanic artefacts; cite Depth_Moho.txt.
