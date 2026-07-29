@@ -134,3 +134,11 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Files changed:** `raw/2026-07-29_esdm-2022-sedimentary-basin-map/provenance.md`, `wiki/sources/esdm-2022-sedimentary-basin-map-indonesia.md`, `wiki/concepts/indonesian-sedimentary-basins.md` (added tectonic classification A–K + official 128-basin inventory), `wiki/index.md`, `wiki/log.md`.
 - **Key result:** the official ESDM 2022 basin map — 128 named basins with areas and a tectonic-setting classification (A back-arc … C fore-arc … D trench … F passive margin …). Definitive inventory; the fore-arc (C) basins match the earlier fore-arc dissertation idea. Merged into the existing `indonesian-sedimentary-basins` concept rather than duplicating. PDF kept local (copyright).
 - **Follow-ups:** consider digitizing basin outlines as an Indonesia-specific sediment/basement prior for the inversion; overlay basin outlines on the Moho/tectonic map.
+
+## [2026-07-29] maintenance | 0.25° high-res inversion + 3-panel plots (full/west/east)
+
+- **Trigger:** user asked for a 0.25° high-resolution result and split west/east tectonic panels.
+- **New:** `hires_moho.py` — single inversion at a given spacing using the calibrated hyperparameters from hyperparameters.json (GGM, clipped 3–70 km). `plot_pygmt.py` parametrized (region, tectonics, volcanoes) and its `__main__` now renders 3 panels: `moho_full_clean.png` (whole Indonesia, no tectonics), `moho_west.png` (94–120°E + all tectonics), `moho_east.png` (115–141°E + all tectonics; overlaps 115–120 with west).
+- **FINDING:** the 0.25° grid (13,041 cells) does NOT improve the seismic fit — it slightly worsens it (mean +3.18 km, std 7.97 km vs 0.5° mean +1.11, std 5.78). With μ≈0 the finer mesh overfits short-wavelength gravity/topo-correction residuals and hits the 70 km clip; the resolution limit is the **GGM gravity signal (~0.5°, d/o 300)**, not the grid. Higher resolution needs more regularization and/or finer gravity data. The 0.5° GGM model remains the best-validated (regenerate with `calibrate.py --gravity ggm`).
+- **Note:** GRID_MOHO currently holds the 0.25° result (for the high-res figures).
+- **Follow-ups:** if finer detail is wanted, increase μ at 0.25° or use a higher-degree combined GGM (e.g. XGM2019e).

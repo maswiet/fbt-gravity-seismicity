@@ -23,11 +23,12 @@ import moho_utils as mu     # noqa: E402
 
 
 def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
-         resolution="h", cmap_series=(0, 50, 5), title="Moho depth of Indonesia"):
+         resolution="h", cmap_series=(0, 50, 5), title="Moho depth of Indonesia",
+         region=None, tectonics=True, volcanoes=True):
     grid = xr.open_dataarray(grid_path)
     if "longitude" in grid.dims:
         grid = grid.rename({"longitude": "lon", "latitude": "lat"})
-    region = list(C.REGION)
+    region = list(region) if region is not None else list(C.REGION)
     proj = "M20c"
 
     # Resample to a fine mesh, then apply a Gaussian filter so both the image and
@@ -61,26 +62,24 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
     fig.coast(region=region, projection=proj, resolution=resolution,
               shorelines="1/0.5p,gray10", borders="1/0.3p,gray40")
     # Real Indonesian tectonics (Pak Wiwit dataset in data/external/tectonics),
-    # plotted if present. GMT clips the global trench file to the region.
+    # plotted if requested and present. GMT clips features to the region.
     tdir = C.DATA_EXTERNAL / "tectonics"
-    features = [
-        ("trench_edit.gmt", "1.8p,black", "Trench"),
-        ("sesar_naik.gmt", "0.6p,firebrick", "Thrust fault"),
-        ("sesar_turun.gmt", "0.6p,dodgerblue3", "Normal fault"),
-        ("sesar_mendatar.gmt", "0.6p,purple3", "Strike-slip fault"),
-        ("antiklin.gmt", "0.5p,gray15", "Anticline"),
-        ("sinklin.gmt", "0.5p,gray55", "Syncline"),
-    ]
-    for fname, pen, label in features:
-        fpath = tdir / fname
-        if fpath.exists():
-            fig.plot(data=str(fpath), pen=pen, label=label)
-    # Active volcanoes: plotted with the volcano.def custom symbol IF a location
-    # file (lon lat [elev]) is provided. Currently missing (volcano_loc.txt).
+    if tectonics:
+        features = [
+            ("trench_edit.gmt", "1.8p,black", "Trench"),
+            ("sesar_naik.gmt", "0.6p,firebrick", "Thrust fault"),
+            ("sesar_turun.gmt", "0.6p,dodgerblue3", "Normal fault"),
+            ("sesar_mendatar.gmt", "0.6p,purple3", "Strike-slip fault"),
+            ("antiklin.gmt", "0.5p,gray15", "Anticline"),
+            ("sinklin.gmt", "0.5p,gray55", "Syncline"),
+        ]
+        for fname, pen, label in features:
+            fpath = tdir / fname
+            if fpath.exists():
+                fig.plot(data=str(fpath), pen=pen, label=label)
+    # Active volcanoes as red triangles (conventional symbol) if requested.
     vloc = tdir / "volcano_loc.txt"
-    if vloc.exists():
-        # Red triangle — the conventional volcano symbol (robust; avoids the
-        # custom-symbol path issues of volcano.def).
+    if volcanoes and vloc.exists():
         volc = np.loadtxt(vloc, usecols=(0, 1))
         fig.plot(x=volc[:, 0], y=volc[:, 1], style="t0.26c",
                  fill="red2", pen="0.3p,black", label="Holocene volcano")
@@ -101,4 +100,15 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
 
 
 if __name__ == "__main__":
-    plot()
+    F = C.FIGURES
+    # 1) Whole Indonesia, clean (no tectonic features) — see the Moho pattern.
+    plot(out=F / "moho_full_clean.png", tectonics=False, volcanoes=False,
+         title="Moho depth of Indonesia (0.25 deg)")
+    # 2) Western Indonesia (west .. 120E), all tectonic features.
+    plot(out=F / "moho_west.png", region=(94, 120, -11, 6),
+         tectonics=True, volcanoes=True, title="Moho depth — Western Indonesia")
+    # 3) Eastern Indonesia (115E .. east), all tectonic features. Overlaps 115-120
+    #    with the western panel so features correlate across the two maps.
+    plot(out=F / "moho_east.png", region=(115, 141, -11, 6),
+         tectonics=True, volcanoes=True, title="Moho depth — Eastern Indonesia")
+    print("Wrote 3 panels to", F)
