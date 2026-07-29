@@ -150,3 +150,10 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Practical high-res source = `earth_faa`** (Sandwell/IGPP altimetry free-air anomaly, ~2 km offshore) — already cached via GMT, genuinely finer than GOCO06S (~0.5°), and is essentially what XGM2019e's high degrees encode offshore.
 - **Result (faa, 0.25°):** difference vs seismic **mean +0.91 km, std 6.94 km** — better than GGM 0.25° (3.18/7.97) and near-zero bias; cleaner, more coherent map. Std still > 0.5° (5.78) because the smooth station-based seismic Moho cannot validate the added short-wavelength detail (resolution-vs-validation tradeoff). GRID_MOHO now holds faa-0.25°; 3 panels regenerated.
 - **Bottom line:** for best seismic-validated numbers use GGM 0.5°; for the most detailed map use faa 0.25°. True 0.25° improvement needs a high-degree combined GGM (XGM2019e) downloaded on a faster link.
+
+## [2026-07-29] maintenance | Draft manuscript
+
+- **Trigger:** user asked for a publishable-assessment + draft manuscript narrative to review.
+- **Assessment:** publishable as a regional geophysics study (e.g. J. Asian Earth Sci. / J. Applied Geophysics / IPA-HAGI proceedings), NOT a top-tier novelty paper — it is a faithful replication of Uieda & Barbosa (2017) applied to Indonesia, with honest limitations (coarse resolution, land-biased validation, inconclusive sediments).
+- **New file:** `manuscript/moho-indonesia-manuscript-draft.md` — full draft (abstract → conclusions + references + figure list + author checklist), using the actual pipeline numbers. Placeholders flagged: author names/affiliation, seismic-Moho compilation citation + depth datum, active-fault ("Pak Wiwit") citation, previous-work comparison.
+- **Follow-ups:** user review; fill placeholders; add previous-work comparison; pick target journal + final featured model.
