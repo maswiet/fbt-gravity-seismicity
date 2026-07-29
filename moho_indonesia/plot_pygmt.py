@@ -51,7 +51,10 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
 
     fig = pygmt.Figure()
     pygmt.config(FONT_TITLE="16p,Helvetica-Bold", FONT_ANNOT_PRIMARY="9p",
-                 MAP_FRAME_TYPE="fancy")
+                 MAP_FRAME_TYPE="plain",            # thin simple border (no railroad)
+                 MAP_FRAME_PEN="0.8p,gray25",
+                 MAP_TICK_LENGTH_PRIMARY="0.12c",
+                 MAP_TICK_PEN_PRIMARY="0.6p,gray25")
     pygmt.makecpt(cmap="viridis", series=list(cmap_series))
 
     # Moho grid image.
@@ -76,8 +79,10 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
              fill="gray70", pen="0.5p,black", label="Seismic Moho station")
     fig.plot(x=seismic.longitude, y=seismic.latitude, fill=seismic.depth_km,
              cmap=True, style="c0.20c", pen="0.5p,black")
-    fig.legend(position="jBL+o0.2c", box="+gwhite@15+p0.5p")
-    fig.colorbar(frame='x+lMoho depth (km)', position="JMR+o0.8c/0c+w12c")
+    fig.legend(position="jBL+o0.2c", box="+gwhite@15+p0.5p,gray50")
+    # Slim, short colorbar (annotate every 10 km, tick every 5) — not full-height.
+    fig.colorbar(frame="xa10f5+lMoho depth (km)",
+                 position="JMR+o0.5c/0c+w5.5c/0.28c")
 
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(str(out), dpi=250)
