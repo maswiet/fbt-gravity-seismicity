@@ -22,7 +22,7 @@ tags:
 ## Role in this project
 
 - **Data access:** `run_real.py` fetches real topography (`earth_relief`) and free-air gravity (`earth_faa`) through PyGMT — see [[wiki/concepts/gmt-remote-datasets]].
-- **Cartography:** `moho_indonesia/16_results_maps.py` currently uses matplotlib + cartopy for previews; PyGMT (`pygmt 0.17` in the `fbt` env) is available for GMT-quality publication figures.
+- **Cartography:** `moho_indonesia/16_results_maps.py` uses matplotlib + cartopy for quick previews; **`moho_indonesia/plot_pygmt.py` (added 2026-07-29)** produces the publication-quality Moho map with PyGMT — high-resolution GSHHG coastlines (crucial for the archipelago), smoothed grid, 5-km contours + bold 35-km line, tectonic lines, and the seismic points.
 - Complements [[wiki/entities/fatiando-a-terra]] (Harmonica/Boule), which handles the forward modelling and gravity processing.
 
 ## Related
@@ -33,4 +33,4 @@ tags:
 
 ## Open Questions
 
-- Move final figures to PyGMT for beachballs (seismic stations), hillshaded bathymetry, and consistent CPTs?
+- Extend `plot_pygmt.py` further: hillshaded bathymetry backdrop, focal-mechanism beachballs at the seismic stations, and a difference-from-seismic PyGMT panel?
