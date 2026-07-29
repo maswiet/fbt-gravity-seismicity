@@ -104,3 +104,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Context:** user extended run_real with `--gravity ggm` (GOCO06S via new `ggm_gravity.py`); calibrate.py supports `--gravity ggm` for the paper-faithful path.
 - **Staged (not yet applied):** copied Pak Wiwit's Indonesian tectonics to `data/external/tectonics/` (trench_edit, sesar_naik/turun/mendatar, antiklin, sinklin, patahan_aktif; gitignored). Volcano locations (`volcano_loc.txt`) not in the source folder — still needed.
 - **Follow-ups:** overlay real tectonics on the maps; get volcano locations; calibrate on the GGM path; add sediments; finer grid.
+
+## [2026-07-29] maintenance | GGM calibration + real tectonics + volcanoes on map
+
+- **Trigger:** user chose the GGM path + public volcano source.
+- **GGM calibration** (`calibrate.py --gravity ggm`, GOCO06S via pyshtools 4.14): μ=1e-10, z_ref=35 km, Δρ=500 → difference vs seismic **mean +1.11 km, std 5.78 km** — best yet (faa gave +1.40/6.02; paper 1.2/6.8). GOCO06S is the successor of the paper's GOCO5S. GRID_MOHO now holds the GGM-calibrated result.
+- **Volcanoes:** fetched Smithsonian GVP Holocene volcanoes via WFS (`webservices.volcano.si.edu/geoserver/GVP-VOTW`), filtered to the Indonesia bbox → 101 volcanoes at `data/external/tectonics/volcano_loc.txt` (lon lat elev). Plotted as red triangles (the custom volcano.def symbol path failed in GMT; triangle is robust). They trace the Sunda-Banda arc.
+- **Map:** `plot_pygmt.py` now overlays real Pak Wiwit tectonics + GVP volcanoes on the GGM-calibrated Moho. High-res GSHHG coast, thin frame, smoothed contours.
+- **Provenance to record for the write-up:** Pak Wiwit tectonics source; GVP citation; GOCO06S (Kvas et al. 2021); Depth_Moho.txt source.
+- **Follow-ups:** add CRUST1.0 sediments; finer grid; run the full 10-16 pipeline on the GGM path end-to-end.

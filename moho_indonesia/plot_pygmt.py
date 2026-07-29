@@ -77,10 +77,13 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
             fig.plot(data=str(fpath), pen=pen, label=label)
     # Active volcanoes: plotted with the volcano.def custom symbol IF a location
     # file (lon lat [elev]) is provided. Currently missing (volcano_loc.txt).
-    vloc, vdef = tdir / "volcano_loc.txt", tdir / "volcano.def"
-    if vloc.exists() and vdef.exists():
-        fig.plot(data=str(vloc), style=f"k{vdef}/0.30c",
-                 fill="red2", pen="0.25p,black", label="Volcano")
+    vloc = tdir / "volcano_loc.txt"
+    if vloc.exists():
+        # Red triangle — the conventional volcano symbol (robust; avoids the
+        # custom-symbol path issues of volcano.def).
+        volc = np.loadtxt(vloc, usecols=(0, 1))
+        fig.plot(x=volc[:, 0], y=volc[:, 1], style="t0.26c",
+                 fill="red2", pen="0.3p,black", label="Holocene volcano")
     # Seismic Moho points (filled by the same CPT). A dummy off-region point
     # provides the legend entry (auto-legend is skipped for variable colors).
     fig.plot(x=[region[0] - 10], y=[region[2] - 10], style="c0.20c",
