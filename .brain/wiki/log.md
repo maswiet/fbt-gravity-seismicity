@@ -95,3 +95,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
   - `wiki/log.md` (this entry)
 - **Key result:** captured the GMT 6 / PyGMT tutorial reference (Whyjay Zheng; MIT + CC-BY 4.0). Linked it to the project's actual use of PyGMT (figures) and GMT remote datasets (earth_relief, earth_faa in run_real.py). Only the landing page/TOC was captured, not every chapter.
 - **Follow-ups:** consider moving publication figures from matplotlib/cartopy to PyGMT (beachballs for seismic stations, hillshaded bathymetry, consistent CPTs).
+
+## [2026-07-29] maintenance | Hyperparameter calibration (step 15) on real data
+
+- **Trigger:** user asked to calibrate hyperparameters (step 15).
+- **New file:** `moho_indonesia/calibrate.py` — two-step calibration reusing run_real's data prep (faa or ggm). Adds Moho depth clipping (3–70 km) each iteration to stop the negative-depth overshoot that had put tesseroids above the computation height ("point inside tesseroid" warnings).
+- **Result (faa, 0.5°):** μ=1e-10 (CV), then grid search → z_ref=35 km, Δρ=500 kg/m³. Difference vs 105 seismic points improved to **mean +1.40 km, std 6.02 km** (from −4.55 / 6.27 uncalibrated; paper 1.2 / 6.8). Moho 7–59 km, no negative artefacts. Rewrote GRID_MOHO + hyperparameters.json; regenerated the PyGMT map.
+- **Context:** user extended run_real with `--gravity ggm` (GOCO06S via new `ggm_gravity.py`); calibrate.py supports `--gravity ggm` for the paper-faithful path.
+- **Staged (not yet applied):** copied Pak Wiwit's Indonesian tectonics to `data/external/tectonics/` (trench_edit, sesar_naik/turun/mendatar, antiklin, sinklin, patahan_aktif; gitignored). Volcano locations (`volcano_loc.txt`) not in the source folder — still needed.
+- **Follow-ups:** overlay real tectonics on the maps; get volcano locations; calibrate on the GGM path; add sediments; finer grid.
