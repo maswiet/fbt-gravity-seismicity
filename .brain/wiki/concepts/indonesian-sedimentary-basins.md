@@ -9,6 +9,7 @@ created: 2026-07-29
 updated: 2026-07-29
 sources:
   - "[[wiki/sources/darman-yuliong-2020-indonesian-sedimentary-basins]]"
+  - "[[wiki/sources/esdm-2022-sedimentary-basin-map-indonesia]]"
 tags:
   - indonesia
   - sedimentary-basins
@@ -26,6 +27,8 @@ Indonesia hosts many sedimentary basins (counts range 60 → 128 depending on th
 - **Thickness:** total sediment thickness reaches ~8–9 km in the deepest depocenters (Hardy et al. 1997; Darman/Indogeo). Consistent with the CRUST1.0-derived range used here (0–8.7 km).
 - **Depth-to-basement per basin (examples):** North Sumatra ~8 km; South Sumatra/Palembang 4–7 km; Central Sumatra >2 km; NW Java ~4 km; East Java >3 km; deep depocenters also in Kutei, Makassar, Salawati, Bintuni.
 - **Gravity-derived mapping:** the Badan Geologi (2009) basin map and several thickness maps use **gravity anomaly** + wells + outcrops — a precedent for gravity-based basement/basin work in Indonesia.
+- **Official inventory (ESDM 2022):** 128 named basins with areas, classified by **tectonic setting**: A back-arc, B intermontane, **C fore-arc**, D trench, E foreland, F passive margin, G oceanic, H deltaic, I rifting valley, J transtensional, K transtensional marginal-oceanic. This is the authoritative current basin map (from [[wiki/sources/esdm-2022-sedimentary-basin-map-indonesia]]).
+- **Fore-arc (class C)** basins — Sibolga, Bengkulu/S. Sumatra fore-arc, Mentawai — are exactly the earlier fore-arc basement dissertation target.
 
 ## Why it matters here
 

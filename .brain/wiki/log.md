@@ -127,3 +127,10 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Files changed:** `raw/2026-07-29_darman-yuliong-2020-sedimentary-basins/provenance.md`, `wiki/sources/darman-yuliong-2020-indonesian-sedimentary-basins.md`, `wiki/concepts/indonesian-sedimentary-basins.md`, `wiki/index.md`, `wiki/log.md`.
 - **Key result:** captured Indonesian basin inventory (60/86/128 by author), sediment-thickness maps (Hardy 1997 & Darman/Indogeo, 0–9 km), per-basin depth-to-basement, and the gravity-derived Badan Geologi (2009) basin map. Cross-checks our CRUST1.0 sediment thickness (0–8.7 km) and flags an Indonesia-specific sediment map as a potential replacement. PDF kept local (copyright).
 - **Follow-ups:** source 2 next (peta cekungan sedimen Indonesia 2022).
+
+## [2026-07-29] ingest | ESDM (2022) Sedimentary Basin Map of Indonesia
+
+- **Trigger:** source 2 of 2 from the `/ingest` (`content-peta-cekungan-sedimen-indonesia-2022.pdf`).
+- **Files changed:** `raw/2026-07-29_esdm-2022-sedimentary-basin-map/provenance.md`, `wiki/sources/esdm-2022-sedimentary-basin-map-indonesia.md`, `wiki/concepts/indonesian-sedimentary-basins.md` (added tectonic classification A–K + official 128-basin inventory), `wiki/index.md`, `wiki/log.md`.
+- **Key result:** the official ESDM 2022 basin map — 128 named basins with areas and a tectonic-setting classification (A back-arc … C fore-arc … D trench … F passive margin …). Definitive inventory; the fore-arc (C) basins match the earlier fore-arc dissertation idea. Merged into the existing `indonesian-sedimentary-basins` concept rather than duplicating. PDF kept local (copyright).
+- **Follow-ups:** consider digitizing basin outlines as an Indonesia-specific sediment/basement prior for the inversion; overlay basin outlines on the Moho/tectonic map.
