@@ -76,7 +76,7 @@ RHO_MOHO_CONTRAST = 400.0
 # --------------------------------------------------------------------------
 # Choose one and document it in the methods section. Fetch the corresponding
 # gravity_disturbance grid from the ICGEM calculation service.
-GGM_NAME = "GOCO06s"          # alternatives: "XGM2019e_2159", "EIGEN-6C4"
+GGM_NAME = "GOCO06S"          # pyshtools.datasets.Earth name; alt: "XGM2019E", "EGM2008"
 GGM_MAX_DEGREE = 300          # truncation; satellite-only ~ up to d/o 200-300
 
 # --------------------------------------------------------------------------

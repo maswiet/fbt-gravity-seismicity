@@ -53,25 +53,38 @@ def build_grid(spacing):
     return np.meshgrid(lon, lat)
 
 
-def fetch_data(lon2d, lat2d, resolution):
+def fetch_data(lon2d, lat2d, resolution, gravity_source):
+    """Return (topography, gravity) on the model grid.
+
+    Topography is always GMT earth_relief. Gravity is either the GOCO06S GGM
+    disturbance ("ggm", the paper-faithful satellite source) or the GMT earth_faa
+    free-air anomaly proxy ("faa").
+    """
     import pygmt
     region = list(C.REGION)
     relief = pygmt.datasets.load_earth_relief(resolution=resolution, region=region)
-    faa = pygmt.datasets.load_earth_free_air_anomaly(resolution=resolution, region=region)
     lon1d, lat1d = lon2d[0, :], lat2d[:, 0]
     topo = relief.interp(lon=lon1d, lat=lat1d).values
-    grav = faa.interp(lon=lon1d, lat=lat1d).values
+    if gravity_source == "ggm":
+        import ggm_gravity
+        grav = ggm_gravity.fetch_ggm_disturbance(
+            lon2d, lat2d, lmax=C.GGM_MAX_DEGREE, height_m=HEIGHT, model=C.GGM_NAME)
+    else:
+        faa = pygmt.datasets.load_earth_free_air_anomaly(resolution=resolution, region=region)
+        grav = faa.interp(lon=lon1d, lat=lat1d).values
     return topo, grav
 
 
-def main(spacing, resolution):
+def main(spacing, resolution, gravity_source):
     C.ensure_dirs()
+    tag = "ggm" if gravity_source == "ggm" else "faa"
+    src = f"{C.GGM_NAME} GGM disturbance" if gravity_source == "ggm" else "earth_faa proxy"
     lon2d, lat2d = build_grid(spacing)
-    print(f"Model grid: {lon2d.shape} at {spacing} deg ({lon2d.size} cells)")
+    print(f"Model grid: {lon2d.shape} at {spacing} deg ({lon2d.size} cells) | gravity = {src}")
 
-    topo, disturbance = fetch_data(lon2d, lat2d, resolution)
+    topo, disturbance = fetch_data(lon2d, lat2d, resolution, gravity_source)
     print(f"Real data: topo {topo.min():.0f}..{topo.max():.0f} m | "
-          f"faa {disturbance.min():.0f}..{disturbance.max():.0f} mGal")
+          f"gravity {disturbance.min():.0f}..{disturbance.max():.0f} mGal")
 
     # Bouguer disturbance = faa - topographic/ocean effect (tesseroids).
     tess, dens = mu.topography_to_tesseroids(topo, lon2d, lat2d)
@@ -99,10 +112,11 @@ def main(spacing, resolution):
     # Figures + validation against the real seismic Moho points.
     seismic = mu.load_seismic_moho()
     results16.plot_moho_map(moho, lon2d, lat2d, seismic,
-                            out=C.FIGURES / "real_moho_depth.png",
-                            title=f"Moho depth (km) — REAL data, {spacing}° (v1 coarse)")
+                            out=C.FIGURES / f"real_moho_depth_{tag}.png",
+                            title=f"Moho depth (km) — {src}, {spacing}° coarse")
     results16.plot_difference_from_seismic(
-        moho, lon2d, lat2d, seismic, out=C.FIGURES / "real_difference_from_seismic.png")
+        moho, lon2d, lat2d, seismic,
+        out=C.FIGURES / f"real_difference_from_seismic_{tag}.png")
 
     from scipy.interpolate import RegularGridInterpolator
     interp = RegularGridInterpolator((lat2d[:, 0], lon2d[0, :]), moho,
@@ -119,6 +133,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--spacing", type=float, default=0.5)
     ap.add_argument("--resolution", default="30m",
-                    help="GMT grid resolution (e.g. 30m, 15m, 10m).")
+                    help="GMT grid resolution for topography (e.g. 30m, 15m, 10m).")
+    ap.add_argument("--gravity", choices=["ggm", "faa"], default="ggm",
+                    help="Gravity source: 'ggm' = GOCO06S disturbance (paper-faithful); "
+                         "'faa' = earth_faa free-air proxy.")
     args = ap.parse_args()
-    main(args.spacing, args.resolution)
+    main(args.spacing, args.resolution, args.gravity)

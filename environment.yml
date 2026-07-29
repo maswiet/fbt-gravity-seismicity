@@ -21,6 +21,7 @@ dependencies:
   - verde>=1.8            # Spatial gridding & regression
   - boule>=0.5            # Reference ellipsoids & normal gravity
   - pooch>=1.7            # Data download & caching (moho_indonesia step 10)
+  - pyshtools>=4.10       # Spherical-harmonic synthesis of GGM gravity disturbance
   - obspy>=1.4            # Seismology toolkit
   - pygmt>=0.11           # Mapping (membutuhkan GMT 6.4+)
   - gmt>=6.4

@@ -79,6 +79,27 @@ python moho_indonesia/11_gravity_disturbance.py
 
 All seven pipeline steps (10–16) are now implemented.
 
+## Real end-to-end run (`run_real.py`)
+
+A coarse real run that downloads real public data and produces a real Moho:
+
+```bash
+conda activate fbt
+# Paper-faithful satellite GGM (GOCO06S disturbance, via pyshtools):
+python moho_indonesia/run_real.py --gravity ggm --spacing 0.5
+# Or the altimetry free-air proxy (no pyshtools needed):
+python moho_indonesia/run_real.py --gravity faa --spacing 0.5
+```
+
+- Topography: GMT `earth_relief`. Gravity: `ggm` = GOCO06S gravity disturbance
+  synthesised on the WGS84 ellipsoid at the computation height (`ggm_gravity.py`);
+  `faa` = GMT `earth_faa` free-air anomaly proxy.
+- Outputs: `figures/moho/real_moho_depth_{ggm,faa}.png` and the difference-vs-seismic figure.
+- **v1/v2 caveats:** sediments skipped; hyperparameters fixed (z_ref 30 km, Δρ 400,
+  μ 1e-8), not calibrated; coarse 0.5°; some unphysical shallow Moho over deep ocean.
+- Latest result (GGM, 0.5°): difference vs the 105 seismic points mean −4.97 km,
+  std 6.02 km (paper std 6.8 km).
+
 ## Notes / risks specific to Indonesia
 
 - Subducting Sunda/Banda slabs are **not** modelled → expect large gravity-seismic
