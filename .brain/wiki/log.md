@@ -120,3 +120,10 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Done:** downloaded CRUST1.0 (UCSD) to `data/external/crust1.0/`; verified `load_crust1_sediments` against the real files (bnds/rho are 9-col; sediments = layers 2-4; ordering 89.5→-89.5 lat, -179.5→179.5 lon). Fixed two bugs: `layer_to_tesseroids` density broadcast (2D contrast → raveled), and absent CRUST1.0 layers (rho==0) now get zero contrast. Added `calibrate.py --sediments`. Sediment thickness over Indonesia 0–8.7 km (mean 1.44); sediment gravity effect −191..−3 mGal (median −36).
 - **Finding (honest):** on the coarse 0.5° grid the sediment correction **worsens** the fit to the 105 seismic points: GGM+sediments mean −1.59 km, std 6.37 km vs GGM-only mean +1.11 km, **std 5.78 km**. Reason: the seismic Moho is **station-based (land)**, where CRUST1.0 sediments are thin/uncertain, while the correction mainly reshapes offshore basins that the validation does not sample. So the sediment-corrected model is more physically complete but not confirmable here. **Best model kept = GGM without sediments.**
 - **Follow-ups:** revisit sediments with finer resolution and/or offshore Moho constraints; the correction stays available via `--sediments`.
+
+## [2026-07-29] ingest | Darman & Yuliong (2020) — Sedimentary Basins of Indonesia
+
+- **Trigger:** user ran `/ingest` on two PDFs; this is source 1 of 2 (`minarwan,+bsed450139.pdf`).
+- **Files changed:** `raw/2026-07-29_darman-yuliong-2020-sedimentary-basins/provenance.md`, `wiki/sources/darman-yuliong-2020-indonesian-sedimentary-basins.md`, `wiki/concepts/indonesian-sedimentary-basins.md`, `wiki/index.md`, `wiki/log.md`.
+- **Key result:** captured Indonesian basin inventory (60/86/128 by author), sediment-thickness maps (Hardy 1997 & Darman/Indogeo, 0–9 km), per-basin depth-to-basement, and the gravity-derived Badan Geologi (2009) basin map. Cross-checks our CRUST1.0 sediment thickness (0–8.7 km) and flags an Indonesia-specific sediment map as a potential replacement. PDF kept local (copyright).
+- **Follow-ups:** source 2 next (peta cekungan sedimen Indonesia 2022).
