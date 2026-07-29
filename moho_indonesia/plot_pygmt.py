@@ -21,18 +21,6 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import config as C          # noqa: E402
 import moho_utils as mu     # noqa: E402
 
-# Approximate tectonic context lines (lon, lat) — orientation only.
-SUNDA_BANDA_TRENCH = np.array([
-    (92.5, 6.0), (93.5, 3.5), (95.0, 1.0), (97.0, -1.5), (99.0, -3.5),
-    (101.0, -5.2), (103.5, -6.6), (106.5, -8.0), (110.0, -9.2), (113.0, -10.2),
-    (116.0, -10.8), (119.0, -10.9), (121.5, -10.4), (123.5, -9.2), (125.0, -7.8),
-    (126.5, -6.8), (128.0, -6.5),
-])
-SUMATRAN_FAULT = np.array([
-    (95.5, 5.3), (97.0, 4.0), (98.5, 2.4), (99.6, 0.9), (100.6, -0.6),
-    (101.6, -2.1), (102.6, -3.6), (103.6, -5.0), (104.3, -5.9),
-])
-
 
 def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
          resolution="h", cmap_series=(0, 50, 5), title="Moho depth of Indonesia"):
@@ -72,11 +60,27 @@ def plot(grid_path=C.GRID_MOHO, out=C.FIGURES / "real_moho_pygmt.png",
     # High-resolution coastlines (GSHHG).
     fig.coast(region=region, projection=proj, resolution=resolution,
               shorelines="1/0.5p,gray10", borders="1/0.3p,gray40")
-    # Tectonic context.
-    fig.plot(x=SUNDA_BANDA_TRENCH[:, 0], y=SUNDA_BANDA_TRENCH[:, 1],
-             pen="2p,black", label="Sunda-Banda trench (approx.)")
-    fig.plot(x=SUMATRAN_FAULT[:, 0], y=SUMATRAN_FAULT[:, 1],
-             pen="1.5p,red3", label="Sumatran Fault (approx.)")
+    # Real Indonesian tectonics (Pak Wiwit dataset in data/external/tectonics),
+    # plotted if present. GMT clips the global trench file to the region.
+    tdir = C.DATA_EXTERNAL / "tectonics"
+    features = [
+        ("trench_edit.gmt", "1.8p,black", "Trench"),
+        ("sesar_naik.gmt", "0.6p,firebrick", "Thrust fault"),
+        ("sesar_turun.gmt", "0.6p,dodgerblue3", "Normal fault"),
+        ("sesar_mendatar.gmt", "0.6p,purple3", "Strike-slip fault"),
+        ("antiklin.gmt", "0.5p,gray15", "Anticline"),
+        ("sinklin.gmt", "0.5p,gray55", "Syncline"),
+    ]
+    for fname, pen, label in features:
+        fpath = tdir / fname
+        if fpath.exists():
+            fig.plot(data=str(fpath), pen=pen, label=label)
+    # Active volcanoes: plotted with the volcano.def custom symbol IF a location
+    # file (lon lat [elev]) is provided. Currently missing (volcano_loc.txt).
+    vloc, vdef = tdir / "volcano_loc.txt", tdir / "volcano.def"
+    if vloc.exists() and vdef.exists():
+        fig.plot(data=str(vloc), style=f"k{vdef}/0.30c",
+                 fill="red2", pen="0.25p,black", label="Volcano")
     # Seismic Moho points (filled by the same CPT). A dummy off-region point
     # provides the legend entry (auto-legend is skipped for variable colors).
     fig.plot(x=[region[0] - 10], y=[region[2] - 10], style="c0.20c",
