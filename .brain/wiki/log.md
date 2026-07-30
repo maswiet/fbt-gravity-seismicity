@@ -157,3 +157,10 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Assessment:** publishable as a regional geophysics study (e.g. J. Asian Earth Sci. / J. Applied Geophysics / IPA-HAGI proceedings), NOT a top-tier novelty paper — it is a faithful replication of Uieda & Barbosa (2017) applied to Indonesia, with honest limitations (coarse resolution, land-biased validation, inconclusive sediments).
 - **New file:** `manuscript/moho-indonesia-manuscript-draft.md` — full draft (abstract → conclusions + references + figure list + author checklist), using the actual pipeline numbers. Placeholders flagged: author names/affiliation, seismic-Moho compilation citation + depth datum, active-fault ("Pak Wiwit") citation, previous-work comparison.
 - **Follow-ups:** user review; fill placeholders; add previous-work comparison; pick target journal + final featured model.
+
+## [2026-07-29] query | Southern-boundary check vs AusMoho (Kennett et al. 2011)
+
+- **Trigger:** user asked whether our southern-edge Moho is consistent with AusMoho where Indonesia borders Australia.
+- **Result:** CONSISTENT over the Australian continental margin — our Arafura/Arnhem-approach Moho (~33–37 km; extracted from GRID_MOHO along 132–140°E, −10 to −10.5°S) matches AusMoho's northern continental crust (~35–40 km) within a few km. At the Timor–Banda collision (124–126°E) our model is much thicker (39–50 km) = real collisional thickening outside AusMoho's coverage (~50 km possibly overestimated). Caveats: our −11° row is a non-padded edge; AusMoho's far north is sparsely constrained.
+- **Files:** new `wiki/sources/kennett-2011-ausmoho.md`; added the AusMoho comparison to the manuscript's previous-work paragraph; index/log updated.
+- **Follow-ups:** for a rigorous test, obtain the gridded AusMoho surface (Geoscience Australia / IRIS EMC) and difference it against ours in the 118–141°E, 9–11°S overlap; extend the study region south (pad beyond −11°) to remove the edge effect at the border.

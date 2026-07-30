@@ -35,6 +35,7 @@ Last updated: 2026-07-29 — ingested ESDM 2022 sedimentary basin map
 - [[wiki/sources/gmt-tutorials]] - GMT/PyGMT tutorial site (gmt-tutorials.org); mapping reference for the project figures.
 - [[wiki/sources/darman-yuliong-2020-indonesian-sedimentary-basins]] - Berita Sedimentologi 45 review of Indonesian basins + sediment-thickness/depth-to-basement.
 - [[wiki/sources/esdm-2022-sedimentary-basin-map-indonesia]] - Official ESDM 2022 map: 128 named basins + areas + tectonic-setting classification.
+- [[wiki/sources/kennett-2011-ausmoho]] - AusMoho seismic Moho of Australia; southern-boundary cross-check for our model.
 
 ## Concepts
 
