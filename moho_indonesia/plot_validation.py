@@ -41,15 +41,19 @@ def main(out=C.FIGURES / "validation_seismic.png"):
 
     plt.rcParams.update({"font.size": 11, "axes.titlesize": 12})
     region = [94, 141, -11, 6.5]         # trim to Indonesia for the residual map
-    # Figure sized so the two panels are equal and the map keeps its aspect.
-    fig = plt.figure(figsize=(13.5, 4.4))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.22,
-                          left=0.05, right=0.97, bottom=0.20, top=0.90)
+    # Natural map proportions: box height/width = latitude span / longitude span.
+    box_ratio = (region[3] - region[2]) / (region[1] - region[0])
+    fig = plt.figure(figsize=(15, 4.6))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.18,
+                          left=0.05, right=0.97, bottom=0.10, top=0.92)
 
     # ---- (a) residual map ----
     ax = fig.add_subplot(gs[0], projection=ccrs.PlateCarree())
     ax.set_extent(region, crs=ccrs.PlateCarree())
-    ax.set_aspect("auto")                # fill the panel (equal size with the hist)
+    # 'auto' fills the box; a natural box_aspect makes that box the right shape,
+    # so the map looks undistorted instead of vertically stretched.
+    ax.set_aspect("auto")
+    ax.set_box_aspect(box_ratio)
     try:
         ax.add_feature(cfeature.LAND.with_scale("10m"), facecolor="#f4f1ea", zorder=0)
         ax.add_feature(cfeature.OCEAN.with_scale("10m"), facecolor="#e8f0f5", zorder=0)
@@ -68,8 +72,9 @@ def main(out=C.FIGURES / "validation_seismic.png"):
     cb.set_label("estimated − seismic (km)", fontsize=10)
     cb.ax.tick_params(labelsize=9)
 
-    # ---- (b) histogram ----
+    # ---- (b) histogram (same box shape/size as the map) ----
     ax2 = fig.add_subplot(gs[1])
+    ax2.set_box_aspect(box_ratio)
     ax2.hist(diff, bins=np.arange(-15, 15.1, 1.5), color="#6b83c4",
              edgecolor="white", linewidth=0.7)
     ax2.axvline(diff.mean(), color="crimson", ls="--", lw=1.6,
