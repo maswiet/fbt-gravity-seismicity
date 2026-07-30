@@ -173,3 +173,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **RESULT (independent validation):** over northern-Australia mainland (−15..−11.5°S, N=369) our Moho vs AusMoho: mean **−0.14 km**, std **4.84 km**, RMSE 4.84, **r=0.86**. Full overlap (N=477): +0.73/5.83, r=0.76. Figure `figures/moho/ausmoho_comparison.png`. Strong external confirmation (independent gravity vs seismic). Deviations: deepest cratonic crust slightly underestimated; Timor collision over-thickened (~50 km).
 - **Manuscript updated:** abstract + new "Independent validation against AusMoho" paragraph + figure 5.
 - **Follow-ups:** the main map panels now span to −15° (GRID_MOHO = extended GGM 0.5°); regenerate/crop panels if a −11° Indonesia framing is wanted for final figures. Consider re-calibrating on the extended domain.
+
+## [2026-07-30] maintenance | Re-calibrate on −15° domain + full figure set (Uieda-style)
+
+- **Trigger:** user asked to re-calibrate on the extended domain, regenerate all panels, and add relevant Uieda & Barbosa figure types.
+- **Re-calibration** (`calibrate.py --gravity ggm`, −15° domain): μ=1e-10, z_ref=35, Δρ=500 (unchanged); Indonesian seismic fit restored to **mean +1.19 km, std 5.75 km** (the uncalibrated hires run had drifted to 6.46). GRID_MOHO now the calibrated extended model.
+- **Added Uieda-Barbosa-style figures:** `calibrate.py` now writes `hyperparameters.png` (Fig. 10 equiv: μ CV curve + (z_ref,Δρ) validation surface); new `validation_seismic.png` (Fig. 12b equiv: residual at the 105 stations + histogram).
+- **Panels regenerated** at −15° (full/west/east); west/east extended south to −15 to show the AusMoho overlap zone; fixed the full-panel title ("satellite gravity", not "0.25 deg").
+- **AusMoho re-check (recalibrated):** mainland (N=369) mean −0.12, std 4.70, r=0.86; full (N=477) +0.75, std 5.43, r=0.79 — slightly better than before. Manuscript numbers + figure list updated.
+- **Follow-ups:** user review; the map panels can be cropped to −11° for an "Indonesia-only" framing if preferred for the final figures.

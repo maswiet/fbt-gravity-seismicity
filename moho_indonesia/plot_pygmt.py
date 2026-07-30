@@ -103,12 +103,13 @@ if __name__ == "__main__":
     F = C.FIGURES
     # 1) Whole Indonesia, clean (no tectonic features) — see the Moho pattern.
     plot(out=F / "moho_full_clean.png", tectonics=False, volcanoes=False,
-         title="Moho depth of Indonesia (0.25 deg)")
-    # 2) Western Indonesia (west .. 120E), all tectonic features.
-    plot(out=F / "moho_west.png", region=(94, 120, -11, 6),
+         title="Moho depth of Indonesia (satellite gravity)")
+    # 2) Western Indonesia (west .. 120E), all tectonic features. South to -15 to
+    #    show the NW-shelf / Timor AusMoho-overlap zone.
+    plot(out=F / "moho_west.png", region=(94, 120, -15, 6),
          tectonics=True, volcanoes=True, title="Moho depth — Western Indonesia")
     # 3) Eastern Indonesia (115E .. east), all tectonic features. Overlaps 115-120
-    #    with the western panel so features correlate across the two maps.
-    plot(out=F / "moho_east.png", region=(115, 141, -11, 6),
+    #    with the western panel; south to -15 to show the Arafura / N-Australia zone.
+    plot(out=F / "moho_east.png", region=(115, 141, -15, 6),
          tectonics=True, volcanoes=True, title="Moho depth — Eastern Indonesia")
     print("Wrote 3 panels to", F)
