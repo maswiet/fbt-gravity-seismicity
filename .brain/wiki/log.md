@@ -182,3 +182,8 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Panels regenerated** at −15° (full/west/east); west/east extended south to −15 to show the AusMoho overlap zone; fixed the full-panel title ("satellite gravity", not "0.25 deg").
 - **AusMoho re-check (recalibrated):** mainland (N=369) mean −0.12, std 4.70, r=0.86; full (N=477) +0.75, std 5.43, r=0.79 — slightly better than before. Manuscript numbers + figure list updated.
 - **Follow-ups:** user review; the map panels can be cropped to −11° for an "Indonesia-only" framing if preferred for the final figures.
+
+## [2026-07-30] maintenance | Polish the seismic-validation figure
+
+- **Trigger:** user asked to make validation_seismic prettier — equal panels, high-res coastline, compact colourmap.
+- **New file:** `moho_indonesia/plot_validation.py` — regenerates `validation_seismic.png` with two equal-size panels, 10m coastline + soft land/ocean fills, a short horizontal RdBu_r colourbar under the map, and a polished histogram (mean line + ±1σ band). mean +1.19, std 5.75 km, N=105.
