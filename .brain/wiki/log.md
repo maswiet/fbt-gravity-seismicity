@@ -187,3 +187,11 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 
 - **Trigger:** user asked to make validation_seismic prettier — equal panels, high-res coastline, compact colourmap.
 - **New file:** `moho_indonesia/plot_validation.py` — regenerates `validation_seismic.png` with two equal-size panels, 10m coastline + soft land/ocean fills, a short horizontal RdBu_r colourbar under the map, and a polished histogram (mean line + ±1σ band). mean +1.19, std 5.75 km, N=105.
+
+## [2026-07-30] maintenance | Smooth U&B-style hyperparameter diagnostic + featured-model consistency
+
+- **Trigger:** user asked for a smooth U&B Fig.10-style hyperparameter diagnostic.
+- **`calibrate.py --fine`**: dense sweep (17 mu x 11x7 z_ref/drho) -> smooth `hyperparameters.png` in U&B style (log-log MSE mGal2 with red-triangle minimum; gouraud-shaded MSE km2 surface with red triangle). The (z_ref, drho) minimum is BROAD (z_ref ~30-40, drho ~400-500 near-equivalent).
+- **Featured model choice:** the fine sweep's argmin was z_ref=32.5, but that worsens the INDEPENDENT AusMoho bias (mainland -2.55 km) vs z_ref=35 (-0.12 km). So we adopt z_ref=35 (near-zero bias vs BOTH seismic +1.19 and AusMoho -0.12) — independent data breaks the calibration near-degeneracy. Manuscript §4 updated.
+- **`calibrate.py --only-final`** added: reproduces the featured model at the stored hyperparameters using the calibration invert(); gives the consistent +1.19/5.75 (hires_moho's inline loop differs subtly and gave 6.41 — the featured GRID_MOHO must come from calibrate). Panels + validation_seismic regenerated from this model.
+- **Note:** hires_moho iteration control aligned to 25/0.15 but still differs slightly from calibrate; use calibrate --only-final for the featured/final model.

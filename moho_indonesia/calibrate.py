@@ -51,29 +51,53 @@ def sediment_effect(lon2d, lat2d):
 
 
 def _plot_diagnostics(mu_curve, mse_surface, best_mu, z_ref, drho):
-    """Uieda & Barbosa (2017) Fig. 10 equivalent: mu cross-validation curve and
-    the (z_ref, drho) validation MSE surface."""
+    """Uieda & Barbosa (2017) Fig. 10 style: (a) the mu cross-validation curve
+    (log-log MSE, minimum marked by a red triangle) and (b) the (z_ref, drho)
+    validation MSE surface (smooth-shaded, minimum marked). A dense set of mu /
+    (z_ref, drho) values (run with --fine) gives the smooth appearance."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.3))
-    ax1.semilogx(MU_SET, np.sqrt(mu_curve), "o-")
-    ax1.axvline(best_mu, color="r", ls="--")
-    ax1.set(xlabel="regularization parameter μ", ylabel="cross-validation RMS (mGal)",
-            title="(a) μ hold-out cross-validation")
-    im = ax2.pcolormesh(DRHO_SET, ZREF_SET, np.sqrt(mse_surface),
-                        shading="nearest", cmap="viridis")
-    ax2.plot(drho, z_ref, "r*", ms=16, mec="k")
-    ax2.set(xlabel="density contrast Δρ (kg m⁻³)", ylabel="reference depth z_ref (km)",
-            title="(b) validation vs seismic Moho")
-    fig.colorbar(im, ax=ax2, label="RMS vs seismic (km)")
+    plt.rcParams.update({"font.size": 12, "axes.titlesize": 13})
+
+    mu_arr = np.asarray(MU_SET, float)
+    mse = np.asarray(mu_curve, float)
+    zref = np.asarray(ZREF_SET, float)
+    drho_arr = np.asarray(DRHO_SET, float)
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6.6, 9.2))
+
+    # (a) mu hold-out cross-validation — smooth log-log MSE curve.
+    ax1.loglog(mu_arr, mse, "-", color="#2f6db0", lw=2.2)
+    ax1.loglog(mu_arr, mse, "o", color="#2f6db0", ms=4.5)
+    imin = int(np.argmin(mse))
+    ax1.plot(mu_arr[imin], mse[imin], "^", color="#c0392b", ms=15, mec="k", zorder=6)
+    ax1.set(xlabel="Regularization parameter", ylabel="Mean Square Error (mGal²)",
+            title="(a) Cross-validation (μ)")
+    ax1.grid(True, which="both", ls=":", color="0.8")
+    ax1.set_axisbelow(True)
+
+    # (b) (z_ref, drho) validation surface — smooth (gouraud) shading.
+    im = ax2.pcolormesh(zref, drho_arr, mse_surface.T, shading="gouraud", cmap="magma")
+    ax2.plot(z_ref, drho, "^", color="#c0392b", ms=15, mec="k", zorder=6)
+    ax2.set(xlabel="Reference level (km)", ylabel="Density contrast (kg m⁻³)",
+            title="(b) Validation (Δρ, z_ref)")
+    fig.colorbar(im, ax=ax2, label="Mean Square Error (km²)", pad=0.02)
+
     fig.tight_layout()
     out = C.FIGURES / "hyperparameters.png"
-    fig.savefig(out, dpi=160)
+    fig.savefig(out, dpi=170)
     print("Wrote", out)
 
 
-def main(gravity_source="faa", sediments=False):
+def main(gravity_source="faa", sediments=False, fine=False, only_final=False):
+    # --fine uses the dense config ranges so the diagnostic curves are smooth
+    # (U&B style): mu 17 log-spaced values, z_ref/drho on a fine grid.
+    if fine:
+        global MU_SET, ZREF_SET, DRHO_SET
+        MU_SET = C.MU_VALUES
+        ZREF_SET = list(C.ZREF_VALUES)
+        DRHO_SET = list(C.DRHO_VALUES)
     lon2d, lat2d = run_real.build_grid(SPACING)
     print(f"Grid {lon2d.shape} ({lon2d.size} cells) @ {SPACING} deg | "
           f"gravity={gravity_source} | sediments={sediments}")
@@ -118,42 +142,51 @@ def main(gravity_source="faa", sediments=False):
             p = np.clip(p + solve(a * resid - mu_reg * (RtR @ p)), 3000.0, 70000.0)
         return (p / 1000.0).reshape(n_lat, n_lon)
 
-    # ---- Step 1: cross-validate mu -----------------------------------------
-    print("\n[Step 1] mu cross-validation (z_ref=30, drho=400):")
-    rng = np.random.default_rng(C.CV_RANDOM_SEED)
-    train = rng.random(sed_free.shape) >= C.CV_TEST_FRACTION
-    test = ~train
-    w_tr = train.ravel().astype(float)
-    best_mu, best = MU_SET[0], np.inf
-    mu_curve = []
-    for m in MU_SET:
-        moho = invert(400.0, 30.0, m, w_tr)
-        pred = np.asarray(forward(moho.ravel() * 1000.0, 30.0, 400.0),
-                          float).reshape(sed_free.shape)
-        mse = float(np.mean((sed_free[test] - pred[test]) ** 2))
-        mu_curve.append(mse)
-        print(f"   mu={m:.1e}  testMSE={mse:8.2f}")
-        if mse < best:
-            best, best_mu = mse, m
-
-    # ---- Step 2: validate (z_ref, drho) vs seismic Moho --------------------
-    print(f"\n[Step 2] (z_ref, drho) validation vs seismic (mu={best_mu:.1e}):")
     seis = mu.load_seismic_moho()
     w_full = np.ones(n)
-    best_pair, best_mse = (30.0, 400.0), np.inf
-    mse_surface = np.full((len(ZREF_SET), len(DRHO_SET)), np.nan)
-    for (iz, z), (jd, d) in itertools.product(enumerate(ZREF_SET), enumerate(DRHO_SET)):
-        moho = invert(d, z, best_mu, w_full)
-        interp = RegularGridInterpolator((lat2d[:, 0], lon2d[0, :]), moho,
-                                         bounds_error=False, fill_value=np.nan)
-        est = interp(np.column_stack([seis.latitude, seis.longitude]))
-        ok = np.isfinite(est)
-        mse = float(np.mean((seis.depth_km.values[ok] - est[ok]) ** 2))
-        mse_surface[iz, jd] = mse
-        print(f"   z_ref={z:.0f} drho={d:.0f}  seisRMS={np.sqrt(mse):5.2f} km")
-        if mse < best_mse:
-            best_mse, best_pair = mse, (z, d)
-    z_ref, drho = best_pair
+
+    if only_final:
+        # Skip the sweep: reproduce the featured model at the stored hyperparameters
+        # using the SAME invert() as calibration (so the numbers stay consistent).
+        hp0 = json.loads(C.HYPERPARAMS_JSON.read_text())
+        best_mu, z_ref, drho = hp0["mu"], hp0["z_ref_km"], hp0["drho"]
+        mu_curve, mse_surface = None, None
+        print(f"[only-final] mu={best_mu:.1e}, z_ref={z_ref}, drho={drho}")
+    else:
+        # ---- Step 1: cross-validate mu -------------------------------------
+        print("\n[Step 1] mu cross-validation (z_ref=30, drho=400):")
+        rng = np.random.default_rng(C.CV_RANDOM_SEED)
+        train = rng.random(sed_free.shape) >= C.CV_TEST_FRACTION
+        test = ~train
+        w_tr = train.ravel().astype(float)
+        best_mu, best = MU_SET[0], np.inf
+        mu_curve = []
+        for m in MU_SET:
+            moho = invert(400.0, 30.0, m, w_tr)
+            pred = np.asarray(forward(moho.ravel() * 1000.0, 30.0, 400.0),
+                              float).reshape(sed_free.shape)
+            mse = float(np.mean((sed_free[test] - pred[test]) ** 2))
+            mu_curve.append(mse)
+            print(f"   mu={m:.1e}  testMSE={mse:8.2f}")
+            if mse < best:
+                best, best_mu = mse, m
+
+        # ---- Step 2: validate (z_ref, drho) vs seismic Moho ---------------
+        print(f"\n[Step 2] (z_ref, drho) validation vs seismic (mu={best_mu:.1e}):")
+        best_pair, best_mse = (30.0, 400.0), np.inf
+        mse_surface = np.full((len(ZREF_SET), len(DRHO_SET)), np.nan)
+        for (iz, z), (jd, d) in itertools.product(enumerate(ZREF_SET), enumerate(DRHO_SET)):
+            moho = invert(d, z, best_mu, w_full)
+            interp = RegularGridInterpolator((lat2d[:, 0], lon2d[0, :]), moho,
+                                             bounds_error=False, fill_value=np.nan)
+            est = interp(np.column_stack([seis.latitude, seis.longitude]))
+            ok = np.isfinite(est)
+            mse = float(np.mean((seis.depth_km.values[ok] - est[ok]) ** 2))
+            mse_surface[iz, jd] = mse
+            print(f"   z_ref={z:.0f} drho={d:.0f}  seisRMS={np.sqrt(mse):5.2f} km")
+            if mse < best_mse:
+                best_mse, best_pair = mse, (z, d)
+        z_ref, drho = best_pair
 
     # ---- Final calibrated inversion + save ---------------------------------
     moho = invert(drho, z_ref, best_mu, w_full)
@@ -163,7 +196,8 @@ def main(gravity_source="faa", sediments=False):
                         "note": "calibrated v1 (faa proxy, no sediments)"})
     hp = {"mu": float(best_mu), "z_ref_km": float(z_ref), "drho": float(drho)}
     C.HYPERPARAMS_JSON.write_text(json.dumps(hp, indent=2))
-    _plot_diagnostics(np.array(mu_curve), mse_surface, best_mu, z_ref, drho)
+    if mu_curve is not None:
+        _plot_diagnostics(np.array(mu_curve), mse_surface, best_mu, z_ref, drho)
 
     interp = RegularGridInterpolator((lat2d[:, 0], lon2d[0, :]), moho,
                                      bounds_error=False, fill_value=np.nan)
@@ -183,5 +217,9 @@ if __name__ == "__main__":
     ap.add_argument("--gravity", choices=["faa", "ggm"], default="faa")
     ap.add_argument("--sediments", action="store_true",
                     help="Remove the CRUST1.0 sediment effect before inversion.")
+    ap.add_argument("--fine", action="store_true",
+                    help="Dense mu / (z_ref, drho) sweep for smooth U&B-style diagnostics.")
+    ap.add_argument("--only-final", action="store_true",
+                    help="Skip the sweep; run the final inversion at the stored hyperparameters.")
     args = ap.parse_args()
-    main(args.gravity, args.sediments)
+    main(args.gravity, args.sediments, args.fine, args.only_final)

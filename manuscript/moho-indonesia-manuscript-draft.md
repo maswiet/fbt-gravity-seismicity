@@ -48,7 +48,7 @@ Here we transfer that methodology, unchanged in principle, to the whole of Indon
 
 ## 4. Results
 
-**Calibrated hyperparameters.** Cross-validation selects μ = 10⁻¹⁰ (essentially unregularized, as in the original study), and validation against the seismic Moho selects **z_ref = 35 km** and **Δρ = 500 kg m⁻³**.
+**Calibrated hyperparameters.** Cross-validation selects μ = 10⁻¹⁰ (essentially unregularized, as in the original study). The (z_ref, Δρ) validation surface has a **broad minimum** (Figure 6): z_ref ≈ 30–40 km and Δρ ≈ 400–500 kg m⁻³ are near-equivalent (seismic RMS within ~0.3 km). Within this plateau we adopt **z_ref = 35 km, Δρ = 500 kg m⁻³**, which also gives the smallest bias against the *independent* AusMoho model (−0.1 km; see §5) — using the independent dataset to break the near-degeneracy of the seismic calibration.
 
 **Moho model.** The preferred GOCO06S model at 0.5° yields Moho depths of ~7–59 km. The crust is thick (35–45 km) beneath the Sunda volcanic arc (Sumatra, Java), the Sulawesi and Banda arcs, and the Papuan highlands, and thin (10–20 km) beneath the deep marginal basins (e.g. Banda Sea, Celebes/Makassar) and the oceanic domains. The 35-km contour closely outlines the main arc/continental blocks (Figure 1).
 

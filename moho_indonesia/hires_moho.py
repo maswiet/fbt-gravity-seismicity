@@ -60,11 +60,15 @@ def main(spacing, resolution, gravity, sediments, model=None, lmax=None):
     forward = mu.make_tesseroid_forward(lon2d, lat2d, height_m=run_real.HEIGHT)
     p = np.full(npar, z_ref * 1000.0)
     prev = None
-    for k in range(C.MAX_ITERATIONS):
+    # Match calibrate.py's convergence (25 iters, tol 0.15 mGal) so the featured
+    # model reproduces the calibration numbers — with mu≈0, running to full
+    # convergence overfits the Bouguer field and degrades the seismic fit.
+    max_iter, tol = 25, 0.15
+    for k in range(max_iter):
         pred = np.asarray(forward(p, z_ref, drho), float).ravel()
         rms = float(np.sqrt(np.mean((obs - pred) ** 2)))
         print(f"  iter {k+1}: RMS {rms:.2f} mGal")
-        if prev is not None and abs(prev - rms) < C.CONVERGENCE_TOL:
+        if prev is not None and abs(prev - rms) < tol:
             break
         prev = rms
         p = np.clip(p + solve(a * (obs - pred) - mu_reg * (RtR @ p)), 3000.0, 70000.0)
