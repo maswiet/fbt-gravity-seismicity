@@ -164,3 +164,12 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Result:** CONSISTENT over the Australian continental margin — our Arafura/Arnhem-approach Moho (~33–37 km; extracted from GRID_MOHO along 132–140°E, −10 to −10.5°S) matches AusMoho's northern continental crust (~35–40 km) within a few km. At the Timor–Banda collision (124–126°E) our model is much thicker (39–50 km) = real collisional thickening outside AusMoho's coverage (~50 km possibly overestimated). Caveats: our −11° row is a non-padded edge; AusMoho's far north is sparsely constrained.
 - **Files:** new `wiki/sources/kennett-2011-ausmoho.md`; added the AusMoho comparison to the manuscript's previous-work paragraph; index/log updated.
 - **Follow-ups:** for a rigorous test, obtain the gridded AusMoho surface (Geoscience Australia / IRIS EMC) and difference it against ours in the 118–141°E, 9–11°S overlap; extend the study region south (pad beyond −11°) to remove the edge effect at the border.
+
+## [2026-07-30] maintenance | Extend region south + quantitative AusMoho validation
+
+- **Trigger:** user provided AusMoho/AuSREM grids and asked to extend the domain south and validate against AusMoho.
+- **Data:** of the four files, `AusMoho2012.xyz` is the Moho grid (lat lon depth, 0.5°, lat −44..−10); the others (AM4, ACM50, AuSREM-C) are AuSREM velocity models, not Moho — not used. Copied to `data/external/ausmoho/` (gitignored, third-party).
+- **Region extended:** `config.REGION` south from −11° to **−15°** (padded −17°) so the Australian margin is interior (edge effect moved to −15°) and overlaps AusMoho. Re-ran `hires_moho.py --spacing 0.5 --gravity ggm`; fit to the Indonesian seismic points 2.53 km / 6.46 km (slightly worse than the −11° domain because the domain/edge changed).
+- **RESULT (independent validation):** over northern-Australia mainland (−15..−11.5°S, N=369) our Moho vs AusMoho: mean **−0.14 km**, std **4.84 km**, RMSE 4.84, **r=0.86**. Full overlap (N=477): +0.73/5.83, r=0.76. Figure `figures/moho/ausmoho_comparison.png`. Strong external confirmation (independent gravity vs seismic). Deviations: deepest cratonic crust slightly underestimated; Timor collision over-thickened (~50 km).
+- **Manuscript updated:** abstract + new "Independent validation against AusMoho" paragraph + figure 5.
+- **Follow-ups:** the main map panels now span to −15° (GRID_MOHO = extended GGM 0.5°); regenerate/crop panels if a −11° Indonesia framing is wanted for final figures. Consider re-calibrating on the extended domain.

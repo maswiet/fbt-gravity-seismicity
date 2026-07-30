@@ -45,11 +45,13 @@ HYPERPARAMS_JSON = DATA_PROCESSED / "hyperparameters.json"
 # --------------------------------------------------------------------------
 # Study area (whole Indonesia) — degrees
 # --------------------------------------------------------------------------
-# Region of interest.
-REGION = (94.0, 141.0, -11.0, 6.0)   # (W, E, S, N)
+# Region of interest. Extended south to -15 deg so the Australian margin is clean
+# of edge effects and overlaps the AusMoho model (Kennett et al. 2011, lat <= -10)
+# for independent validation. Indonesia proper is -11..6; -11..-15 is the overlap.
+REGION = (94.0, 141.0, -15.0, 6.0)   # (W, E, S, N)
 # Padded computation region to avoid inversion edge effects (buffered ~2 deg).
 # Trim results back to REGION for interpretation.
-REGION_PADDED = (92.0, 143.0, -13.0, 8.0)
+REGION_PADDED = (92.0, 143.0, -17.0, 8.0)
 
 # Model/data grid spacing in degrees (~0.2 deg ≈ 22 km; matched to the
 # effective resolution of satellite-only GGMs; paper used 0.4 deg for S. America).

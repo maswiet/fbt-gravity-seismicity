@@ -29,13 +29,15 @@ AusMoho (GJI 187, 946–958) is a continent-wide compilation of Moho depth for A
 - NW shelf / Timor Sea (~124–130°E): thinner, with a noted "Moho depression off the northwest coast" (~25–33 km).
 - The far-northern edge of AusMoho is **poorly constrained** (sparse data; 250 km mask) — largely interpolation/extrapolation there.
 
-## Comparison with our model (border consistency)
+## Comparison with our model (QUANTITATIVE, gridded)
 
-Our gravity Moho at the southern edge vs AusMoho at its northern edge:
+We obtained the AusMoho2012 grid (`data/external/ausmoho/AusMoho2012.xyz`, lat lon depth, 0.5°, lat ≤ −10), extended our inversion domain south to −15°S (GGM 0.5°), and sampled our Moho at every AusMoho cell in the overlap:
 
-- **Consistent** over the Australian continental margin: our Arafura/Arnhem-approach values **~33–37 km** match AusMoho **~35–40 km** to within a few km — independent methods (satellite gravity vs seismic) agree at the border.
-- **Difference at the Timor–Banda collision** (~124–126°E): our model gives very thick crust (**39–50 km**), a real collisional thickening outside AusMoho's coverage; the ~50 km value may be slightly overestimated (our arc-thickening tendency).
-- Caveats: our −11°S is a non-padded grid edge (edge effects possible); AusMoho's far north is low-confidence; Moho definitions differ.
+- **Northern Australian mainland (−15..−11.5°S, N=369):** mean difference (ours − AusMoho) **−0.14 km**, std **4.84 km**, RMSE 4.84 km, **r = 0.86**. Near-zero bias + strong correlation between two *independent* methods (satellite-gravity inversion vs seismic compilation).
+- **Full overlap incl. offshore Timor Sea (−15..−10°S, N=477):** mean +0.73 km, std 5.83 km, r = 0.76.
+- Systematic deviations: (i) slight underestimation of the deepest (>40 km) cratonic crust (near-unregularized Bouguer inversion saturates); (ii) local over-thickening (~50 km) at the Timor–Banda collision front (real collisional thickening exaggerated by the single-Δρ assumption).
+- Figure: `figures/moho/ausmoho_comparison.png`.
+- Caveats: AusMoho's northernmost cells (−10 to −11.5°S, offshore) are low-confidence; Moho definitions differ slightly.
 
 ## Relevance
 
