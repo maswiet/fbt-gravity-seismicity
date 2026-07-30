@@ -195,3 +195,10 @@ Allowed types: `setup`, `ingest`, `query`, `lint`, `maintenance`, `export`, `imp
 - **Featured model choice:** the fine sweep's argmin was z_ref=32.5, but that worsens the INDEPENDENT AusMoho bias (mainland -2.55 km) vs z_ref=35 (-0.12 km). So we adopt z_ref=35 (near-zero bias vs BOTH seismic +1.19 and AusMoho -0.12) — independent data breaks the calibration near-degeneracy. Manuscript §4 updated.
 - **`calibrate.py --only-final`** added: reproduces the featured model at the stored hyperparameters using the calibration invert(); gives the consistent +1.19/5.75 (hires_moho's inline loop differs subtly and gave 6.41 — the featured GRID_MOHO must come from calibrate). Panels + validation_seismic regenerated from this model.
 - **Note:** hires_moho iteration control aligned to 25/0.15 but still differs slightly from calibrate; use calibrate --only-final for the featured/final model.
+
+## [2026-07-30] maintenance | Author names, Methods math, Fig-8 chain, commit figures
+
+- **Trigger:** user provided author names and asked for Methods mathematics, a Fig-8-style figure, and to commit all figures.
+- **Manuscript:** authors set to Muhammad Zuhdi, Sudarmaji, Wiwit Suryanto (corresponding), all Geophysics Laboratory, Universitas Gadjah Mada, Yogyakarta. Methods §3 rewritten with equations (1)-(11): gravity disturbance, tesseroid potential/attraction integrals, forward map, Bouguer/sediment corrections, misfit + Tikhonov + Gauss-Newton system, Bott diagonal Jacobian, update, and the mu=0 Bott special case.
+- **New figure:** `moho_indonesia/plot_processing_chain.py` -> `processing_chain.png` (U&B Fig. 8 equivalent: disturbance, topography, topographic effect, Bouguer, CRUST1.0 sediment effect, sediment-free Bouguer). Added to the figure list + referenced in §3.3.
+- **Figures committed to the repo** (previously untracked): moho_full_clean/west/east, validation_seismic, hyperparameters, ausmoho_comparison, processing_chain.

@@ -1,10 +1,13 @@
 # The Moho of Indonesia from Satellite Gravity: a fast spherical Bott–Tikhonov inversion validated against seismic estimates
 
-**Authors:** [PhD Student Name]¹, [Advisor Name]¹ · **Affiliation:** ¹[Department / University]
-**Corresponding author:** [email]
-**Status:** DRAFT for internal review — v0.1 (2026-07-29). Not for submission.
+**Authors:** Muhammad Zuhdi¹, Sudarmaji¹, Wiwit Suryanto¹,\*
 
-> Reviewer note: placeholders in **[brackets]** need author input — names, affiliations, and the provenance/citation of the seismic-Moho compilation (`Depth_Moho.txt`) and the active-fault dataset ("Pak Wiwit"). All numbers below are from the current reproducible pipeline (`moho_indonesia/`).
+¹ Geophysics Laboratory, Universitas Gadjah Mada, Sekip Utara PO BOX BLS 21, Yogyakarta 55281, Indonesia
+\* Corresponding author: Wiwit Suryanto ([email])
+
+**Status:** DRAFT for internal review — v0.2 (2026-07-30). Not for submission.
+
+> Reviewer note: remaining placeholders in **[brackets]** — corresponding-author email, and the provenance/citation of the seismic-Moho compilation (`Depth_Moho.txt`) and the active-fault dataset ("Pak Wiwit"). All numbers below are from the current reproducible pipeline (`moho_indonesia/`).
 
 ---
 
@@ -36,15 +39,73 @@ Here we transfer that methodology, unchanged in principle, to the whole of Indon
 
 ## 3. Methods
 
-**Gravity disturbance.** The gravity disturbance δ = g − γ is obtained by removing WGS84 normal gravity γ from the synthesised GOCO06S gravity at each grid point (or, in the altimetry variant, taken directly as the free-air anomaly).
+### 3.1 Gravity disturbance
 
-**Topographic correction.** The gravitational effect of topography and oceans is forward-modelled with tesseroids (continental density 2670 kg m⁻³; oceans as a water–rock contrast of −1640 kg m⁻³) and subtracted from the disturbance to give the Bouguer disturbance. An optional sediment correction removes the tesseroid effect of the three CRUST1.0 sediment layers, yielding the sediment-free Bouguer disturbance that is the inversion input.
+The gravity disturbance at an observation point $P$ is the difference between the observed gravity $g(P)$ and the WGS84 normal (ellipsoidal) gravity $\gamma(P)$ evaluated at the same point,
 
-**Inversion.** The anomalous Moho is parameterised as a grid of juxtaposed tesseroids whose depths are the unknowns. We minimise the regularized goal function Γ(p) = φ(p) + μ·θ(p), where φ is the data misfit and θ = pᵀRᵀRp is a first-order roughness penalty. Following Bott's method as recast by Silva et al. (2014), the Jacobian is approximated by the diagonal Bouguer-plate value A = 2πGΔρ (with sign set so that a deeper Moho produces a negative anomaly), reducing each Gauss–Newton step to a sparse linear solve. Tesseroid effects are computed with the adaptive scheme of Uieda et al. (2016) as implemented in Harmonica (Fatiando a Terra). Moho depths are constrained to a physical range (3–70 km) each iteration.
+$$\delta(P) = g(P) - \gamma(P). \tag{1}$$
 
-**Hyperparameters.** Following Uieda & Barbosa (2017, §2.6), μ is chosen by hold-out cross-validation on the gravity data, and (z_ref, Δρ) by validation against the seismic Moho depths.
+$g(P)$ is synthesised from the satellite-only global gravity model GOCO06S to spherical-harmonic degree/order 300 on a regular grid at a constant height $h$ above the WGS84 ellipsoid; $\gamma(P)$ is computed with the closed-form Somigliana–Pizzetti formula. The disturbance contains only the effects of masses anomalous with respect to the reference ellipsoid. In the altimetry variant $\delta$ is approximated by the free-air gravity anomaly.
 
-**Resolution tests.** We invert on 0.5° and 0.25° grids and with both the GOCO06S (satellite) and altimetry (`earth_faa`) gravity sources, to separate grid resolution from data resolution.
+### 3.2 Forward modelling with tesseroids
+
+All mass effects are computed on a spherical Earth using tesseroids (spherical prisms), which honour Earth curvature at regional scale. A tesseroid bounded by longitudes $[\lambda_1,\lambda_2]$, latitudes $[\phi_1,\phi_2]$ and radii $[r_1,r_2]$, of constant density $\rho$, produces at $P=(r_P,\phi_P,\lambda_P)$ the gravitational potential
+
+$$V(P) = G\rho \int_{\lambda_1}^{\lambda_2}\!\!\int_{\phi_1}^{\phi_2}\!\!\int_{r_1}^{r_2} \frac{r^2\cos\phi}{\ell}\; dr\,d\phi\,d\lambda, \tag{2}$$
+
+where $G$ is the gravitational constant and $\ell=\left(r_P^2+r^2-2r_Pr\cos\psi\right)^{1/2}$ is the distance from $P$ to the integration point, with $\cos\psi=\sin\phi_P\sin\phi+\cos\phi_P\cos\phi\cos(\lambda-\lambda_P)$. The datum modelled is the radial (vertical) component of the gravitational attraction,
+
+$$g_z(P) = -\frac{\partial V}{\partial r_P} = G\rho \int_{\lambda_1}^{\lambda_2}\!\!\int_{\phi_1}^{\phi_2}\!\!\int_{r_1}^{r_2} \frac{(r_P-r\cos\psi)\,r^2\cos\phi}{\ell^{3}}\; dr\,d\phi\,d\lambda, \tag{3}$$
+
+which has no analytical solution and is evaluated numerically by Gauss–Legendre Quadrature with the adaptive discretization of Uieda et al. (2016), as implemented in Harmonica (Fatiando a Terra).
+
+The anomalous Moho relief is parameterised as $M$ juxtaposed tesseroids, one per grid cell, each spanning the radial gap between the reference (Normal-Earth) Moho at radius $R-z_{\mathrm{ref}}$ and the true Moho at radius $R-z_k$; the unknowns are the $M$ Moho depths $\mathbf{p}=(z_1,\dots,z_M)^{T}$. Following the sign convention of Uieda & Barbosa (2017, their Fig. 1), a cell whose Moho is deeper than the reference ($z_k>z_{\mathrm{ref}}$) is assigned density contrast $-\Delta\rho$ (crust replacing mantle: a mass deficit) and a shallower cell $+\Delta\rho$. The predicted gravity at the $N$ observation points is then the nonlinear forward map
+
+$$d_i(\mathbf{p}) = f_i(\mathbf{p}) = \sum_{k=1}^{M} g_z^{(k)}(P_i;\,z_k),\qquad i=1,\dots,N. \tag{4}$$
+
+### 3.3 Data corrections
+
+The gravitational effect of topography and oceans, $g_{\text{topo}}$, is forward-modelled with tesseroids (continental density $2670\ \mathrm{kg\,m^{-3}}$; oceans as a water–rock contrast $\rho_w-\rho_c\approx-1640\ \mathrm{kg\,m^{-3}}$) and removed to give the Bouguer disturbance,
+
+$$\delta_{bg}(P) = \delta(P) - g_{\text{topo}}(P). \tag{5}$$
+
+Optionally the CRUST1.0 sediment effect $g_{\text{sed}}$ (three layers, each with contrast $\rho_{\text{sed}}-\rho_c$) is also removed, giving the sediment-free Bouguer disturbance $\delta_{sf}=\delta_{bg}-g_{\text{sed}}$. The corrected field, attributed to the anomalous Moho, is the inversion input $\mathbf{d}^{o}$. The full reduction chain is shown in Figure 2.
+
+### 3.4 Inverse problem
+
+We seek the depths $\mathbf{p}$ that reproduce $\mathbf{d}^{o}$ by minimising the data-misfit functional
+
+$$\phi(\mathbf{p}) = \big[\mathbf{d}^{o}-\mathbf{d}(\mathbf{p})\big]^{T}\big[\mathbf{d}^{o}-\mathbf{d}(\mathbf{p})\big]. \tag{6}$$
+
+Because the forward map (4) is nonlinear and estimating an interface from gravity is ill-posed, we impose first-order Tikhonov (smoothness) regularization
+
+$$\theta(\mathbf{p}) = \mathbf{p}^{T}\mathbf{R}^{T}\mathbf{R}\,\mathbf{p}, \tag{7}$$
+
+where $\mathbf{R}$ is the finite-difference operator of first differences between horizontally adjacent tesseroid depths, and minimise the goal function
+
+$$\Gamma(\mathbf{p}) = \phi(\mathbf{p}) + \mu\,\theta(\mathbf{p}). \tag{8}$$
+
+$\Gamma$ is minimised by the Gauss–Newton method: at iteration $k$ the parameter perturbation $\Delta\mathbf{p}^{k}$ solves
+
+$$\big(\mathbf{A}^{k\,T}\mathbf{A}^{k} + \mu\,\mathbf{R}^{T}\mathbf{R}\big)\,\Delta\mathbf{p}^{k} = \mathbf{A}^{k\,T}\big[\mathbf{d}^{o}-\mathbf{d}(\mathbf{p}^{k})\big] - \mu\,\mathbf{R}^{T}\mathbf{R}\,\mathbf{p}^{k}, \tag{9}$$
+
+where $\mathbf{A}^{k}$ is the $N\times M$ Jacobian (sensitivity) matrix, $A_{ij}=\partial f_i/\partial z_j$. Following Bott (1960), recast as a Gauss–Newton special case by Silva et al. (2014), the dense Jacobian is replaced by the diagonal Bouguer-plate approximation
+
+$$\mathbf{A} = -2\pi G\,\Delta\rho\;\mathbf{I}, \tag{10}$$
+
+the minus sign expressing that a deeper Moho lowers the gravity. With (10) the term $\mathbf{A}^{T}\mathbf{A}=(2\pi G\Delta\rho)^{2}\mathbf{I}$ is diagonal and constant, so (9) is a sparse, symmetric positive-definite system that is factorised once and back-substituted each iteration. The model is updated,
+
+$$\mathbf{p}^{k+1} = \mathbf{p}^{k} + \Delta\mathbf{p}^{k}, \tag{11}$$
+
+with each $z_k$ clipped to the physical range $3\text{–}70$ km, and the iteration is stopped when the change in RMS data misfit falls below the noise level. For $\mu=0$, equations (9)–(11) reduce to the classical Bott update $\Delta z_j = \big[d^{o}_j - d_j(\mathbf{p}^{k})\big]\big/(2\pi G\Delta\rho)$.
+
+### 3.5 Hyperparameters
+
+The three hyperparameters — regularization weight $\mu$, density contrast $\Delta\rho$, and reference depth $z_{\mathrm{ref}}$ — are estimated in two steps (Uieda & Barbosa 2017, §2.6): $\mu$ by hold-out cross-validation on the gravity data, then $(z_{\mathrm{ref}},\Delta\rho)$ by validation against the seismic Moho depths (§4).
+
+### 3.6 Resolution tests
+
+We invert on $0.5^{\circ}$ and $0.25^{\circ}$ grids with both the GOCO06S satellite gravity and the `earth_faa` altimetry field, to separate grid resolution from data resolution.
 
 ## 4. Results
 
@@ -104,7 +165,8 @@ All code and processing are openly available at **https://github.com/maswiet/fbt
 
 ## Figures (from `figures/moho/`)
 
-1. **`moho_full_clean.png`** — Estimated Moho depth of Indonesia (0.25°), with seismic Moho stations and depth contours (35-km contour highlighted).
+1. **`moho_full_clean.png`** — Estimated Moho depth of Indonesia, with seismic Moho stations and depth contours (35-km contour highlighted).
+1b. **`processing_chain.png`** (≡ U&B Fig. 8) — the gravity data-reduction chain: (a) gravity disturbance, (b) topography/bathymetry, (c) topographic effect, (d) Bouguer disturbance, (e) CRUST1.0 sediment effect, (f) sediment-free Bouguer disturbance (inversion input).
 2. **`validation_seismic.png`** — Moho residual (estimated − seismic) at the 105 Indonesian stations, map and histogram (mean +1.2 km, std 5.8 km). Resolution/source summary in Table 1.
 3. **`moho_west.png`** — Western Indonesia (94°–120°E): Moho with trench, active faults, folds and Holocene volcanoes.
 4. **`moho_east.png`** — Eastern Indonesia (115°–141°E): as Figure 3, showing the Sulawesi–Banda–Papua collision belt.
