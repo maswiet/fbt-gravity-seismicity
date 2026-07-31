@@ -90,7 +90,7 @@ MU_VALUES = np.logspace(-10, -2, 17)
 # Step 2: reference depth z_ref (km) and density contrast drho (kg/m^3) — chosen
 # by validation against the seismic Moho points (MOHO_SEISMIC).
 ZREF_VALUES = np.arange(20.0, 45.0 + 0.1, 2.5)     # km
-DRHO_VALUES = np.arange(200.0, 500.0 + 0.1, 50.0)  # kg/m^3
+DRHO_VALUES = np.arange(200.0, 600.0 + 0.1, 50.0)  # kg/m^3 (to 600 so the optimum sits inside the frame)
 
 # Gauss-Newton / Bott iteration controls.
 MAX_ITERATIONS = 50

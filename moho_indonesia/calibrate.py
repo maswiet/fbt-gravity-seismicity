@@ -197,7 +197,14 @@ def main(gravity_source="faa", sediments=False, fine=False, only_final=False):
     hp = {"mu": float(best_mu), "z_ref_km": float(z_ref), "drho": float(drho)}
     C.HYPERPARAMS_JSON.write_text(json.dumps(hp, indent=2))
     if mu_curve is not None:
-        _plot_diagnostics(np.array(mu_curve), mse_surface, best_mu, z_ref, drho)
+        # Save the sweep arrays and render the diagnostic marking the ADOPTED
+        # (physically reasonable) point — the seismic argmin runs away to high Δρ.
+        np.savez(C.DATA_PROCESSED / "hyperparameters_sweep.npz",
+                 mu_set=np.asarray(MU_SET), mu_mse=np.asarray(mu_curve),
+                 zref=np.asarray(ZREF_SET), drho=np.asarray(DRHO_SET),
+                 mse_surface=mse_surface)
+        import plot_hyperparam_diag
+        plot_hyperparam_diag.main()
 
     interp = RegularGridInterpolator((lat2d[:, 0], lon2d[0, :]), moho,
                                      bounds_error=False, fill_value=np.nan)
