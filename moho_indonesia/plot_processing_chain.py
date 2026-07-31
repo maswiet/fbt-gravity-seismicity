@@ -26,12 +26,15 @@ import run_real             # noqa: E402
 from calibrate import sediment_effect    # noqa: E402
 
 REGION = [94, 141, -11, 6.5]
+# Natural map proportions (latitude span / longitude span) so panels are undistorted.
+BOX_RATIO = (REGION[3] - REGION[2]) / (REGION[1] - REGION[0])
 
 
 def _panel(fig, pos, lon, lat, field, title, cmap, unit, vlim=None):
     ax = fig.add_subplot(pos, projection=ccrs.PlateCarree())
     ax.set_extent(REGION, crs=ccrs.PlateCarree())
-    ax.set_aspect("auto")
+    ax.set_aspect("auto")            # fill a box whose shape is set naturally below
+    ax.set_box_aspect(BOX_RATIO)
     if vlim is None:
         v = float(np.nanpercentile(np.abs(field), 98))
         vmin, vmax = -v, v
@@ -64,9 +67,9 @@ def main():
     sed_eff = sediment_effect(lon, lat)
     sed_free = bouguer - sed_eff
 
-    fig = plt.figure(figsize=(14.5, 7.8))
-    gs = fig.add_gridspec(2, 3, hspace=0.32, wspace=0.16,
-                          left=0.04, right=0.98, bottom=0.05, top=0.95)
+    fig = plt.figure(figsize=(15, 6.6))
+    gs = fig.add_gridspec(2, 3, hspace=0.28, wspace=0.14,
+                          left=0.04, right=0.98, bottom=0.04, top=0.95)
     _panel(fig, gs[0, 0], lon, lat, disturbance, "(a) Gravity disturbance", "RdBu_r", "mGal")
     _panel(fig, gs[0, 1], lon, lat, topo, "(b) Topography / bathymetry", "gist_earth", "m", vlim=(-6000, 3000))
     _panel(fig, gs[0, 2], lon, lat, topo_eff, "(c) Topographic effect", "RdBu_r", "mGal")
