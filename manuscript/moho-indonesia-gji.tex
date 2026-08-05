@@ -304,7 +304,11 @@ model shows a resolution-driven \emph{amplitude compression}: an
 ordinary-least-squares fit of estimated on seismic depth has a slope of only
 $0.20$ (intercept $25$~km; Fig.~\ref{fig:scatter}), so the smooth $\sim67$~km
 satellite-gravity field overestimates the thinnest crust and underestimates the
-thickest, while still tracking the mean trend (binned-mean $r=0.94$). The
+thickest, while still tracking the mean trend (binned-mean $r=0.94$). Tellingly,
+the seismically compiled {CRUST1.0} shows the \emph{same} compression at these
+points (slope $0.23$; Fig.~\ref{fig:scatter}b), so the low slope reflects the
+reference data and the point-vs-footprint scale mismatch rather than a failing of
+our inversion. The
 grid-to-grid {AusMoho} comparison (Section~5), which compares like with like, is a
 fairer test and yields $r=0.86$, confirming that the low point-wise $r$ largely
 reflects the test rather than the model.
@@ -492,17 +496,19 @@ contours (35-km contour in white).}
 \label{fig:validation}
 \end{figure}
 
-\begin{figure}
-\centering\includegraphics[width=\columnwidth]{scatter_vs_seismic.png}
-\caption{Depth--depth comparison of estimated against seismic Moho at the 105 RF
-stations for this study, {CRUST1.0} and {GEMMA} (dashed $1{:}1$ line). The solid
-line is the ordinary-least-squares fit to this study (slope $0.20$) and the large
-circles are binned means ($\pm1\sigma$): the model tracks the mean trend but
-compresses the amplitude, a resolution effect of the smooth satellite gravity.
-This study and {CRUST1.0} scatter about the line; {GEMMA} lies systematically below
-it (too shallow). Correlations are in the legend and Table~\ref{tab:compare}.}
+\begin{figure*}
+\centering\includegraphics[width=0.86\textwidth]{scatter_vandermeijde.png}
+\caption{Depth--depth comparison (after \citealt{vandermeijde2013}): open circles
+against the $1{:}1$ line, with $\pm6$~km (black dashed) and $\pm12$~km (red dashed)
+deviation bands. (a) This study, (b) {CRUST1.0} and (c) {GEMMA} versus the 105
+seismic Moho depths; (d) {GEMMA} versus {CRUST1.0} over the model grid ($N=817$).
+Panel statistics (bias, RMS, per cent within $\pm6$/$\pm12$~km, and the regression
+slope) are inset. This study (slope $0.20$) and {CRUST1.0} (slope $0.23$) show the
+\emph{same} amplitude compression --- evidence it stems from the point-vs-footprint
+scale mismatch and the narrow RF depth range, not from our method --- while
+{GEMMA} (slope $0.08$) is systematically shallow.}
 \label{fig:scatter}
-\end{figure}
+\end{figure*}
 
 \begin{figure*}
 \centering\includegraphics[width=\textwidth]{compare_global_models.png}
