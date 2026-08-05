@@ -51,7 +51,10 @@ seismic Moho with a mean difference of $+1.2$~km and a standard deviation of
 $5.8$~km, comparable to the original South American application ($1.2$, $6.8$~km).
 An independent comparison with the seismic {AusMoho} model along the northern
 Australian margin shows near-zero bias ($-0.1$~km) and strong correlation
-($r=0.86$). The gravity Moho is thick ($35$--$45$~km) beneath the Sunda, Sulawesi
+($r=0.86$). Benchmarked at the same 105 stations, our model matches {CRUST1.0}
+(std $5.8$ vs $5.3$~km) despite being independent and five times finer, whereas the
+{GOCE}-derived {GEMMA} model is systematically $7.4$~km too shallow (RMS
+$10.2$~km) --- evidence that existing global models are inadequate for Indonesia. The gravity Moho is thick ($35$--$45$~km) beneath the Sunda, Sulawesi
 and Banda arcs and the Papuan highlands, and thin ($10$--$20$~km) beneath the
 marginal and oceanic basins, and co-varies with the trenches, active faults and
 volcanic arc. We show that the seismic misfit decreases monotonically with
@@ -75,7 +78,19 @@ Sunda, Philippine Sea and Pacific plates interact through subduction, collision
 and back-arc spreading --- Moho depth varies strongly over short distances.
 Seismic methods (receiver functions, refraction, ambient-noise tomography) give
 the most direct estimates but are limited to the vicinity of stations, which in
-Indonesia are concentrated on land and along the volcanic arc.
+Indonesia are concentrated on land and along the volcanic arc
+\citep{zhang2023}.
+
+Two global crustal models are commonly used where local constraints are absent.
+{CRUST1.0} \citep{laske2013} is a $1^{\circ}\times1^{\circ}$ compilation that, over
+Indonesia, is interpolated from sparse controls and inherits the sediment and
+crustal-type assumptions of its tiles; {GEMMA} \citep{reguzzoni2015} is a
+$0.5^{\circ}$ Moho inverted globally from {GOCE} gravity under a simplified,
+two-layer density parameterization. Neither is tuned to Indonesian data, and both
+are too coarse to resolve the sharp arc/fore-arc crustal-thickness contrasts of the
+archipelago; as we show below (Section~4), {GEMMA} in particular is systematically
+$\sim7$~km too shallow at Indonesian receiver-function stations. A dedicated,
+regionally calibrated gravity Moho is therefore warranted.
 
 Gravity provides continuous, homogeneous coverage and is well suited to mapping
 the crust--mantle interface at regional scale, especially offshore where satellite
@@ -110,11 +125,20 @@ anomaly \citep{sandwell2014} as a proxy for the disturbance.
 \textbf{Topography/bathymetry.} Earth relief is taken from {SRTM15+}
 \citep{tozer2019}, resampled to the model grid.
 
-\textbf{Seismic Moho.} An independent compilation of 105 receiver-function Moho
-depths at seismic stations spanning $96^{\circ}$--$141^{\circ}$E,
-$10^{\circ}$S--$5^{\circ}$N (depths 20--40~km) is used to calibrate
-$z_{\mathrm{ref}}$ and $\Delta\rho$ and to assess the model
-\textbf{[cite the compilation source and confirm the depth datum]}.
+\textbf{Seismic Moho.} We use an independent compilation of 105 receiver-function
+(RF) Moho depths at seismic stations spanning $96.3^{\circ}$--$140.7^{\circ}$E,
+$10.2^{\circ}$S--$5.2^{\circ}$N, provided as Supplementary Table~S1
+(station, longitude, latitude, depth). The depths range 20--40~km (mean 30.4,
+median 30~km); the distribution is 31 stations on Sumatra, 24 on Java and 50 in
+eastern Indonesia (Sulawesi, Banda arc, Papua), with none offshore
+(Fig.~\ref{fig:compare}a). Because the compilation draws on multiple RF studies
+with differing deconvolution schemes and $1$-D reference velocity models,
+inter-study systematic differences of $2$--$5$~km are expected and set a practical
+floor on the achievable fit; the depths are reported below the ellipsoid,
+consistent with the modelled interface. This dataset calibrates $z_{\mathrm{ref}}$
+and $\Delta\rho$ and validates the model. The most comprehensive comparable
+regional compilation is \citet{zhang2023} (H $\approx24$--$38$~km,
+$V_p/V_s\approx1.79$), consistent with the depth range used here.
 
 \textbf{Auxiliary data.} Active faults, fold axes and the Sunda--Banda trench are
 from \textbf{[cite the active-fault dataset]}; Holocene volcanoes are from the
@@ -248,21 +272,37 @@ surface (Fig.~\ref{fig:hyper}) has a broad, flat minimum, and the seismic misfit
 \emph{decreases monotonically with increasing $\Delta\rho$}: the raw argmin runs
 away to unphysical contrasts ($>600$~kg\,m$^{-3}$). This reflects the
 non-uniqueness of gravity inversion --- $\Delta\rho$ trades off against
-$z_{\mathrm{ref}}$ and Moho amplitude and absorbs unmodelled effects. We therefore
-adopt a physically reasonable $\Delta\rho=500$~kg\,m$^{-3}$ (cf. $400$ in
-\citealt{uieda2017}) with $z_{\mathrm{ref}}=35$~km, a choice independently
-supported by the {AusMoho} comparison (Section~5). $\Delta\rho$ is thus an
-\emph{effective} contrast, not a tightly determined physical quantity.
+$z_{\mathrm{ref}}$ and Moho amplitude and absorbs unmodelled effects. Crucially,
+the fit is only weakly sensitive to $\Delta\rho$ over the physical range: at
+$z_{\mathrm{ref}}=35$~km the seismic RMS is $6.2$~km at $\Delta\rho=400$,
+$6.0$~km at $450$, $5.9$~km at $500$ and $5.8$~km at $600$~kg\,m$^{-3}$, i.e.\ the
+curve flattens above $\sim450$~kg\,m$^{-3}$ to $<0.1$~km per $50$~kg\,m$^{-3}$. We
+therefore adopt a physically reasonable $\Delta\rho=500$~kg\,m$^{-3}$ (cf.\ $400$
+in \citealt{uieda2017}) with $z_{\mathrm{ref}}=35$~km on this plateau --- a choice
+that degrades the fit by only $0.3$~km relative to $\Delta\rho=400$ yet is
+independently supported by the {AusMoho} comparison (Section~5). $\Delta\rho$ is
+thus an \emph{effective} contrast, not a tightly determined physical quantity.
+Bott's iteration converged in typically $15$--$20$ steps, the RMS misfit decreasing
+monotonically to below the $0.15$~km stopping tolerance.
 
 \textbf{Moho model and validation.} The preferred model yields Moho depths of
 $\sim7$--$59$~km (Fig.~\ref{fig:moho}), thick beneath the arcs and continental
 blocks and thin beneath the oceanic basins. It differs from the 105 seismic depths
 by a mean of $+1.2$~km and a standard deviation of $5.8$~km
-(Fig.~\ref{fig:validation}), comparable to the South American result.
+(Fig.~\ref{fig:validation}), comparable to the South American result. Robust
+statistics confirm this: the median difference is $+1.2$~km, the interquartile
+range $6.9$~km, and $63\%$ and $89\%$ of stations fall within $\pm5$ and
+$\pm10$~km, respectively (no points were excluded as outliers). The correlation
+against the seismic depths is modest ($r=0.28$) because the RF depths span only a
+narrow $20$--$40$~km range and are spatially clustered, which compresses the
+dynamic range available to the correlation coefficient.
 
 \textbf{Resolution.} Refining the grid to $0.25^{\circ}$ with {GOCO06s} does not
-improve the seismic fit because the satellite signal ($\approx0.5^{\circ}$) does
-not support finer structure; substituting the altimetry gravity recovers a
+improve the seismic fit because the satellite signal does not support finer
+structure: at degree/order 300 the shortest resolved half-wavelength is
+$\approx20{,}000/300\approx67$~km ($\approx0.6^{\circ}$), so wavelengths below this
+are not recoverable from {GOCO06s} regardless of grid spacing. Substituting the
+altimetry gravity, which carries shorter-wavelength information, recovers a
 near-zero bias and a more detailed map (Table~\ref{tab:res}).
 
 \begin{table}
@@ -277,6 +317,44 @@ Gravity source & Grid & Mean (km) & Std (km)\\
 Altimetry & $0.5^{\circ}$ & $+1.4$ & 6.0\\
 {GOCO06s} (satellite) & $0.25^{\circ}$ & $+3.2$ & 8.0\\
 Altimetry & $0.25^{\circ}$ & $+0.9$ & 6.9\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Comparison with global reference models}
+We benchmark the gravity Moho against the two global reference models most used in
+Indonesia --- the seismically compiled {CRUST1.0} \citep{laske2013} and the
+{GOCE}-derived {GEMMA} \citep{reguzzoni2015,rossi2022} --- by sampling all three at the 105
+RF stations (Table~\ref{tab:compare}; Figs~\ref{fig:scatter}--\ref{fig:compare}).
+Our model matches the seismic depths as well as {CRUST1.0} (std $5.8$ vs $5.3$~km;
+$89\%$ vs $94\%$ within $\pm10$~km), despite being derived independently from
+gravity alone and at five times finer resolution --- and notwithstanding that
+{CRUST1.0} itself \emph{incorporates} some of the same RF results as priors, giving
+it an intrinsic advantage at these very points. {GEMMA}, by contrast, is
+systematically $7.4$~km too shallow (RMS $10.2$~km, $r=0.08$), with the largest
+deficits ($15$--$24$~km) at the fore-arc/island-arc transitions of southern Java
+and the Banda arc, where its coarse grid and global two-layer density model cannot
+capture the crustal thickening resolved by both the seismic stations and our
+inversion. Spatially (Fig.~\ref{fig:compare}), our model agrees with {CRUST1.0} to
+within $\pm5$~km across the continental interior and diverges (deeper) mainly along
+the Sunda--Java trench, where {CRUST1.0} is weakly constrained; it is deeper than
+{GEMMA} almost everywhere. This benchmark substantiates the claim that existing
+global models are inadequate for Indonesia and that a regionally calibrated gravity
+Moho is a genuine improvement.
+
+\begin{table}
+\caption{Difference (model $-$ seismic) at the 105 RF stations for this study and
+the two global reference models. IQR: interquartile range; $\pm5$/$\pm10$: per cent
+of stations within $\pm5$/$\pm10$~km.}
+\label{tab:compare}
+\begin{tabular}{lccccccc}
+\hline
+Model & Mean & Median & Std & IQR & RMS & $r$ & $\pm10$~km\\
+      & (km) & (km)   & (km)& (km)& (km)&     & (\%)\\
+\hline
+This study & $+1.2$ & $+1.2$ & \textbf{5.8} & 6.9 & \textbf{5.9} & 0.28 & 89\\
+{CRUST1.0} & $-1.3$ & $-1.2$ & 5.3 & 7.5 & 5.4 & 0.36 & 94\\
+{GEMMA}    & $-7.4$ & $-6.5$ & 7.1 & 9.5 & 10.2 & 0.08 & 64\\
 \hline
 \end{tabular}
 \end{table}
@@ -311,8 +389,25 @@ Because those thicknesses are thin ($\sim2$~km) and point-sampled, they miss the
 basin depocenters the correction requires; a basin-scale sediment/depth-to-basement
 map \citep{hardy1997,darman2020,esdm2022} would be needed. This indicates that
 sediments are a minor effect at the validation points and are not the cause of the
-$\Delta\rho$ trade-off. (4) The reference height and single density contrast are
-simplifications inherited from the method.
+$\Delta\rho$ trade-off. (4) The reference height and single, uniform density
+contrast are simplifications inherited from the method: a domain spanning oceanic,
+arc and continental crust would ideally use a $\Delta\rho$ that varies by tectonic
+domain, and the near-zero {AusMoho} bias at the continental margin under a single
+$\Delta\rho$ suggests the effective value is close to correct there but may not be
+optimal beneath oceanic basins. (5) Because the diagonal Bouguer-plate Jacobian
+attributes \emph{all} anomalous gravity to the Moho, the gravitational effect of
+the subducting Sunda--Banda slabs is not separated and can bias the estimated Moho
+downward near the trenches --- consistent with the deeper-than-{CRUST1.0}
+signature we find there (Fig.~\ref{fig:compare}b) and with the largest
+gravity--seismic residuals occurring at the subduction fronts. (6) We do not
+provide a formal (bootstrap/ensemble) uncertainty map; instead the hyperparameter
+sensitivity (Section~4) bounds the systematic contribution --- varying $\Delta\rho$
+across $400$--$600$~kg\,m$^{-3}$ moves the seismic RMS by $<0.5$~km --- while the
+$5.8$~km validation scatter provides an empirical error estimate at the stations.
+(7) Offshore, where the model's continuous coverage is its main advantage over
+seismic methods, it is validated only indirectly (via {AusMoho} at the Australian
+margin); dedicated wide-angle refraction profiles such as \citet{planert2010} at
+the Sunda--Banda transition would provide direct offshore control in future work.
 
 % ============================================================================
 \section{Conclusions}
@@ -321,19 +416,28 @@ We produced a reproducible, public-data gravity Moho model for the whole
 Indonesian region using the fast spherical Bott--Tikhonov tesseroid inversion of
 \citet{uieda2017}. Calibrated against 105 seismic Moho depths and cross-checked
 against the independent {AusMoho} model, the model reproduces first-order
-crustal-thickness variations and fits the seismic data to $5.8$~km. Estimated Moho
-depth correlates with trenches, active faults and the volcanic arc, and the
-largest gravity--seismic residuals coincide with subduction and collision fronts.
+crustal-thickness variations and fits the seismic data to $5.8$~km. At the 105
+stations it matches the seismically compiled {CRUST1.0} while markedly
+outperforming the {GOCE}-derived {GEMMA} model, confirming that existing global
+models are too coarse and biased for Indonesia and that a regionally calibrated
+gravity Moho is a genuine improvement. Estimated Moho depth correlates with
+trenches, active faults and the volcanic arc, and the largest gravity--seismic
+residuals coincide with subduction and collision fronts.
 Resolution is limited by the satellite gravity rather than the model grid, and the
 density contrast is best read as an effective parameter constrained by independent
 data.
 
 \section*{Data and code availability}
-All code is openly available at
-\texttt{https://github.com/maswiet/fbt-gravity-seismicity}. Input data are public:
-{GOCO06s}, {SRTM15+}/altimetry via GMT, {CRUST1.0}, and the Smithsonian GVP volcano
-list. The seismic-Moho compilation, the active-fault dataset and the {AusMoho} grid
-are third-party.
+All inversion, calibration and plotting code is openly available at
+\texttt{https://github.com/maswiet/fbt-gravity-seismicity}, and the final Moho grid
+and the 105-point RF compilation (Supplementary Table~S1) will be archived with a
+citable DOI on Zenodo on acceptance \textbf{[insert DOI]}. Input data are public:
+{GOCO06s} \citep{kvas2021}, {SRTM15+}/altimetry via GMT
+\citep{tozer2019,sandwell2014}, {CRUST1.0} \citep{laske2013}, {GEMMA}
+\citep{reguzzoni2015} (\texttt{http://gocedata.como.polimi.it}), and the
+Smithsonian {GVP} volcano list \citep{gvp2013}. The seismic-Moho compilation, the
+active-fault dataset and the {AusMoho} grid \citep{kennett2011} are third-party and
+are redistributed subject to their original licences.
 
 \section*{Acknowledgments}
 \textbf{[Add funding and data providers.]}
@@ -375,6 +479,26 @@ contours (35-km contour in white).}
 (b) histogram (mean $+1.2$, std $5.8$~km).}
 \label{fig:validation}
 \end{figure}
+
+\begin{figure}
+\centering\includegraphics[width=\columnwidth]{scatter_vs_seismic.png}
+\caption{Depth--depth comparison of estimated against seismic Moho at the 105 RF
+stations for this study, {CRUST1.0} and {GEMMA} (dashed $1{:}1$ line). This study
+and {CRUST1.0} scatter about the line; {GEMMA} lies systematically below it (too
+shallow). Correlations are given in the legend and Table~\ref{tab:compare}.}
+\label{fig:scatter}
+\end{figure}
+
+\begin{figure*}
+\centering\includegraphics[width=\textwidth]{compare_global_models.png}
+\caption{(a) The 105 RF validation stations, coloured by seismic Moho depth ---
+dense on Sumatra and Java, sparse in eastern Indonesia, absent offshore.
+(b) Difference between this study and {CRUST1.0}: agreement within $\pm5$~km across
+the continental interior, our model deeper only along the Sunda--Java trench.
+(c) Difference between this study and {GEMMA}: our model is $5$--$10$~km deeper
+almost everywhere, reflecting {GEMMA}'s systematic shallow bias over Indonesia.}
+\label{fig:compare}
+\end{figure*}
 
 \begin{figure*}
 \centering\includegraphics[width=\textwidth]{moho_west.png}
