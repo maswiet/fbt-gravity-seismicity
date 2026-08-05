@@ -76,21 +76,29 @@ def main():
 
     # model-vs-model over the Indonesia model grid (subsample for clarity)
     LON, LAT = np.meshgrid(d.longitude.values, d.latitude.values)
-    m = np.column_stack([LAT.ravel()[::5], LON.ravel()[::5]])
+    sub = slice(None, None, 5)
+    m = np.column_stack([LAT.ravel()[sub], LON.ravel()[sub]])
+    ours_g = d.values.ravel()[sub]
     cg, gg = ci(m), gi(m)
 
-    fig, axs = plt.subplots(2, 2, figsize=(11, 11))
-    lim = (0, 70)
+    fig, axs = plt.subplots(2, 3, figsize=(16.5, 11))
+    lim = (0, 70)          # vs seismic
+    limg = (0, 60)         # model vs model
     panel(axs[0, 0], sd, ours, "seismic Moho (km)", "this study (km)",
           "(a) This study vs seismic", lim)
     panel(axs[0, 1], sd, crust, "seismic Moho (km)", "CRUST1.0 (km)",
           "(b) CRUST1.0 vs seismic", lim)
-    panel(axs[1, 0], sd, gem, "seismic Moho (km)", "GEMMA (km)",
+    panel(axs[0, 2], sd, gem, "seismic Moho (km)", "GEMMA (km)",
           "(c) GEMMA vs seismic", lim)
-    panel(axs[1, 1], cg, gg, "CRUST1.0 (km)", "GEMMA (km)",
-          "(d) GEMMA vs CRUST1.0 (grid)", (0, 60))
-    fig.suptitle("Moho depth: model vs seismic and model vs model "
-                 "(1:1 line; dashed $\\pm$6 km black, $\\pm$12 km red)", y=0.995)
+    panel(axs[1, 0], cg, ours_g, "CRUST1.0 (km)", "this study (km)",
+          "(d) This study vs CRUST1.0 (grid)", limg)
+    panel(axs[1, 1], gg, ours_g, "GEMMA (km)", "this study (km)",
+          "(e) This study vs GEMMA (grid)", limg)
+    panel(axs[1, 2], cg, gg, "CRUST1.0 (km)", "GEMMA (km)",
+          "(f) GEMMA vs CRUST1.0 (grid)", limg)
+    fig.suptitle("Moho depth: model vs seismic (top) and model vs model (bottom) "
+                 "--- 1:1 line; dashed $\\pm$6 km black, $\\pm$12 km red", y=0.995,
+                 fontsize=13)
     fig.tight_layout(rect=(0, 0, 1, 0.98))
     out = C.FIGURES / "scatter_vandermeijde.png"
     fig.savefig(out, dpi=170, bbox_inches="tight")
