@@ -27,7 +27,15 @@ by AGU — download the **AGU LaTeX template** zip or start from the Overleaf
 "AGU" gallery (`https://www.overleaf.com/gallery/tagged/agu`). An Overleaf AGU
 project transfers straight into the GRL submission system.
 
+Both `.tex` files reference figures as `./figures/NAME.png` (i.e. a `figures/`
+folder next to the manuscript). The source figures live in `../figures/moho/`;
+copy the ones used into `manuscript/figures/` before compiling
+(this folder is gitignored — source of truth stays `figures/moho/`).
+
 ```bash
+# 0. stage the figures into ./figures next to the .tex
+mkdir -p manuscript/figures
+cp figures/moho/{moho_full_clean,validation_seismic,scatter_vandermeijde,compare_global_models,processing_chain,hyperparameters,moho_west,moho_east}.png manuscript/figures/
 # 1. build the RF Supporting-Information table (reads the local Depth_Moho.txt)
 python moho_indonesia/make_supp_table_s1.py     # writes manuscript/supp_table_s1.tex
 # 2. compile main + SI (with the real AGU classes on PATH)
@@ -35,6 +43,10 @@ cd manuscript
 pdflatex moho-indonesia-grl && bibtex moho-indonesia-grl && pdflatex moho-indonesia-grl && pdflatex moho-indonesia-grl
 pdflatex moho-indonesia-grl-si && bibtex moho-indonesia-grl-si && pdflatex moho-indonesia-grl-si && pdflatex moho-indonesia-grl-si
 ```
+
+The main text now shows the key equations as numbered displays: the gravity
+disturbance (1), the tesseroid radial attraction (2), the regularised goal
+function (3) and the Bott update (4).
 
 Local proof-compiling **without** the AGU classes: replace `\documentclass{agujournal2019}`
 with `\documentclass[11pt]{article}` plus stubs for `\journalname`, `\authors`,

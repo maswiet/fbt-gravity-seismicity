@@ -27,9 +27,15 @@
 \title{Weighing the Crust of Indonesia: A Continuous Moho From Satellite Gravity,
 Validated Against Seismic Estimates and Global Models}
 
-\authors{Muhammad Zuhdi\affil{1}, Sudarmaji\affil{1}, and Wiwit Suryanto\affil{1}}
+% [ADD NAMES] Insert the seismology-group co-authors below (replace the two
+% bracketed placeholders); reorder as you wish. If they share the Geophysics
+% Laboratory address, change their \affil{2} to \affil{1} and delete affiliation 2.
+\authors{Muhammad Zuhdi\affil{1}, Sudarmaji\affil{1},
+[Co-author~1]\affil{2}, [Co-author~2]\affil{2}, and Wiwit Suryanto\affil{1,2}}
 \affiliation{1}{Geophysics Laboratory, Department of Physics, Universitas Gadjah
 Mada, Sekip Utara PO BOX BLS 21, Yogyakarta 55281, Indonesia}
+\affiliation{2}{Seismology Research Group, Department of Physics, Universitas Gadjah
+Mada, Yogyakarta 55281, Indonesia}
 \correspondingauthor{Wiwit Suryanto}{ws@ugm.ac.id}
 
 \begin{keypoints}
@@ -112,30 +118,54 @@ Java, 50 in eastern Indonesia, none offshore; Table~S1,
 Figure~\ref{fig:compare}a). The most comprehensive comparable compilation is
 \citeA{zhang2023}.
 
-The gravity disturbance is $\delta = g - \gamma$, i.e.\ the GOCO06s gravity minus
-the closed-form WGS84 normal gravity, and retains only the effect of anomalous
-masses. We forward model every mass effect with tesseroids (spherical prisms) that
-honour Earth curvature \cite{uieda2016}. Removing the topographic and bathymetric
-effect (land density $2670$, ocean contrast $-1640$~kg\,m$^{-3}$) leaves the
-Bouguer disturbance, the inversion input. The anomalous Moho is one tesseroid per
-grid cell between the reference depth $z_{\mathrm{ref}}$ and the true depth $z_k$,
-with contrast $-\Delta\rho$ where the Moho is deeper than $z_{\mathrm{ref}}$ and
-$+\Delta\rho$ where shallower \cite{uieda2017}.
+The gravity disturbance is the observed field minus the closed-form WGS84 normal
+gravity,
+\begin{equation}
+\delta(P) = g(P) - \gamma(P),
+\label{eq:disturbance}
+\end{equation}
+so that it retains only the effect of masses anomalous with respect to the
+reference ellipsoid. Every mass effect is forward modelled with tesseroids
+(spherical prisms) that honour Earth curvature \cite{uieda2016}: a tesseroid of
+density $\rho$ produces at the computation point $P=(r_P,\phi_P,\lambda_P)$ the
+radial attraction
+\begin{equation}
+g_z(P) = G\rho \int_{\lambda_1}^{\lambda_2}\!\!\int_{\phi_1}^{\phi_2}\!\!
+\int_{r_1}^{r_2}\frac{(r_P-r\cos\psi)\,r^{2}\cos\phi}{\ell^{3}}
+\;dr\,d\phi\,d\lambda,
+\label{eq:tesseroid}
+\end{equation}
+with $\ell=(r_P^{2}+r^{2}-2r_Pr\cos\psi)^{1/2}$ and
+$\cos\psi=\sin\phi_P\sin\phi+\cos\phi_P\cos\phi\cos(\lambda-\lambda_P)$, evaluated
+by Gauss--Legendre quadrature \cite{uieda2016}. Removing the topographic and
+bathymetric effect (land density $2670$, ocean contrast $-1640$~kg\,m$^{-3}$)
+leaves the Bouguer disturbance, our data vector $\mathbf{d}^{o}$. The anomalous Moho
+is one tesseroid per grid cell between the reference depth $z_{\mathrm{ref}}$ and
+the true depth $z_k$ (the unknowns $\mathbf{p}$), with contrast $-\Delta\rho$ where
+the Moho is deeper than $z_{\mathrm{ref}}$ and $+\Delta\rho$ where shallower
+\cite{uieda2017}.
 
-We minimise the regularised goal function
-$\Gamma(\mathbf{p}) = \|\mathbf{d}^{o}-\mathbf{d}(\mathbf{p})\|^{2}
- + \mu\,\|\mathbf{R}\mathbf{p}\|^{2}$,
-where $\mathbf{p}$ are the Moho depths, $\mathbf{R}$ the first-difference operator
-and $\mu$ the regularisation weight. Following \citeA{bott1960} and
-\citeA{silva2014}, the dense Jacobian is replaced by the diagonal Bouguer-plate
-form $\mathbf{A}=-2\pi G\,\Delta\rho\,\mathbf{I}$ (the minus sign expressing that a
+We estimate $\mathbf{p}$ by minimising the regularised goal function
+\begin{equation}
+\Gamma(\mathbf{p}) = \big\|\mathbf{d}^{o}-\mathbf{d}(\mathbf{p})\big\|^{2}
+ + \mu\,\big\|\mathbf{R}\mathbf{p}\big\|^{2},
+\label{eq:goal}
+\end{equation}
+where $\mathbf{R}$ is the first-difference operator and $\mu$ the regularisation
+weight. Following \citeA{bott1960} and \citeA{silva2014}, the dense Jacobian is
+replaced by the diagonal Bouguer-plate form
+$\mathbf{A}=-2\pi G\,\Delta\rho\,\mathbf{I}$ (the minus sign expressing that a
 deeper Moho lowers gravity), so each Gauss--Newton step solves a sparse, constant,
-symmetric-positive-definite system; depths are clipped to 3--70~km and iterated to
-convergence. For $\mu=0$ this reduces to the classical Bott update
-$\Delta z_j = [d^{o}_j - d_j]/(2\pi G\Delta\rho)$. The three hyperparameters are set
-in two steps \cite{uieda2017}: $\mu$ by hold-out cross-validation, then
-$(z_{\mathrm{ref}},\Delta\rho)$ against the seismic Moho (Figure~S2). The full
-equations, diagnostics and sediment test are in Text~S1 and Figures~S1--S2.
+symmetric-positive-definite system. Depths are clipped to 3--70~km and iterated to
+convergence; for $\mu=0$ this reduces to the classical Bott update,
+\begin{equation}
+\Delta z_j = \frac{d^{o}_j - d_j(\mathbf{p})}{2\pi G\,\Delta\rho}.
+\label{eq:bott}
+\end{equation}
+The three hyperparameters are set in two steps \cite{uieda2017}: $\mu$ by hold-out
+cross-validation, then $(z_{\mathrm{ref}},\Delta\rho)$ against the seismic Moho
+(Figure~S2). Full derivations, diagnostics and a sediment test are in Text~S1 and
+Figures~S1--S2.
 
 \section{Results}
 Cross-validation selects $\mu=10^{-10}$, i.e.\ an essentially unregularised
@@ -253,21 +283,21 @@ authors declare no competing interests.
 % Figures (4) + Table (1) = 5 publication units
 % ---------------------------------------------------------------------------
 \begin{figure}
-\centering\includegraphics[width=\textwidth]{../figures/moho/moho_full_clean.png}
+\centering\includegraphics[width=\textwidth]{./figures/moho_full_clean.png}
 \caption{Estimated Moho depth of Indonesia from GOCO06s satellite gravity, with the
 105 seismic stations (dots) and depth contours (35-km contour in white).}
 \label{fig:moho}
 \end{figure}
 
 \begin{figure}
-\centering\includegraphics[width=0.8\textwidth]{../figures/moho/validation_seismic.png}
+\centering\includegraphics[width=0.8\textwidth]{./figures/validation_seismic.png}
 \caption{Moho residual (estimated $-$ seismic) at the 105 stations: (a) map,
 (b) histogram (mean $+1.2$, std $5.8$~km).}
 \label{fig:validation}
 \end{figure}
 
 \begin{figure}
-\centering\includegraphics[width=\textwidth]{../figures/moho/scatter_vandermeijde.png}
+\centering\includegraphics[width=\textwidth]{./figures/scatter_vandermeijde.png}
 \caption{Depth--depth comparison (after \citeA{vandermeijde2013}): open circles
 against the 1:1 line, with $\pm6$~km (black dashed) and $\pm12$~km (red dashed)
 deviation bands; inset: bias, RMS, per cent within $\pm6$/$\pm12$~km and slope.
@@ -281,7 +311,7 @@ grid-to-grid, this study tracks CRUST1.0 (slope 0.78) and shares GEMMA's pattern
 \end{figure}
 
 \begin{figure}
-\centering\includegraphics[width=\textwidth]{../figures/moho/compare_global_models.png}
+\centering\includegraphics[width=\textwidth]{./figures/compare_global_models.png}
 \caption{(a) The 105 RF stations coloured by seismic Moho depth. (b) This study
 $-$ CRUST1.0: agreement within $\pm5$~km inland, deeper only along the Sunda--Java
 trench. (c) This study $-$ GEMMA: our model is 5--10~km deeper almost everywhere,

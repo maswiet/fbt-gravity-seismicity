@@ -47,3 +47,6 @@ manuscript/*.out
 manuscript/*.synctex.gz
 manuscript/*.fls
 manuscript/*.fdb_latexmk
+
+# Figure copies for the submission folder (source of truth: figures/moho/)
+manuscript/figures/
