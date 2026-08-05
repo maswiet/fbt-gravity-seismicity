@@ -1,0 +1,147 @@
+% ============================================================================
+% Supporting Information for the GRL manuscript
+% Requires agutexSI2019.cls (AGU LaTeX template zip / Overleaf AGU gallery).
+% The AGU SI class automatically prefixes figure/table numbers with "S".
+% Compile: pdflatex -> bibtex -> pdflatex -> pdflatex
+% ============================================================================
+\documentclass{agutexSI2019}
+\usepackage{url}
+\usepackage{longtable}
+
+\title{Supporting Information for ``The Moho of Indonesia from Satellite Gravity:
+A Fast Spherical Inversion Validated Against Seismic Estimates and Global Crustal
+Models''}
+
+\authors{Muhammad Zuhdi\affil{1}, Sudarmaji\affil{1}, and Wiwit Suryanto\affil{1}}
+\affiliation{1}{Geophysics Laboratory, Department of Physics, Universitas Gadjah
+Mada, Yogyakarta 55281, Indonesia}
+\correspondingauthor{Wiwit Suryanto}{ws@ugm.ac.id}
+
+\begin{document}
+
+\noindent\textbf{Contents of this file}
+\begin{enumerate}
+\item Text S1
+\item Figures S1 to S4
+\item Tables S1 to S2
+\end{enumerate}
+
+\noindent\textbf{Introduction.} This Supporting Information gives the full forward
+and inverse formulation (Text~S1), the gravity data-reduction chain and
+hyperparameter diagnostics (Figures~S1--S2), the regional Moho maps with tectonic
+overlays (Figures~S3--S4), the receiver-function (RF) validation compilation
+(Table~S1) and the resolution/gravity-source test (Table~S2).
+
+% ---------------------------------------------------------------------------
+\section*{Text S1. Forward model, inversion and sediment test}
+
+\textbf{Forward model.} A tesseroid bounded by $[\lambda_1,\lambda_2]$,
+$[\phi_1,\phi_2]$, $[r_1,r_2]$ of density $\rho$ produces at
+$P=(r_P,\phi_P,\lambda_P)$ the radial attraction
+\[
+g_z(P) = G\rho \int_{\lambda_1}^{\lambda_2}\!\!\int_{\phi_1}^{\phi_2}\!\!
+\int_{r_1}^{r_2}\frac{(r_P-r\cos\psi)\,r^2\cos\phi}{\ell^{3}}\,dr\,d\phi\,d\lambda,
+\]
+with $\ell=(r_P^2+r^2-2r_Pr\cos\psi)^{1/2}$ and
+$\cos\psi=\sin\phi_P\sin\phi+\cos\phi_P\cos\phi\cos(\lambda-\lambda_P)$; it is
+evaluated by Gauss--Legendre quadrature with the adaptive discretization of Uieda
+et al.\ (2016). The anomalous Moho is $M$ juxtaposed tesseroids (one per grid
+cell) between $R-z_{\mathrm{ref}}$ and $R-z_k$, so the predicted gravity is the
+nonlinear map $d_i(\mathbf{p})=\sum_k g_z^{(k)}(P_i;z_k)$.
+
+\textbf{Inversion.} We minimise
+$\Gamma(\mathbf{p})=\|\mathbf{d}^{o}-\mathbf{d}(\mathbf{p})\|^2+\mu\|\mathbf{R}\mathbf{p}\|^2$
+by Gauss--Newton. The perturbation solves
+$(\mathbf{A}^T\mathbf{A}+\mu\mathbf{R}^T\mathbf{R})\Delta\mathbf{p}
+=\mathbf{A}^T[\mathbf{d}^{o}-\mathbf{d}(\mathbf{p})]-\mu\mathbf{R}^T\mathbf{R}\mathbf{p}$,
+with the diagonal Bouguer-plate Jacobian $\mathbf{A}=-2\pi G\,\Delta\rho\,\mathbf{I}$
+(Bott, 1960; Silva et al., 2014). Then $\mathbf{A}^T\mathbf{A}=(2\pi
+G\Delta\rho)^2\mathbf{I}$ is constant and the system is sparse, symmetric
+positive-definite, factorised once and back-substituted each iteration; depths are
+clipped to 3--70~km and iterated until the RMS-misfit change falls below 0.15~km
+(typically 15--20 iterations).
+
+\textbf{Sediment test.} Removing the CRUST1.0 sediment effect (sediment thickness
+0--8.7~km; effect $-3$ to $-191$~mGal) did not improve the fit to the seismic Moho
+(mean $-1.6$, std 6.4~km), because the land-biased validation stations sit where
+CRUST1.0 sediments are thin. A correction built from station RF sediment
+thicknesses over-corrected --- the western Moho, already near-zero-bias without any
+sediment correction, was pushed $\sim2$~km too shallow --- because those
+thicknesses ($\sim2$~km, point-sampled) miss the basin depocentres. Sediments are
+thus a minor effect at the validation points.
+
+% ---------------------------------------------------------------------------
+\clearpage
+\begin{figure}
+\centering\includegraphics[width=\textwidth]{../figures/moho/processing_chain.png}
+\caption{Gravity data-reduction chain: (a) gravity disturbance, (b)
+topography/bathymetry, (c) topographic effect, (d) Bouguer disturbance, (e)
+CRUST1.0 sediment effect, (f) sediment-free Bouguer disturbance (inversion input).}
+\label{fig:s1}
+\end{figure}
+
+\begin{figure}
+\centering\includegraphics[width=0.8\textwidth]{../figures/moho/hyperparameters.png}
+\caption{Hyperparameter diagnostics. (a) $\mu$ hold-out cross-validation.
+(b) $(z_{\mathrm{ref}},\Delta\rho)$ validation-MSE surface; the triangle marks the
+adopted $z_{\mathrm{ref}}=35$~km, $\Delta\rho=500$~kg\,m$^{-3}$. The minimum is
+broad and the misfit decreases monotonically with $\Delta\rho$.}
+\label{fig:s2}
+\end{figure}
+
+\begin{figure}
+\centering\includegraphics[width=\textwidth]{../figures/moho/moho_west.png}
+\caption{Western Indonesia: Moho depth with the trench, active faults, fold axes
+and Holocene volcanoes.}
+\label{fig:s3}
+\end{figure}
+
+\begin{figure}
+\centering\includegraphics[width=\textwidth]{../figures/moho/moho_east.png}
+\caption{Eastern Indonesia (as Figure~S3): the Sulawesi--Banda--Papua collision
+belt and the northern-Australia AusMoho overlap zone.}
+\label{fig:s4}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\clearpage
+\begin{table}
+\caption{Difference between estimated and seismic Moho ($N=105$) by gravity source
+and grid (resolution test).}
+\label{tab:s2}
+\centering
+\begin{tabular}{llcc}
+\hline
+Gravity source & Grid & Mean (km) & Std (km)\\
+\hline
+GOCO06s (satellite) & $0.5^{\circ}$  & $+1.1$ & 5.8\\
+Altimetry           & $0.5^{\circ}$  & $+1.4$ & 6.0\\
+GOCO06s (satellite) & $0.25^{\circ}$ & $+3.2$ & 8.0\\
+Altimetry           & $0.25^{\circ}$ & $+0.9$ & 6.9\\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+% Table S1: the 105-point RF compilation.
+% Generated locally by moho_indonesia/make_supp_table_s1.py (reads the third-party
+% Depth_Moho.txt). The generated file supp_table_s1.tex is gitignored so the raw
+% compilation is not published before provenance/authorship is finalised; add the
+% per-station Source column before submission.
+\clearpage
+\IfFileExists{supp_table_s1.tex}{\input{supp_table_s1.tex}}{%
+\begin{table}
+\caption{Receiver-function Moho compilation ($N=105$): station, longitude,
+latitude, depth and source. [Generated by make\_supp\_table\_s1.py; add the Source
+column before submission.]}
+\label{tab:s1}
+\centering\begin{tabular}{lcccl}
+\hline
+Station & Lon ($^{\circ}$E) & Lat ($^{\circ}$) & Depth (km) & Source\\
+\hline
+\multicolumn{5}{c}{\textit{[105 rows inserted at build time]}}\\
+\hline
+\end{tabular}
+\end{table}}
+
+\end{document}

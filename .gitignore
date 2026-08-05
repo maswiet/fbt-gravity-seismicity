@@ -33,3 +33,6 @@ node_modules/
 .brain/raw/**/*.docx
 .brain/raw/**/*.pptx
 .brain/raw/**/*.epub
+
+# Generated RF compilation table (third-party data — keep local until release)
+manuscript/supp_table_s1.tex
