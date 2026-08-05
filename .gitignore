@@ -36,3 +36,14 @@ node_modules/
 
 # Generated RF compilation table (third-party data — keep local until release)
 manuscript/supp_table_s1.tex
+
+# LaTeX build artifacts
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.dvi
+manuscript/*.bbl
+manuscript/*.blg
+manuscript/*.out
+manuscript/*.synctex.gz
+manuscript/*.fls
+manuscript/*.fdb_latexmk

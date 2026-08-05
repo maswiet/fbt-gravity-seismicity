@@ -88,16 +88,32 @@ def main():
 
     palette = {"This study (gravity)": ("#c0392b", "o"),
                "CRUST1.0": ("#2f6db0", "s"), "GEMMA": ("#e08a1e", "^")}
-    # ---- Fig: depth-depth scatter (all models vs seismic) ----
+    # ---- Fig: depth-depth scatter (all models vs seismic) + regression + bin means ----
+    ours_ok = np.isfinite(ours)
+    slope, intercept = np.polyfit(sdep[ours_ok], ours[ours_ok], 1)   # OLS: model on seismic
+    print(f"This-study OLS fit: slope={slope:.2f}, intercept={intercept:.1f} km "
+          f"(slope<1 => amplitude compression)")
+    edges = np.array([20, 25, 30, 35, 41])
+    bctr, bmean, bstd = [], [], []
+    for a, b in zip(edges[:-1], edges[1:]):
+        m = (sdep >= a) & (sdep < b) & ours_ok
+        if m.sum():
+            bctr.append(sdep[m].mean()); bmean.append(ours[m].mean()); bstd.append(ours[m].std())
+
     fig, ax = plt.subplots(figsize=(6, 6))
-    ax.plot([5, 60], [5, 60], "k--", lw=1, zorder=0)
+    ax.plot([5, 60], [5, 60], "k--", lw=1, zorder=0, label="1:1")
     for name, est in models.items():
         c, m = palette.get(name, ("gray", "o"))
-        ax.scatter(sdep, est, s=30, c=c, edgecolor="k", lw=0.3, marker=m, alpha=0.85,
+        ax.scatter(sdep, est, s=26, c=c, edgecolor="k", lw=0.25, marker=m, alpha=0.55,
                    label=f"{name.replace(' (gravity)','')} (r={corr[name]:.2f})")
+    xr_ = np.array([18, 42])
+    ax.plot(xr_, slope * xr_ + intercept, "-", color="#7a0f0f", lw=2.2, zorder=5,
+            label=f"This-study fit (slope {slope:.2f})")
+    ax.errorbar(bctr, bmean, yerr=bstd, fmt="o", ms=9, color="k", mfc="#c0392b",
+                mec="k", lw=1.4, capsize=3, zorder=6, label="This study, binned mean")
     ax.set(xlim=[5, 60], ylim=[5, 60], xlabel="Seismic Moho depth (km)",
            ylabel="Model Moho depth (km)", title="Model vs seismic Moho (N = 105)")
-    ax.legend(frameon=False, loc="upper left"); ax.set_aspect("equal")
+    ax.legend(frameon=False, loc="upper left", fontsize=9); ax.set_aspect("equal")
     fig.tight_layout(); fig.savefig(C.FIGURES / "scatter_vs_seismic.png", dpi=170)
 
     # ---- Fig: validation points + difference-from-CRUST1.0 + difference-from-GEMMA ----

@@ -292,10 +292,22 @@ by a mean of $+1.2$~km and a standard deviation of $5.8$~km
 (Fig.~\ref{fig:validation}), comparable to the South American result. Robust
 statistics confirm this: the median difference is $+1.2$~km, the interquartile
 range $6.9$~km, and $63\%$ and $89\%$ of stations fall within $\pm5$ and
-$\pm10$~km, respectively (no points were excluded as outliers). The correlation
-against the seismic depths is modest ($r=0.28$) because the RF depths span only a
-narrow $20$--$40$~km range and are spatially clustered, which compresses the
-dynamic range available to the correlation coefficient.
+$\pm10$~km, respectively (no points were excluded as outliers). This scatter is
+comparable to the identical method in South America ($6.8$~km; \citealt{uieda2017})
+and to the seismically referenced {CRUST1.0} at these same stations ($5.3$~km;
+Table~\ref{tab:compare}); gravity Moho models routinely differ from seismic and from one
+another by $4$--$8$~km \citep{vandermeijde2013,reguzzoni2015}. The point
+correlation is modest ($r=0.28$) for two reasons. First, the RF depths span only a
+narrow $20$--$40$~km range and are spatially clustered, compressing the dynamic
+range available to the correlation coefficient. Second, and more physically, the
+model shows a resolution-driven \emph{amplitude compression}: an
+ordinary-least-squares fit of estimated on seismic depth has a slope of only
+$0.20$ (intercept $25$~km; Fig.~\ref{fig:scatter}), so the smooth $\sim67$~km
+satellite-gravity field overestimates the thinnest crust and underestimates the
+thickest, while still tracking the mean trend (binned-mean $r=0.94$). The
+grid-to-grid {AusMoho} comparison (Section~5), which compares like with like, is a
+fairer test and yields $r=0.86$, confirming that the low point-wise $r$ largely
+reflects the test rather than the model.
 
 \textbf{Resolution.} Refining the grid to $0.25^{\circ}$ with {GOCO06s} does not
 improve the seismic fit because the satellite signal does not support finer
@@ -483,9 +495,12 @@ contours (35-km contour in white).}
 \begin{figure}
 \centering\includegraphics[width=\columnwidth]{scatter_vs_seismic.png}
 \caption{Depth--depth comparison of estimated against seismic Moho at the 105 RF
-stations for this study, {CRUST1.0} and {GEMMA} (dashed $1{:}1$ line). This study
-and {CRUST1.0} scatter about the line; {GEMMA} lies systematically below it (too
-shallow). Correlations are given in the legend and Table~\ref{tab:compare}.}
+stations for this study, {CRUST1.0} and {GEMMA} (dashed $1{:}1$ line). The solid
+line is the ordinary-least-squares fit to this study (slope $0.20$) and the large
+circles are binned means ($\pm1\sigma$): the model tracks the mean trend but
+compresses the amplitude, a resolution effect of the smooth satellite gravity.
+This study and {CRUST1.0} scatter about the line; {GEMMA} lies systematically below
+it (too shallow). Correlations are in the legend and Table~\ref{tab:compare}.}
 \label{fig:scatter}
 \end{figure}
 
