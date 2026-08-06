@@ -285,8 +285,13 @@ inversion.
 % ============================================================================
 \section{Results}
 % ============================================================================
-\textbf{Calibrated hyperparameters.} Cross-validation selects $\mu=10^{-10}$
-(essentially unregularized). The $(z_{\mathrm{ref}},\Delta\rho)$ validation
+\textbf{Calibrated hyperparameters.} The regularization weight $\mu$ sets how much
+smoothing the inversion imposes: a larger $\mu$ yields a smoother Moho at the cost
+of fitting the gravity data less closely. Hold-out cross-validation --- which keeps
+the $\mu$ that best predicts gravity values withheld from the fit --- returns a very
+small weight ($\mu=10^{-10}$), i.e.\ the satellite data are themselves informative
+enough to constrain the Moho with essentially no imposed smoothing. The
+$(z_{\mathrm{ref}},\Delta\rho)$ validation
 surface (Fig.~\ref{fig:hyper}) has a broad, flat minimum, and the seismic misfit
 \emph{decreases monotonically with increasing $\Delta\rho$}: the raw argmin runs
 away to unphysical contrasts ($>600$~kg\,m$^{-3}$). This reflects the

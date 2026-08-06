@@ -210,8 +210,13 @@ thus controls the absolute level; it is not an input to the gravity inversion. F
 derivations, diagnostics and a sediment test are in Text~S1 and Figures~S1--S2.
 
 \section{Results}
-Cross-validation selects $\mu=10^{-10}$, i.e.\ an essentially unregularised
-inversion. The seismic misfit decreases monotonically with $\Delta\rho$ --- a
+The regularisation weight $\mu$ sets how much smoothing the inversion imposes: a
+larger $\mu$ forces a smoother Moho at the cost of fitting the gravity data less
+closely. Hold-out cross-validation --- which keeps the $\mu$ that best predicts
+gravity values withheld from the fit --- returns a very small weight
+($\mu=10^{-10}$), meaning the satellite data are themselves informative enough to
+constrain the Moho with essentially no imposed smoothing. The seismic misfit, in
+turn, decreases monotonically with $\Delta\rho$ --- a
 density--depth trade-off whose raw minimum runs to unphysical contrasts --- but the
 fit is only weakly sensitive over the physical range: at $z_{\mathrm{ref}}=35$~km
 the RMS is 6.2, 6.0, 5.9 and 5.8~km at $\Delta\rho=400,450,500,600$~kg\,m$^{-3}$. We
