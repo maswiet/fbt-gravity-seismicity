@@ -1,9 +1,10 @@
-# The Moho of Indonesia from Satellite Gravity: a fast spherical Bott–Tikhonov inversion validated against seismic estimates
+# Moho Depth Variation Across Indonesia from Seismically Constrained Satellite Gravity
 
-**Authors:** Muhammad Zuhdi¹, Sudarmaji¹, Wiwit Suryanto¹,\*
+**Authors:** Muhammad Zuhdi¹, Sudarmaji¹, Ade Anggraini², Herlan Darmawan², Theodorus Permana², Wiwit Suryanto¹,²,\*
 
-¹ Geophysics Laboratory, Universitas Gadjah Mada, Sekip Utara PO BOX BLS 21, Yogyakarta 55281, Indonesia
-\* Corresponding author: Wiwit Suryanto ([email])
+¹ Geophysics Laboratory, Department of Physics, Universitas Gadjah Mada, Sekip Utara PO BOX BLS 21, Yogyakarta 55281, Indonesia
+² Seismology Research Group, Department of Physics, Universitas Gadjah Mada, Yogyakarta 55281, Indonesia
+\* Corresponding author: Wiwit Suryanto (ws@ugm.ac.id)
 
 **Status:** DRAFT for internal review — v0.2 (2026-07-30). Not for submission.
 
