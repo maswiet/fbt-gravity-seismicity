@@ -78,34 +78,57 @@ GEMMA, which is about seven kilometres too shallow here. The result is a
 continuous, openly available Moho map for the region.
 
 \section{Introduction}
-The depth of the Mohorovi\v{c}i\'{c} discontinuity (Moho), the boundary between
-crust and mantle, is a first-order constraint on lithospheric structure, isostasy
-and geodynamics. In a region as complex as Indonesia --- where the Indo-Australian,
-Sunda, Philippine Sea and Pacific plates interact through subduction, collision and
-back-arc spreading --- the Moho varies strongly over short distances. Seismic
-methods give the most direct estimates, but they sense the crust only beneath
-stations, which in Indonesia are concentrated on land and along the volcanic arc
-\cite{zhang2023}. As a result, most of the archipelago, and all of its seas, remain
-uncharted.
+The Mohorovi\v{c}i\'{c} discontinuity (Moho) marks the base of the crust, where
+the P-wave velocity increases from $\sim$6.5--7 to $\sim$8~km\,s$^{-1}$ and the
+density from $\sim$2.8--2.9 to $\sim$3.3~Mg\,m$^{-3}$. Its depth --- the crustal
+thickness --- is a first-order constraint on the isostatic and flexural state of
+the lithosphere and on the tectonic processes that shaped it \cite{watts2001}. It
+is also of practical necessity: the crustal velocity model that hinges on Moho
+depth underlies earthquake location, magnitude estimation and seismic-hazard
+assessment. A continuous, accurate Moho is thus a foundational dataset --- and
+across Indonesia it is largely missing.
 
-Where local data are missing, two global models are commonly used. CRUST1.0
+Indonesia is among the most tectonically complex regions on Earth, at the junction
+of the Indo-Australian, Sunda (Eurasian), Philippine Sea and Pacific plates
+\cite{hamilton1979,hall2002}. Oceanic Indo-Australian lithosphere subducts along
+the Sunda trench beneath Sumatra and Java; farther east the Australian continental
+margin collides with the Banda arc, whose sharply curved geometry reflects slab
+rollback \cite{spakman2010}; Sulawesi and Papua record collision and ophiolite
+emplacement; and back-arc and marginal basins --- the Banda, Celebes and Java seas
+and the Makassar Strait --- floor much of the region. Across these settings the
+Moho ranges from $\sim$10~km beneath the oceanic basins to more than 40~km beneath
+the arcs and collision belts, often within a few tens of kilometres. Seismic
+methods --- receiver-function $Ps$ conversions and $H$--$\kappa$ stacking
+\cite{zhu2000}, active-source refraction and ambient-noise tomography --- give the
+most direct depths, but they sense the crust only near stations, which in Indonesia
+cluster on land and along the volcanic arc \cite{zhang2023}. As a result, eastern
+Indonesia and essentially all of the intervening seas remain uncharted.
+
+Where local data are absent, two global models are commonly adopted. CRUST1.0
 \cite{laske2013} is a $1^{\circ}$ compilation that, over Indonesia, is interpolated
-from sparse controls; GEMMA \cite{reguzzoni2015,rossi2022} is a $0.5^{\circ}$ Moho
-inverted globally from GOCE gravity under a simplified two-layer density model.
-Neither is tuned to Indonesian data, and both are too coarse to resolve the sharp
-arc and fore-arc contrasts of the archipelago --- indeed, GEMMA is systematically
-$\sim$7~km too shallow at Indonesian stations (Section~4). A dedicated, regionally
-calibrated model is therefore needed.
+from sparse controls; GEMMA \cite{reguzzoni2013,reguzzoni2015,rossi2022} is a
+$0.5^{\circ}$ Moho inverted globally from GOCE gravity gradients under a simplified
+two-layer density parameterisation. Neither is tuned to Indonesian data, and both
+are too coarse to resolve the sharp arc and fore-arc contrasts of the archipelago
+--- indeed, we find GEMMA to be systematically $\sim$7~km too shallow at Indonesian
+seismic stations (Section~4). A dedicated, regionally calibrated model is therefore
+needed.
 
-Gravity offers what seismology lacks here: a continuous, homogeneous sounding that
-senses mass uniformly, onshore and offshore alike. Recovering an interface such as
-the Moho from gravity is a nonlinear, ill-posed problem; \citeA{uieda2017} solved
-it efficiently in \emph{spherical} coordinates by combining Bott's \cite{bott1960}
-iteration, tesseroid forward modelling \cite{uieda2016} and Tikhonov
-regularisation, and applied it to South America. In this work, we transfer that
-method, unchanged in principle, to the whole of Indonesia, and we validate the
-result against an independent seismic compilation, the seismic AusMoho model
-\cite{kennett2011} and the two global models above.
+Gravity supplies what seismology lacks here: a continuous, homogeneous field,
+sensitive to the crust--mantle density contrast and available uniformly onshore and
+offshore from satellite missions such as GOCE and GRACE \cite{kvas2021}. Recovering
+an interface such as the Moho from gravity is, however, nonlinear and non-unique ---
+a given anomaly can be reproduced by trading density contrast against depth --- so
+the inversion must be regularised and anchored to independent data. \citeA{uieda2017}
+solved the forward and inverse problem efficiently in \emph{spherical} coordinates,
+combining Bott's \cite{bott1960} iteration, tesseroid (spherical-prism) forward
+modelling \cite{uieda2016} and first-order Tikhonov regularisation, and applied it
+to the South American Moho. In this work, we transfer that method, unchanged in
+principle, to the whole of Indonesia; we calibrate its three hyperparameters against
+an independent compilation of 105 receiver-function Moho depths, and we validate the
+result against the seismic AusMoho model \cite{kennett2011} along the Australian
+margin and against CRUST1.0 and GEMMA at the seismic stations. The outcome is the
+first continuous, public-data gravity Moho for the archipelago.
 
 \section{Data and Methods}
 We use the satellite-only gravity model GOCO06s \cite{kvas2021}, synthesised to
