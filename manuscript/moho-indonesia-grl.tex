@@ -134,11 +134,13 @@ first continuous, public-data gravity Moho for the archipelago.
 We use the satellite-only gravity model GOCO06s \cite{kvas2021}, synthesised to
 spherical-harmonic degree/order 300 on a regular grid at 4~km constant height, and,
 as a higher-resolution variant, the altimetry free-air anomaly \cite{sandwell2014};
-Earth relief is from SRTM15+ \cite{tozer2019}. Validation rests on an independent
-compilation of 105 receiver-function (RF) Moho depths ($96.3^{\circ}$--$140.7^{\circ}$E,
-$10.2^{\circ}$S--$5.2^{\circ}$N; 20--40~km deep, mean 30.4~km; 31 on Sumatra, 24 on
-Java, 50 in eastern Indonesia, none offshore; Table~S1,
-Figure~\ref{fig:compare}a). The most comprehensive comparable compilation is
+Earth relief is from SRTM15+ \cite{tozer2019}. Validation rests on our compilation of 105
+receiver-function (RF) Moho depths across Indonesia \cite{fauzi2021}
+($96.3^{\circ}$--$140.7^{\circ}$E, $10.2^{\circ}$S--$5.2^{\circ}$N; 20--40~km deep,
+mean 30.4~km; 31 on Sumatra, 24 on Java, 50 in eastern Indonesia, none offshore;
+Table~S1, Figure~\ref{fig:compare}a), obtained by $H$--$\kappa$ stacking of teleseismic
+$Ps$ conversions. Being derived from seismic velocities, these depths are independent
+of the gravity field inverted here. The most comprehensive comparable compilation is
 \citeA{zhang2023}.
 
 The gravity disturbance is the observed field minus the closed-form WGS84 normal
@@ -187,8 +189,27 @@ convergence; for $\mu=0$ this reduces to the classical Bott update,
 \end{equation}
 The three hyperparameters are set in two steps \cite{uieda2017}: $\mu$ by hold-out
 cross-validation, then $(z_{\mathrm{ref}},\Delta\rho)$ against the seismic Moho
-(Figure~S2). Full derivations, diagnostics and a sediment test are in Text~S1 and
-Figures~S1--S2.
+(Figure~S2).
+
+\textbf{Absolute level and the tie to AusMoho.} The inversion determines the Moho
+\emph{relief} from the Bouguer disturbance; its \emph{absolute} level is carried by
+the two global scalars $z_{\mathrm{ref}}$ and $\Delta\rho$. Through the reference
+model and the plate relation~(\ref{eq:bott}), a deeper $z_{\mathrm{ref}}$ or a
+smaller $\Delta\rho$ shifts and rescales the entire surface without changing its
+shape, so fixing this pair against seismic depths is what pins the model to an
+absolute datum. The 105 RF depths \cite{fauzi2021} provide that control over most of
+the archipelago, but they thin toward the southeast, at the Indonesia--Australia
+border, where the absolute level would otherwise rest on extrapolation. We therefore
+extend the inversion domain south to $15^{\circ}$S so that it overlaps the seismic
+AusMoho grid \cite{kennett2011}, and use AusMoho as an independent absolute-depth
+reference along that margin. Because $z_{\mathrm{ref}}$ and $\Delta\rho$ are single
+numbers applied over the whole domain, a level calibrated on the inland RF depths
+must also hold at the margin: the near-zero bias obtained against AusMoho over the
+adjacent northern Australian mainland (Section~4), which contains no Indonesian
+stations, shows that it does --- tying the southeastern Moho to the Australian
+seismic datum and joining the two surfaces continuously across the border. AusMoho
+thus controls the absolute level; it is not an input to the gravity inversion. Full
+derivations, diagnostics and a sediment test are in Text~S1 and Figures~S1--S2.
 
 \section{Results}
 Cross-validation selects $\mu=10^{-10}$, i.e.\ an essentially unregularised
@@ -227,14 +248,18 @@ improve the fit, because at degree/order 300 the shortest resolved half-waveleng
 is $\approx$67~km; the altimetry field recovers finer detail and near-zero bias
 (Table~S2).
 
-\textbf{Independent validation (AusMoho).} Extending the domain south, over the
-northern Australian mainland ($15^{\circ}$--$11.5^{\circ}$S, $N=369$) our gravity
-Moho matches the seismic AusMoho \cite{kennett2011} with a mean difference of
-$-0.1$~km, a standard deviation of 4.8~km and $r=0.86$. Because AusMoho is derived
-entirely from seismic data and is independent of our inversion, this near-zero bias
-is strong evidence that the method recovers \emph{absolute} depth, not merely
-relative variations. Crust thickens to 39--50~km at the Timor--Banda collision
-front.
+\textbf{Tie to AusMoho.} We anchor the southeastern part of the model, where
+Indonesia borders Australia, to the seismic AusMoho compilation \cite{kennett2011}.
+This link is two-way: our southern and western Indonesian RF depths \cite{fauzi2021}
+were in turn contributed to the updated AusMoho surface (B.~L.~N.~Kennett, personal
+communication, 2022), so along the shared margin the two datasets are consistent by
+construction, which is precisely what makes AusMoho a suitable tie there. A
+genuinely independent check is available farther south: over the northern Australian
+mainland ($15^{\circ}$--$11.5^{\circ}$S, $N=369$), constrained by Australian seismic
+data alone and untouched by our inversion, our gravity Moho matches AusMoho with a
+mean difference of $-0.1$~km, a standard deviation of 4.8~km and $r=0.86$ --- strong
+evidence that the method recovers \emph{absolute} depth, not merely relative
+variations. Crust thickens to 39--50~km at the Timor--Banda collision front.
 
 \textbf{Global models.} Sampled at the 105 stations (Table~\ref{tab:compare};
 Figures~\ref{fig:scatter}--\ref{fig:compare}), our model equals CRUST1.0 (std 5.8

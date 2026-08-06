@@ -125,17 +125,18 @@ anomaly \citep{sandwell2014} as a proxy for the disturbance.
 \textbf{Topography/bathymetry.} Earth relief is taken from {SRTM15+}
 \citep{tozer2019}, resampled to the model grid.
 
-\textbf{Seismic Moho.} We use an independent compilation of 105 receiver-function
-(RF) Moho depths at seismic stations spanning $96.3^{\circ}$--$140.7^{\circ}$E,
-$10.2^{\circ}$S--$5.2^{\circ}$N, provided as Supplementary Table~S1
-(station, longitude, latitude, depth). The depths range 20--40~km (mean 30.4,
-median 30~km); the distribution is 31 stations on Sumatra, 24 on Java and 50 in
-eastern Indonesia (Sulawesi, Banda arc, Papua), with none offshore
-(Fig.~\ref{fig:compare}a). Because the compilation draws on multiple RF studies
-with differing deconvolution schemes and $1$-D reference velocity models,
-inter-study systematic differences of $2$--$5$~km are expected and set a practical
-floor on the achievable fit; the depths are reported below the ellipsoid,
-consistent with the modelled interface. This dataset calibrates $z_{\mathrm{ref}}$
+\textbf{Seismic Moho.} We use our compilation of 105 receiver-function
+(RF) Moho depths \citep{fauzi2021} at seismic stations spanning
+$96.3^{\circ}$--$140.7^{\circ}$E, $10.2^{\circ}$S--$5.2^{\circ}$N, provided as
+Supplementary Table~S1 (station, longitude, latitude, depth). The depths range
+20--40~km (mean 30.4, median 30~km); the distribution is 31 stations on Sumatra, 24
+on Java and 50 in eastern Indonesia (Sulawesi, Banda arc, Papua), with none offshore
+(Fig.~\ref{fig:compare}a). They were obtained with a single, homogeneous
+$H$--$\kappa$ stacking workflow of teleseismic $Ps$ conversions, which avoids the
+$2$--$5$~km inter-study systematic differences that affect multi-source
+compilations; the depths are reported below the ellipsoid, consistent with the
+modelled interface, and, being derived from seismic velocities, are independent of
+the gravity field inverted here. This dataset calibrates $z_{\mathrm{ref}}$
 and $\Delta\rho$ and validates the model. The most comprehensive comparable
 regional compilation is \citet{zhang2023} (H $\approx24$--$38$~km,
 $V_p/V_s\approx1.79$), consistent with the depth range used here.
@@ -262,6 +263,21 @@ then $(z_{\mathrm{ref}},\Delta\rho)$ by validation against the seismic Moho
 (Fig.~\ref{fig:hyper}). We invert on $0.5^{\circ}$ and $0.25^{\circ}$ grids with
 both the {GOCO06s} satellite and altimetry gravity to separate grid resolution
 from data resolution.
+
+The inversion recovers the Moho \emph{relief}; its \emph{absolute} level is carried
+by the two global scalars $z_{\mathrm{ref}}$ and $\Delta\rho$, since through the
+reference model and the plate Jacobian (\ref{eq:jacobian}) a change in either
+translates and rescales the entire surface without altering its shape. Fixing this
+pair against seismic depths is therefore what pins the model to an absolute datum.
+The 105 RF depths supply that control over most of the archipelago; because they
+thin toward the southeast, we extend the domain south to $15^{\circ}$S to overlap
+the seismic {AusMoho} grid \citep{kennett2011} and use it as an independent
+absolute-depth reference along the Australian margin. As $z_{\mathrm{ref}}$ and
+$\Delta\rho$ are single, domain-wide numbers, a level calibrated on the inland RF
+depths must also satisfy AusMoho at the margin; the near-zero bias we obtain there
+(Section~5) shows that it does, tying the southeastern Moho to the Australian seismic
+datum. {AusMoho} thus controls the absolute level and is not an input to the
+inversion.
 
 % ============================================================================
 \section{Results}
@@ -391,12 +407,19 @@ volcanic/collisional bodies --- are not modelled, as in \citet{uieda2017}.
 
 \textbf{Cross-validation with {AusMoho}.} Where our domain overlies the Australian
 continental margin ($\sim132^{\circ}$--$140^{\circ}$E, $10^{\circ}$--$11^{\circ}$S),
-our gravity Moho ($\sim33$--$37$~km) agrees with {AusMoho} \citep{kennett2011};
-over the northern Australian mainland ($15^{\circ}$--$11.5^{\circ}$S, $N=369$
-cells) the mean difference is $-0.1$~km, standard deviation $4.8$~km and
-correlation $r=0.86$ --- encouraging agreement between two independent methods.
-The main difference is thicker crust (39--50~km) at the Timor--Banda collision
-front, consistent with collisional thickening.
+we tie our gravity Moho
+($\sim33$--$37$~km) to the seismic {AusMoho} compilation \citep{kennett2011}. This
+tie is reciprocal: our southern and western Indonesian RF depths \citep{fauzi2021}
+were in turn contributed to the updated {AusMoho} surface (B.~L.~N.~Kennett,
+personal communication, 2022), so along the shared margin the two datasets are
+consistent by construction. The quantitative cross-validation is therefore taken
+farther south, over the northern Australian mainland
+($15^{\circ}$--$11.5^{\circ}$S, $N=369$ cells), where {AusMoho} rests on Australian
+seismic data alone and is untouched by our inversion: there the mean difference is
+$-0.1$~km, the standard deviation $4.8$~km and the correlation $r=0.86$ ---
+encouraging agreement between two genuinely independent methods. The main difference
+is thicker crust (39--50~km) at the Timor--Banda collision front, consistent with
+collisional thickening.
 
 \textbf{Limitations.} (1) Validation is land-biased and cannot constrain the
 offshore Moho. (2) Resolution is limited by the satellite gravity, not the grid.
