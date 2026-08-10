@@ -4,7 +4,7 @@ marking the ADOPTED (physically reasonable) point rather than the raw argmin.
 
 The seismic misfit decreases monotonically with Delta-rho (a Delta-rho vs z_ref /
 Moho-amplitude trade-off), so the calibration argmin runs away to unphysically
-high Delta-rho; we therefore adopt a physical Delta-rho (500 kg/m^3, cf. Uieda &
+high Delta-rho; we therefore adopt a physical Delta-rho (400 kg/m^3, cf. Uieda &
 Barbosa 2017 ~400) confirmed by the independent AusMoho comparison.
 
 Reads the sweep arrays from `hyperparameters_sweep.npz` if present; otherwise
@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt          # noqa: E402
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import config as C          # noqa: E402
 
-ADOPTED_ZREF, ADOPTED_DRHO = 35.0, 500.0        # physically reasonable, AusMoho-validated
+ADOPTED_ZREF, ADOPTED_DRHO = 35.0, 400.0        # physical crust-mantle contrast (cf. U&B 2017)
 NPZ = C.DATA_PROCESSED / "hyperparameters_sweep.npz"
 
 
@@ -70,7 +70,7 @@ def main(logpath=None):
     # (b) (z_ref, drho) surface — mark the ADOPTED point (inside the frame)
     im = ax2.pcolormesh(zref, drho, mse_surface.T, shading="gouraud", cmap="magma")
     ax2.plot(ADOPTED_ZREF, ADOPTED_DRHO, "^", color="#c0392b", ms=15, mec="k",
-             zorder=6, label="adopted (z_ref=35, Δρ=500)")
+             zorder=6, label="adopted (z_ref=35, Δρ=400)")
     ax2.set(xlabel="Reference level (km)", ylabel="Density contrast (kg m⁻³)",
             title="(b) Validation (Δρ, z_ref)")
     ax2.legend(loc="lower right", fontsize=9, framealpha=0.85)
@@ -79,7 +79,7 @@ def main(logpath=None):
     fig.tight_layout()
     out = C.FIGURES / "hyperparameters.png"
     fig.savefig(out, dpi=170)
-    print("Wrote", out, "| adopted z_ref=35, drho=500 (argmin runs away to high drho)")
+    print("Wrote", out, "| adopted z_ref=35, drho=400 (argmin runs away to high drho)")
 
 
 if __name__ == "__main__":

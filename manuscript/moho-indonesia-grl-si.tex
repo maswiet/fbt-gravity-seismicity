@@ -87,7 +87,7 @@ CRUST1.0 sediment effect, (f) sediment-free Bouguer disturbance (inversion input
 \centering\includegraphics[width=0.8\textwidth]{./figures/hyperparameters.png}
 \caption{Hyperparameter diagnostics. (a) $\mu$ hold-out cross-validation.
 (b) $(z_{\mathrm{ref}},\Delta\rho)$ validation-MSE surface; the triangle marks the
-adopted $z_{\mathrm{ref}}=35$~km, $\Delta\rho=500$~kg\,m$^{-3}$. The minimum is
+adopted $z_{\mathrm{ref}}=35$~km, $\Delta\rho=400$~kg\,m$^{-3}$. The minimum is
 broad and the misfit decreases monotonically with $\Delta\rho$.}
 \label{fig:s2}
 \end{figure}
@@ -115,13 +115,14 @@ Macpherson et al., 2012; Bora et al., 2016; Syuhada \& Anggono, 2016; Anggono et
 al., 2020; Fauzi et al., 2021; Bahri, 2020). The published estimates disagree by up
 to $\sim$21~km at a single station; the gravity value falls within this spread
 except at the deepest-crust southern-Java stations (CISI, CMJI, CNJI), where it is
-$\sim$5~km shallower (amplitude compression).}
+several km shallower (amplitude compression).}
 \label{fig:s5}
 \end{figure}
 
 % ---------------------------------------------------------------------------
 \clearpage
 \begin{table}
+%TODO drho=400: resolution-test numbers below were computed at drho=500; re-run at drho=400 for full consistency.
 \caption{Difference between estimated and seismic Moho ($N=105$) by gravity source
 and grid (resolution test).}
 \label{tab:s2}

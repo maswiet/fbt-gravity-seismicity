@@ -39,7 +39,7 @@ Mada, Yogyakarta 55281, Indonesia}
 \begin{keypoints}
 \item First regionally calibrated, continuous satellite-gravity Moho for the whole
 Indonesian archipelago, from a fast spherical inversion
-\item Fits 105 receiver-function depths to 5.8~km, confirmed out-of-sample by
+\item Fits 105 receiver-function depths to 6.5~km, confirmed out-of-sample by
 cross-validation; absolute level tied to the seismic AusMoho model
 \item Matches CRUST1.0 at the stations while GOCE-only GEMMA is $\sim$7~km too
 shallow, quantifying why global models are inadequate here
@@ -51,11 +51,11 @@ an active region's crust, yet across the Indonesian archipelago it is known only
 from sparse seismic stations. We estimate it from satellite gravity using the
 fast spherical inversion of Uieda and Barbosa (2017), which inverts the anomalous
 Moho with Bott's method under Tikhonov regularisation. We calibrate it against 105
-receiver-function depths. The model fits the seismic Moho to $+1.2\pm5.8$~km,
+receiver-function depths. The model fits the seismic Moho to $+0.6\pm6.5$~km,
 confirmed out-of-sample by cross-validation; the point correlation is modest
-($r=0.28$), limited by the narrow depth range and $\sim$67-km gravity resolution.
+($r=0.24$), limited by the narrow depth range and $\sim$67-km gravity resolution.
 Its absolute level is anchored to the independent seismic AusMoho along the
-Australian margin (bias $-0.1$~km). At the stations the model matches CRUST1.0's fit, whereas GOCE-only
+Australian margin (bias $-1.2$~km). At the stations the model matches CRUST1.0's fit, whereas GOCE-only
 GEMMA is 7.4~km too shallow. The Moho thickens beneath the arcs and collision belts
 and thins beneath the marginal basins, tracking the region's tectonics.
 \end{abstract}
@@ -225,28 +225,30 @@ turn, decreases monotonically with $\Delta\rho$ --- a
 density--depth trade-off whose raw minimum runs to unphysical contrasts --- but the
 fit is only weakly sensitive over the physical range: at $z_{\mathrm{ref}}=35$~km
 the RMS is 6.2, 6.0, 5.9 and 5.8~km at $\Delta\rho=400,450,500,600$~kg\,m$^{-3}$. We
-therefore adopt $\Delta\rho=500$~kg\,m$^{-3}$, at the high end of but comparable to
-global crust--mantle contrasts (280--450~kg\,m$^{-3}$; \citealt{christensen1995});
-we read it as an \emph{effective} contrast that also absorbs unmodelled slab and
-sediment mass, noting that the fit changes by $<0.5$~km across 400--600~kg\,m$^{-3}$.
-The reference depth, by contrast, is well resolved: at $\Delta\rho=500$~kg\,m$^{-3}$
-the seismic RMS has a sharp minimum (6.8, 5.8, 5.9, 6.9~km at
+therefore adopt the physical $\Delta\rho=400$~kg\,m$^{-3}$ --- the value used by
+\citet{uieda2017} and within the 280--450~kg\,m$^{-3}$ range of \citet{christensen1995}
+--- even though the seismic RMS keeps decreasing to higher, unphysical contrasts
+(the density--depth trade-off); the fit changes by only $<0.5$~km across
+400--600~kg\,m$^{-3}$, and a single uniform contrast over oceanic-to-continental
+crust remains a simplification.
+The reference depth, by contrast, is well resolved: at $\Delta\rho=400$~kg\,m$^{-3}$
+the seismic RMS has a sharp minimum (7.7, 6.5, 6.2, 6.9~km at
 $z_{\mathrm{ref}}=30, 32.5, 35, 37.5$~km), so the absolute level is constrained to
 $\pm2$--$3$~km; we adopt $z_{\mathrm{ref}}=35$~km, independently supported by AusMoho
 (below). Bott's iteration converged in 15--20 steps (RMS-misfit change below
 0.15~km).
 
-The preferred model (Figure~\ref{fig:moho}) yields Moho depths of $\sim$7--59~km:
-thick (35--45~km) beneath the Sunda, Sulawesi and Banda arcs and the Papuan
+The preferred model (Figure~\ref{fig:moho}) yields Moho depths of $\sim$11--66~km:
+thick (35--50~km) beneath the Sunda, Sulawesi and Banda arcs and the Papuan
 highlands, and thin (10--20~km) beneath the marginal and oceanic basins, with the
 35-km contour outlining the arc and continental blocks. It differs from the 105
-seismic depths by $+1.2\pm5.8$~km (Figure~\ref{fig:validation}), as good as the
-identical method in South America (1.2, 6.8~km); the median is $+1.2$~km, the
-interquartile range 6.9~km, and 63\% and 89\% of stations fall within $\pm5$ and
+seismic depths by $+0.6\pm6.5$~km (Figure~\ref{fig:validation}), as good as the
+identical method in South America (1.2, 6.8~km); the median is $+1.3$~km, the
+interquartile range 8.4~km, and 58\% and 85\% of stations fall within $\pm5$ and
 $\pm10$~km. This is a genuine predictive error, not an in-sample residual: a
 spatially blocked five-fold cross-validation, re-selecting
 $(z_{\mathrm{ref}},\Delta\rho)$ on each fold's training stations, gives a pooled
-out-of-fold RMS equal to the in-sample value (5.7~km; every fold selects the same
+out-of-fold RMS equal to the in-sample value (optimism $+0.0$~km; every fold selects the same
 pair), so tuning two scalars against 105 depths does not inflate the fit. This
 scatter is, in fact, at the floor set by the data: CRUST1.0 --- a
 seismically referenced compilation --- does no better at these same stations
@@ -256,13 +258,13 @@ modest ($r=0.28$) for two reasons. First, the RF depths span only a narrow
 20--40~km range and are clustered, which compresses the correlation. Second, and
 more physically, the smooth $\sim$67-km gravity field imposes an amplitude
 compression: an ordinary-least-squares fit of estimated on seismic depth has a
-slope of only 0.20 (Figure~\ref{fig:scatter}), so the thinnest crust is
+slope of only 0.23 (Figure~\ref{fig:scatter}), so the thinnest crust is
 overestimated and the thickest underestimated, while the mean trend is still
 tracked (binned-mean $r=0.94$). Tellingly, CRUST1.0 shows the \emph{same}
 compression at these points (slope 0.23), so the low slope reflects the reference
 data and the point-versus-footprint scale mismatch, not our inversion. The
 grid-to-grid AusMoho comparison, which matches like with like, is the fairer test
-and yields $r=0.86$. The featured model is computed on a $0.5^{\circ}$ grid, commensurate with this resolution; refining it to $0.25^{\circ}$ with GOCO06s does not
+and yields $r=0.87$. The featured model is computed on a $0.5^{\circ}$ grid, commensurate with this resolution; refining it to $0.25^{\circ}$ with GOCO06s does not
 improve the fit, because at degree/order 300 the shortest resolved half-wavelength
 is $\approx$67~km; the altimetry field recovers finer detail and near-zero bias
 (Table~S2).
@@ -276,13 +278,13 @@ construction, which is precisely what makes AusMoho a suitable tie there. A
 genuinely independent check is available farther south: over the northern Australian
 mainland ($15^{\circ}$--$11.5^{\circ}$S, $N=369$), constrained by Australian seismic
 data alone and untouched by our inversion, our gravity Moho matches AusMoho with a
-mean difference of $-0.1$~km, a standard deviation of 4.8~km and $r=0.86$ --- strong
+mean difference of $-0.1$~km, a standard deviation of 5.0~km and $r=0.87$ --- strong
 evidence that the method recovers \emph{absolute} depth, not merely relative
 variations. Crust thickens to 39--50~km at the Timor--Banda collision front.
 
 \textbf{Global models.} Sampled at the 105 stations (Table~\ref{tab:compare};
 Figures~\ref{fig:scatter}--\ref{fig:compare}), our model matches CRUST1.0's fit
-(std 5.8 vs 5.3~km; $r=0.28$ vs 0.36) while being derived independently, from
+(std 6.5 vs 5.3~km; $r=0.24$ vs 0.36) while being derived independently, from
 gravity alone, and sampled on a twice-as-fine (0.5$^{\circ}$) grid --- and although CRUST1.0
 itself incorporates some of the same RF results as priors. We do not claim to
 exceed CRUST1.0 in point-wise discrimination: both are limited to the same
@@ -296,8 +298,8 @@ crustal thickening that both the seismic stations and our inversion resolve.
 Spatially (Figure~\ref{fig:compare}), our model agrees with CRUST1.0 to within
 $\pm5$~km in the continental interior and diverges (deeper) mainly along the
 Sunda--Java trench; it is deeper than GEMMA almost everywhere. Grid-to-grid
-(Figure~\ref{fig:scatter}d--f) our model matches CRUST1.0 in amplitude (slope 0.78)
-and reproduces GEMMA's spatial pattern (slope 0.93) but at a $\sim$8~km deeper,
+(Figure~\ref{fig:scatter}d--f) our model matches CRUST1.0 in amplitude (slope 0.99)
+and reproduces GEMMA's spatial pattern (slope 1.17) but at a $\sim$6~km deeper,
 seismically more consistent level.
 
 \section{Discussion and Conclusions}
@@ -313,18 +315,18 @@ Indonesia and motivating a regional treatment.
 Beyond the calibration set, we validate the model against the independent
 receiver-function (RF) literature. Sampled at 18 RF depths from five other studies
 \cite{kieling2011,macpherson2012,bora2016,syuhada2016,anggono2020}, none used in
-calibration, the model has a mean bias of only $+0.3$~km --- an out-of-sample
+calibration, the model has a mean bias of only $-0.3$~km --- an out-of-sample
 confirmation of its absolute level, complementing the near-zero AusMoho bias and the
 cross-validation above. Its regional ranges also match the literature for Sumatra
 \cite{kieling2011,macpherson2012,bora2016}, Central Java (27--39~km;
 \citealt{amukti2013,wolbern2016}) and West Java (25--37~km;
 \citealt{syuhada2016,anggono2020}), and the range of the pan-Indonesian compilation
 of \citet{zhang2023} (36 stations, 24--38~km). The station-to-station scatter is
-large (RMS 8.3~km), but this is dominated by the studies' mutual disagreement: at
+large (RMS 9.5~km), but this is dominated by the studies' mutual disagreement: at
 co-located stations they differ by $\sim$5~km on average (GSI and LHMI span
 19--40~km; Figure~S5), and their biases relative to our model have opposite signs
-between studies (e.g.\ $+11.7$~km for the fore-arc-focused
-\citealt{macpherson2012}, $-8.0$~km for \citealt{syuhada2016}). Our model sits near
+between studies (e.g.\ $+11.8$~km for the fore-arc-focused
+\citealt{macpherson2012}, $-10.4$~km for \citealt{syuhada2016}). Our model sits near
 the centre of this independent ensemble, unbiased overall. The one systematic
 departure is at the deepest-crust stations of southern Java (CISI, CMJI, CNJI),
 where our model is $\sim$5~km shallower than the RF cluster --- the same amplitude
@@ -339,12 +341,12 @@ separated and can deepen the estimate near the trenches; we therefore flag Moho
 values within $\sim$50~km of the Sunda--Banda subduction front as slab-contaminated
 and less reliable, consistent with the deeper-than-CRUST1.0 signature and the largest
 residuals there. Most importantly, the validation is land-biased: the offshore and
-oceanic-basin Moho (7--15~km), where the model is most novel, rests on no seismic
+oceanic-basin Moho (11--15~km), where the model is most novel, rests on no seismic
 control and should be read as prediction; wide-angle refraction profiles at the Sunda
 margin \citep{planert2010} are the natural data for direct marine validation in
 future work. Rather than a formal uncertainty map we give a sensitivity bound: across
 $\Delta\rho=400$--$600$~kg\,m$^{-3}$ the seismic RMS moves by $<0.5$~km, the reference
-depth is constrained to $\pm2$--$3$~km, and the 5.8~km scatter is an empirical error
+depth is constrained to $\pm2$--$3$~km, and the 6.5~km scatter is an empirical error
 at the land stations. A CRUST1.0 sediment correction did not improve the fit
 (Text~S1).
 
@@ -401,9 +403,9 @@ deviation bands; inset: bias, RMS, per cent within $\pm6$/$\pm12$~km and slope.
 Top, versus the 105 seismic depths: (a) this study, (b) CRUST1.0, (c) GEMMA.
 Bottom, model versus model over the grid ($N=817$): (d) this study vs CRUST1.0,
 (e) this study vs GEMMA, (f) GEMMA vs CRUST1.0. Against point seismic, this study
-(slope 0.20) and CRUST1.0 (slope 0.23) show the same amplitude compression;
-grid-to-grid, this study tracks CRUST1.0 (slope 0.78) and shares GEMMA's pattern
-(slope 0.93), but GEMMA is $\sim8$~km too shallow.}
+and CRUST1.0 show the same amplitude compression (slope 0.23); grid-to-grid, this
+study matches CRUST1.0 in amplitude (slope 0.99) and shares GEMMA's pattern
+(slope 1.17), but GEMMA is $\sim6$~km too shallow.}
 \label{fig:scatter}
 \end{figure}
 
@@ -426,7 +428,7 @@ range; $\pm5$/$\pm10$: per cent of stations within $\pm5$/$\pm10$~km.}
 Model & Mean & Median & Std & IQR & RMS & $r$ & $\pm10$~km\\
       & (km) & (km)   & (km)& (km)& (km)&     & (\%)\\
 \hline
-This study & $+1.2$ & $+1.2$ & 5.8 & 6.9 & 5.9 & 0.28 & 89\\
+This study & $+0.6$ & $+1.3$ & 6.5 & 8.4 & 6.5 & 0.24 & 85\\
 CRUST1.0   & $-1.3$ & $-1.2$ & 5.3 & 7.5 & 5.4 & 0.36 & 94\\
 GEMMA      & $-7.4$ & $-6.5$ & 7.1 & 9.5 & 10.2 & 0.08 & 64\\
 \hline
