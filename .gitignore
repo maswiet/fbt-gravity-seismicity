@@ -50,3 +50,6 @@ manuscript/*.fdb_latexmk
 
 # Figure copies for the submission folder (source of truth: figures/moho/)
 manuscript/figures/
+
+# Third-party RF compilation (Fauzi et al. 2021) — keep local
+/Depth_Moho.txt

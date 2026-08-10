@@ -37,26 +37,26 @@ Mada, Yogyakarta 55281, Indonesia}
 \correspondingauthor{Wiwit Suryanto}{ws@ugm.ac.id}
 
 \begin{keypoints}
-\item We map the Moho of the whole Indonesian archipelago from satellite gravity:
-the first continuous crustal-thickness model of the region
-\item The model fits 105 receiver-function depths to 5.8~km and matches the
-independent seismic AusMoho at the Australian margin ($r=0.86$)
-\item It equals CRUST1.0 at the seismic points, while the GOCE-only GEMMA model is
-$\sim$7~km too shallow: global models are inadequate here
+\item First regionally calibrated, continuous satellite-gravity Moho for the whole
+Indonesian archipelago, from a fast spherical inversion
+\item Fits 105 receiver-function depths to 5.8~km, confirmed out-of-sample by
+cross-validation; absolute level tied to the seismic AusMoho model
+\item Matches CRUST1.0 at the stations while GOCE-only GEMMA is $\sim$7~km too
+shallow, quantifying why global models are inadequate here
 \end{keypoints}
 
 \begin{abstract}
 Mapping the crust--mantle boundary (Moho) is a first-order requirement for studying
 an active region's crust, yet across the Indonesian archipelago it is known only
-from sparse seismic stations. We estimate it from satellite gravity, which senses
-mass uniformly onshore and offshore, using the fast spherical inversion of Uieda
-and Barbosa (2017): the anomalous Moho is discretised into tesseroids and inverted
-with Bott's method under Tikhonov regularisation. We apply this to the whole
-archipelago, calibrating three hyperparameters against 105 receiver-function Moho
-depths. The preferred model fits the seismic Moho to $+1.2\pm5.8$~km and agrees
-with the independent AusMoho model along the Australian margin (bias $-0.1$~km,
-$r=0.86$). At the seismic stations it equals CRUST1.0, whereas the GOCE-only GEMMA
-model is 7.4~km too shallow. The Moho thickens beneath the arcs and collision belts
+from sparse seismic stations. We estimate it from satellite gravity using the
+fast spherical inversion of Uieda and Barbosa (2017), which inverts the anomalous
+Moho with Bott's method under Tikhonov regularisation. We calibrate it against 105
+receiver-function depths. The model fits the seismic Moho to $+1.2\pm5.8$~km,
+confirmed out-of-sample by cross-validation; the point correlation is modest
+($r=0.28$), limited by the narrow depth range and $\sim$67-km gravity resolution.
+Its absolute level is anchored to the independent seismic AusMoho along the
+Australian margin (bias $-0.1$~km). At the stations the model matches CRUST1.0's fit, whereas GOCE-only
+GEMMA is 7.4~km too shallow. The Moho thickens beneath the arcs and collision belts
 and thins beneath the marginal basins, tracking the region's tectonics.
 \end{abstract}
 
@@ -69,10 +69,11 @@ stations, so most of the archipelago and its seas remain blank on the map. The p
 of gravity, measured uniformly from satellites, offers a way to fill these gaps:
 thicker or lighter crust weighs differently, and from that signal the depth of the
 Moho can be reconstructed everywhere at once. We do so for the whole of Indonesia
-and check the result against 105 independent seismic measurements. Our map agrees
-with the seismic values as closely as the widely used global model CRUST1.0, even
-though it is five times more detailed, and it corrects the global gravity model
-GEMMA, which is about seven kilometres too shallow here. The result is a
+and check the result against 105 seismic measurements and, separately, against other
+published seismic studies. Our map agrees with the seismic values as closely as the
+widely used global model CRUST1.0, even though it is sampled twice as finely,
+and it corrects the global gravity model GEMMA, which is about seven kilometres too
+shallow here. The result is a
 continuous, openly available Moho map for the region.
 
 \section{Introduction}
@@ -126,7 +127,7 @@ principle, to the whole of Indonesia; we calibrate its three hyperparameters aga
 an independent compilation of 105 receiver-function Moho depths, and we validate the
 result against the seismic AusMoho model \cite{kennett2011} along the Australian
 margin and against CRUST1.0 and GEMMA at the seismic stations. The outcome is the
-first continuous, public-data gravity Moho for the archipelago.
+first regionally calibrated, continuous, public-data gravity Moho for the archipelago (global models such as GEMMA already provide a coarse, uncalibrated one).
 
 \section{Data and Methods}
 We use the satellite-only gravity model GOCO06s \cite{kvas2021}, synthesised to
@@ -186,8 +187,12 @@ convergence; for $\mu=0$ this reduces to the classical Bott update,
 \label{eq:bott}
 \end{equation}
 The three hyperparameters are set in two steps \cite{uieda2017}: $\mu$ by hold-out
-cross-validation, then $(z_{\mathrm{ref}},\Delta\rho)$ against the seismic Moho
-(Figure~S2).
+cross-validation on the gravity data (30\% of nodes withheld), then
+$(z_{\mathrm{ref}},\Delta\rho)$ against the seismic Moho (Figure~S2). Because only
+these two scalars are tuned against the 105 depths, we guard against over-fitting
+with a spatially blocked five-fold cross-validation: stations are grouped by
+$k$-means on location, $(z_{\mathrm{ref}},\Delta\rho)$ are re-selected on each
+fold's training stations, and the held-out stations are scored.
 
 \textbf{Absolute level and the tie to AusMoho.} The inversion determines the Moho
 \emph{relief} from the Bouguer disturbance; its \emph{absolute} level is carried by
@@ -232,7 +237,12 @@ highlands, and thin (10--20~km) beneath the marginal and oceanic basins, with th
 seismic depths by $+1.2\pm5.8$~km (Figure~\ref{fig:validation}), as good as the
 identical method in South America (1.2, 6.8~km); the median is $+1.2$~km, the
 interquartile range 6.9~km, and 63\% and 89\% of stations fall within $\pm5$ and
-$\pm10$~km. This scatter is, in fact, at the floor set by the data: CRUST1.0 --- a
+$\pm10$~km. This is a genuine predictive error, not an in-sample residual: a
+spatially blocked five-fold cross-validation, re-selecting
+$(z_{\mathrm{ref}},\Delta\rho)$ on each fold's training stations, gives a pooled
+out-of-fold RMS equal to the in-sample value (5.7~km; every fold selects the same
+pair), so tuning two scalars against 105 depths does not inflate the fit. This
+scatter is, in fact, at the floor set by the data: CRUST1.0 --- a
 seismically referenced compilation --- does no better at these same stations
 (5.3~km), and gravity Moho models routinely differ from seismic and from one
 another by 4--8~km \cite{vandermeijde2013,reguzzoni2015}. The point correlation is
@@ -265,9 +275,14 @@ evidence that the method recovers \emph{absolute} depth, not merely relative
 variations. Crust thickens to 39--50~km at the Timor--Banda collision front.
 
 \textbf{Global models.} Sampled at the 105 stations (Table~\ref{tab:compare};
-Figures~\ref{fig:scatter}--\ref{fig:compare}), our model equals CRUST1.0 (std 5.8
-vs 5.3~km) despite being independent and five times finer --- and although CRUST1.0
-itself incorporates some of the same RF results as priors. GEMMA, by contrast, is
+Figures~\ref{fig:scatter}--\ref{fig:compare}), our model matches CRUST1.0's fit
+(std 5.8 vs 5.3~km; $r=0.28$ vs 0.36) while being derived independently, from
+gravity alone, and sampled on a twice-as-fine (0.5$^{\circ}$) grid --- and although CRUST1.0
+itself incorporates some of the same RF results as priors. We do not claim to
+exceed CRUST1.0 in point-wise discrimination: both are limited to the same
+$\sim$67-km resolution and neither resolves the sharp arc/fore-arc contrasts. Our
+model's added value is coverage (continuous, including offshore) and independence,
+not a higher station correlation. GEMMA, by contrast, is
 systematically 7.4~km too shallow (RMS 10.2~km), with the largest deficits
 (15--24~km) at the fore-arc and island-arc transitions of southern Java and the
 Banda arc, where its coarse grid and global density model cannot capture the
@@ -316,7 +331,7 @@ $\Delta\rho=400$--$600$~kg\,m$^{-3}$ the seismic RMS moves by $<0.5$~km, and the
 did not improve the fit (Text~S1), and dedicated offshore refraction profiles
 \cite{planert2010} would provide direct marine control.
 
-In view of these results, we deliver the first continuous, public-data,
+In view of these results, we deliver the first regionally calibrated, continuous, public-data,
 satellite-gravity Moho for the whole Indonesian region. Calibrated against 105
 seismic depths and cross-checked against AusMoho, CRUST1.0 and GEMMA, it reproduces
 the first-order crustal-thickness variations, fits the seismic data to 5.8~km, and
