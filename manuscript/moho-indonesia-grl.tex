@@ -162,7 +162,7 @@ g_z(P) = G\rho \int_{\lambda_1}^{\lambda_2}\!\!\int_{\phi_1}^{\phi_2}\!\!
 with $\ell=(r_P^{2}+r^{2}-2r_Pr\cos\psi)^{1/2}$ and
 $\cos\psi=\sin\phi_P\sin\phi+\cos\phi_P\cos\phi\cos(\lambda-\lambda_P)$, evaluated
 by Gauss--Legendre quadrature \cite{uieda2016}. Removing the topographic and
-bathymetric effect (land density $2670$, ocean contrast $-1640$~kg\,m$^{-3}$)
+bathymetric effect (land density $2670$; ocean contrast $-1640$~kg\,m$^{-3}$, i.e.\ sea water $1030$ replacing rock $2670$)
 leaves the Bouguer disturbance, our data vector $\mathbf{d}^{o}$. The anomalous Moho
 is one tesseroid per grid cell between the reference depth $z_{\mathrm{ref}}$ and
 the true depth $z_k$ (the unknowns $\mathbf{p}$), with contrast $-\Delta\rho$ where
@@ -225,10 +225,16 @@ turn, decreases monotonically with $\Delta\rho$ --- a
 density--depth trade-off whose raw minimum runs to unphysical contrasts --- but the
 fit is only weakly sensitive over the physical range: at $z_{\mathrm{ref}}=35$~km
 the RMS is 6.2, 6.0, 5.9 and 5.8~km at $\Delta\rho=400,450,500,600$~kg\,m$^{-3}$. We
-therefore adopt a physical $\Delta\rho=500$~kg\,m$^{-3}$ with
-$z_{\mathrm{ref}}=35$~km, which degrades the fit by only 0.3~km relative to 400 yet
-is independently supported by AusMoho (below). $\Delta\rho$ is thus best read as an
-\emph{effective} contrast. Bott's iteration converged in 15--20 steps.
+therefore adopt $\Delta\rho=500$~kg\,m$^{-3}$, at the high end of but comparable to
+global crust--mantle contrasts (280--450~kg\,m$^{-3}$; \citealt{christensen1995});
+we read it as an \emph{effective} contrast that also absorbs unmodelled slab and
+sediment mass, noting that the fit changes by $<0.5$~km across 400--600~kg\,m$^{-3}$.
+The reference depth, by contrast, is well resolved: at $\Delta\rho=500$~kg\,m$^{-3}$
+the seismic RMS has a sharp minimum (6.8, 5.8, 5.9, 6.9~km at
+$z_{\mathrm{ref}}=30, 32.5, 35, 37.5$~km), so the absolute level is constrained to
+$\pm2$--$3$~km; we adopt $z_{\mathrm{ref}}=35$~km, independently supported by AusMoho
+(below). Bott's iteration converged in 15--20 steps (RMS-misfit change below
+0.15~km).
 
 The preferred model (Figure~\ref{fig:moho}) yields Moho depths of $\sim$7--59~km:
 thick (35--45~km) beneath the Sunda, Sulawesi and Banda arcs and the Papuan
@@ -256,7 +262,7 @@ tracked (binned-mean $r=0.94$). Tellingly, CRUST1.0 shows the \emph{same}
 compression at these points (slope 0.23), so the low slope reflects the reference
 data and the point-versus-footprint scale mismatch, not our inversion. The
 grid-to-grid AusMoho comparison, which matches like with like, is the fairer test
-and yields $r=0.86$. Refining the grid to $0.25^{\circ}$ with GOCO06s does not
+and yields $r=0.86$. The featured model is computed on a $0.5^{\circ}$ grid, commensurate with this resolution; refining it to $0.25^{\circ}$ with GOCO06s does not
 improve the fit, because at degree/order 300 the shortest resolved half-wavelength
 is $\approx$67~km; the altimetry field recovers finer detail and near-zero bias
 (Table~S2).
@@ -304,32 +310,43 @@ competitive with the seismically compiled CRUST1.0 and markedly better than the
 purely gravimetric GEMMA, quantifying why global models are inadequate for
 Indonesia and motivating a regional treatment.
 
-Beyond the calibration set, the model agrees with the published receiver-function
-(RF) literature. Its regional ranges match those reported for Sumatra
+Beyond the calibration set, we validate the model against the independent
+receiver-function (RF) literature. Sampled at 18 RF depths from five other studies
+\cite{kieling2011,macpherson2012,bora2016,syuhada2016,anggono2020}, none used in
+calibration, the model has a mean bias of only $+0.3$~km --- an out-of-sample
+confirmation of its absolute level, complementing the near-zero AusMoho bias and the
+cross-validation above. Its regional ranges also match the literature for Sumatra
 \cite{kieling2011,macpherson2012,bora2016}, Central Java (27--39~km;
 \citealt{amukti2013,wolbern2016}) and West Java (25--37~km;
-\citealt{syuhada2016,anggono2020}). At individual stations (Figure~S5) the published
-estimates themselves disagree widely --- at GSI and LHMI they span 19--40~km --- and
-our gravity value falls within that spread; indeed, two independent RF analyses of
-the same stations differ by 6.7~km on average (up to 21~km), so the seismic
-reference is itself uncertain at the level of our misfit. The one systematic
+\citealt{syuhada2016,anggono2020}), and the range of the pan-Indonesian compilation
+of \citet{zhang2023} (36 stations, 24--38~km). The station-to-station scatter is
+large (RMS 8.3~km), but this is dominated by the studies' mutual disagreement: at
+co-located stations they differ by $\sim$5~km on average (GSI and LHMI span
+19--40~km; Figure~S5), and their biases relative to our model have opposite signs
+between studies (e.g.\ $+11.7$~km for the fore-arc-focused
+\citealt{macpherson2012}, $-8.0$~km for \citealt{syuhada2016}). Our model sits near
+the centre of this independent ensemble, unbiased overall. The one systematic
 departure is at the deepest-crust stations of southern Java (CISI, CMJI, CNJI),
 where our model is $\sim$5~km shallower than the RF cluster --- the same amplitude
 compression of the smooth satellite field noted above. Our gravity Moho thus
 predicts the seismic Moho about as well as one RF method predicts another.
 
-The limitations follow directly from the method and data. Validation is land-biased
-and cannot constrain the offshore Moho directly; resolution is set by the satellite
-gravity, not the grid; and a single, uniform $\Delta\rho$ over oceanic-to-continental
-crust is a simplification. Because the diagonal Jacobian assigns all anomalous
-gravity to the Moho, the subducting Sunda--Banda slabs are not separated and can
-deepen the estimate near the trenches --- consistent with the deeper-than-CRUST1.0
-signature there and with the largest residuals at the subduction fronts. Rather than
-a formal uncertainty map, we give a sensitivity bound: across
-$\Delta\rho=400$--$600$~kg\,m$^{-3}$ the seismic RMS moves by $<0.5$~km, and the
-5.8~km scatter is an empirical error at the stations. A CRUST1.0 sediment correction
-did not improve the fit (Text~S1), and dedicated offshore refraction profiles
-\cite{planert2010} would provide direct marine control.
+The limitations follow directly from the method and data. Resolution is set by the
+satellite gravity, not the grid, and a single, uniform $\Delta\rho$ over
+oceanic-to-continental crust is a simplification. Because the diagonal Jacobian
+assigns all anomalous gravity to the Moho, the subducting Sunda--Banda slabs are not
+separated and can deepen the estimate near the trenches; we therefore flag Moho
+values within $\sim$50~km of the Sunda--Banda subduction front as slab-contaminated
+and less reliable, consistent with the deeper-than-CRUST1.0 signature and the largest
+residuals there. Most importantly, the validation is land-biased: the offshore and
+oceanic-basin Moho (7--15~km), where the model is most novel, rests on no seismic
+control and should be read as prediction; wide-angle refraction profiles at the Sunda
+margin \citep{planert2010} are the natural data for direct marine validation in
+future work. Rather than a formal uncertainty map we give a sensitivity bound: across
+$\Delta\rho=400$--$600$~kg\,m$^{-3}$ the seismic RMS moves by $<0.5$~km, the reference
+depth is constrained to $\pm2$--$3$~km, and the 5.8~km scatter is an empirical error
+at the land stations. A CRUST1.0 sediment correction did not improve the fit
+(Text~S1).
 
 In view of these results, we deliver the first regionally calibrated, continuous, public-data,
 satellite-gravity Moho for the whole Indonesian region. Calibrated against 105
