@@ -1,0 +1,8 @@
+predictor,rmse,mae,bias,r,nse
+Constant mean (30.4 km),5.40,4.41,+0.00,nan,+0.000
+Regional mean (3 zones),4.56,3.60,-0.00,0.54,+0.288
+CRUST1.0,5.42,4.35,-1.28,0.36,-0.006
+CRUST1.0 (affine-recal.),5.04,4.09,+0.00,0.36,+0.128
+GEMMA (raw),10.17,8.46,-7.36,0.08,-2.545
+GEMMA (affine-recal.),5.38,4.40,-0.00,0.08,+0.007
+This study (gravity),6.20,4.97,+0.23,0.28,-0.318
