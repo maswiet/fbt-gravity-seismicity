@@ -62,7 +62,9 @@ def main():
         except Exception:
             pass
         gl = ax.gridlines(draw_labels=True, lw=0.2); gl.top_labels = gl.right_labels = False
-        fig.colorbar(pcm, ax=ax, shrink=0.75, label="mGal")
+        cb = fig.colorbar(pcm, ax=ax, shrink=0.5, aspect=28, pad=0.02)
+        cb.set_label("mGal", fontsize=9); cb.ax.tick_params(labelsize=8)
+        cb.outline.set_linewidth(0.4)
         ax.set_title(title)
     out = C.FIGURES / "gravity_residuals.png"
     fig.savefig(out, dpi=160, bbox_inches="tight")
