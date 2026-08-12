@@ -45,8 +45,8 @@ def main():
 
     region = [94, 141, -15, 6.5]
     br = (region[3] - region[2]) / (region[1] - region[0])
-    fig = plt.figure(figsize=(16.5, 4.6))
-    gs = fig.add_gridspec(1, 3, wspace=0.16)
+    fig = plt.figure(figsize=(17, 4.6))
+    gs = fig.add_gridspec(1, 3, wspace=0.42)
     panels = [("(a) Observed Bouguer disturbance", obs, "viridis", None),
               ("(b) Gravity of recovered Moho", pred, "viridis", None),
               (f"(c) Residual (RMS {rms:.1f} mGal)", resid, "RdBu_r", 30)]
@@ -62,9 +62,11 @@ def main():
         except Exception:
             pass
         gl = ax.gridlines(draw_labels=True, lw=0.2); gl.top_labels = gl.right_labels = False
-        cb = fig.colorbar(pcm, ax=ax, shrink=0.5, aspect=28, pad=0.02)
-        cb.set_label("mGal", fontsize=9); cb.ax.tick_params(labelsize=8)
-        cb.outline.set_linewidth(0.4)
+        # slim colorbar as an inset anchored to the (box-aspected) map: half its height
+        cax = ax.inset_axes([1.025, 0.27, 0.014, 0.46])
+        cb = fig.colorbar(pcm, cax=cax)
+        cb.set_label("mGal", fontsize=8.5); cb.ax.tick_params(labelsize=7.5, length=2)
+        cb.outline.set_linewidth(0.3)
         ax.set_title(title)
     out = C.FIGURES / "gravity_residuals.png"
     fig.savefig(out, dpi=160, bbox_inches="tight")
