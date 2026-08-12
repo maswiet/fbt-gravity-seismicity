@@ -261,7 +261,24 @@ constant-mean predictor ($5.4$~km), a three-zone regional mean ($4.6$~km) and
 CRUST1.0 ($5.4$~km), and CRUST1.0 correlates better ($r=0.36$ vs $0.28$). The
 Nash--Sutcliffe efficiency relative to the constant mean is $-0.32$: at the seismic
 control points the gravity estimate does not improve on predicting the average depth
-everywhere. A five-fold spatially blocked cross-validation confirms the two
+everywhere.
+
+This deficit must be read against the uncertainty of the reference itself. In a QC
+audit of a contemporaneous western-Indonesian RF crustal model (digitized 1-D $V_S$
+profiles at 91 stations; \citealt{bahri2020}), the Moho is a gradual transition
+rather than a sharp interface: the depth interval over which $V_S$ rises from 4.0 to
+4.5~km\,s$^{-1}$ has a median half-width of $3.1$~km (exceeding $9$~km at a quarter of
+stations), $22\%$ of stations show no clean mantle-velocity crossing at all, and the
+tabulated Moho picks differ from a fixed-threshold ($V_S=4.3$~km\,s$^{-1}$) pick by
+$10$~km on average. A reference uncertainty of this size means the $\sim$6~km RMS
+floor --- reached equally by CRUST1.0 --- sits at the level of the seismic picks
+themselves, so the negative NSE partly reflects a noisy, definition-dependent
+reference, not model error alone (per-station uncertainties are provided as a
+supplementary QC table). This does not make the estimate skilful --- the amplitude
+compression is real and the offshore values remain unconstrained --- but it bounds
+how much any station benchmark can discriminate between models here.
+
+A five-fold spatially blocked cross-validation confirms the two
 calibrated scalars are stable (every fold selects the same pair), but this tests
 their stability, not the spatial fidelity of the map; and because gravity nodes are
 strongly autocorrelated on the $0.5^{\circ}$ grid, the random-node selection of
