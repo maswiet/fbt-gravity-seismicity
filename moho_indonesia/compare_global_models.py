@@ -127,9 +127,15 @@ def main():
         g_grid = gi(np.column_stack([LAT.ravel(), LON.ravel()])).reshape(d.shape)
         diffs.append(("(c) This study − GEMMA", d.values - g_grid))
 
+    def slimbar(pcm, ax, label):
+        cax = ax.inset_axes([1.025, 0.27, 0.014, 0.46])   # slim, half the map height
+        cb = fig.colorbar(pcm, cax=cax)
+        cb.set_label(label, fontsize=8.5); cb.ax.tick_params(labelsize=7.5, length=2)
+        cb.outline.set_linewidth(0.3)
+
     n = 1 + len(diffs)
-    fig = plt.figure(figsize=(6.6 * n, 4.6))
-    gs = fig.add_gridspec(1, n, wspace=0.16)
+    fig = plt.figure(figsize=(6.9 * n, 4.6))
+    gs = fig.add_gridspec(1, n, wspace=0.42)
     ax1 = fig.add_subplot(gs[0], projection=ccrs.PlateCarree())
     ax1.set_extent(region); ax1.set_aspect("auto"); ax1.set_box_aspect(br)
     try:
@@ -140,7 +146,7 @@ def main():
     sc = ax1.scatter(slon, slat, c=sdep, cmap="viridis", s=30, edgecolor="k", lw=0.3,
                      transform=ccrs.PlateCarree())
     gl = ax1.gridlines(draw_labels=True, lw=0.2); gl.top_labels = gl.right_labels = False
-    fig.colorbar(sc, ax=ax1, shrink=0.78, label="seismic Moho (km)")
+    slimbar(sc, ax1, "seismic Moho (km)")
     ax1.set_title("(a) 105 receiver-function validation points")
     for k, (title, resid) in enumerate(diffs, start=1):
         axk = fig.add_subplot(gs[k], projection=ccrs.PlateCarree())
@@ -152,7 +158,7 @@ def main():
         except Exception:
             pass
         gl = axk.gridlines(draw_labels=True, lw=0.2); gl.top_labels = gl.right_labels = False
-        fig.colorbar(pcm, ax=axk, shrink=0.78, label="difference (km)")
+        slimbar(pcm, axk, "difference (km)")
         axk.set_title(title)
     fig.savefig(C.FIGURES / "compare_global_models.png", dpi=170, bbox_inches="tight")
     print("Wrote scatter_vs_seismic.png, compare_global_models.png, compare_global_models.txt")
