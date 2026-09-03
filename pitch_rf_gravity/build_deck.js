@@ -117,7 +117,7 @@ titleSlide();
     { text: "Iterative time-domain deconvolution (Ligorria & Ammon 1999) — the same algorithm as CPS saciterd.", options: { bullet: true, breakLine: true } },
     { text: "A Gaussian width ‘a’ sets resolution: higher a resolves thin sediment.", options: { bullet: true } },
   ], { x: 0.9, y: 3.0, w: 6.4, h: 3.4, fontSize: 15, color: INK, margin: 0, paraSpaceAfter: 12, lineSpacingMultiple: 1.1 });
-  figBox(s, "rf_demo_BGB.png", 7.7, 1.95, 4.9, 4.9);
+  figBox(s, "rf_demo_BI1.png", 7.7, 1.95, 4.9, 4.9);
   tb(s, "Station BGB: 6 individual RFs (red) and their stack (blue). Direct P at 0 s; sediment Ps in the first seconds.",
      { x: 7.7, y: 6.85, w: 4.9, h: 0.5, fontSize: 10, italic: true, color: MUT, margin: 0 });
 })();
@@ -148,7 +148,7 @@ titleSlide();
 // ============================================================ 6 FORWARD MODELING (hrftn96)
 (() => {
   const s = p.addSlide(); head(s, "FORWARD MODELLING  ·  PEMODELAN MAJU", "Predict the RF a layered earth would produce");
-  figBox(s, "fwd_demo_BGB.png", 0.9, 2.0, 7.2, 4.4);
+  figBox(s, "fwd_demo_BI1.png", 0.9, 2.0, 7.2, 4.4);
   tb(s, "Observed RF (black) vs synthetic from Herrmann CPS hrftn96 (red) for the fitted sediment layer.",
      { x: 0.9, y: 6.45, w: 7.2, h: 0.5, fontSize: 10, italic: true, color: MUT, margin: 0 });
   const rx = 8.4;

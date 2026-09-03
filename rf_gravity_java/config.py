@@ -46,7 +46,7 @@ RF_GAUSS_SED = 5.0            # higher a (~2.4 Hz) to resolve shallow sediment
 RF_WATERLEVEL = 0.05
 RF_ITERATIONS = 200           # iterative deconvolution iterations
 P_WIN = (-10.0, 30.0)         # seconds around P for RF window
-BP_CORNERS = (0.05, 4.0)      # bandpass (Hz) before deconvolution
+BP_CORNERS = (0.03, 2.0)      # bandpass (Hz); 2 Hz top smooths RF to match hrftn96 ALP
 MIN_SNR = 2.0                 # SNR gate for keeping an event
 
 # Teleseismic selection (match ARTHA event windows to a global catalog).

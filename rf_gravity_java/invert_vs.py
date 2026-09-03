@@ -39,6 +39,8 @@ DELAY = 10.0
 ALP = C.RF_GAUSS_CRUST
 VS_SED = 1.5              # assumed sediment shear velocity (km/s) — young Java fill
 VPVS_SED = 2.0
+SMOOTH_S = 0.25          # Gaussian smoothing (s) applied to the observed stack so
+                         # its bandwidth matches the hrftn96 (ALP) synthetic
 PS_WIN = (0.3, 2.5)      # sediment Ps search window (s) — 0.3-2.5s ~ 1-6 km at Vs 1.5
 MIN_PS_AMP = 0.10        # min positive amplitude (rel. to P) to call it sediment
 
@@ -120,6 +122,9 @@ def main():
         if not sac.exists():
             continue
         tr = obspy.read(str(sac))[0]
+        from scipy.ndimage import gaussian_filter1d
+        tr.data = gaussian_filter1d(tr.data.astype(float),
+                                    sigma=max(SMOOTH_S / tr.stats.delta, 0.1))
         rayp = float(getattr(tr.stats.sac, "user4", s["mean_rayp_skm"]))
         t_ps, amp = pick_tps(tr.data, float(tr.stats.sac.b), tr.stats.delta)
         h = thickness_from_tps(t_ps, rayp) if t_ps > 0 else 0.0
@@ -128,7 +133,7 @@ def main():
                          n_rf=int(s["n_rf"]), t_ps_s=round(t_ps, 2),
                          ps_amp=round(amp, 3), vs_sed=VS_SED,
                          h_sed_km=round(h, 2)))
-        if code == "BGB":
+        if code == "BI1":
             _fwd_demo(code, tr, h, rayp, work)
 
     df = pd.DataFrame(rows)
@@ -150,10 +155,18 @@ def _fwd_demo(code, tr, h, rayp, work):
     i0 = int(round((0.0 - b) / dt))          # observed direct-P at t=0 (aligned)
     obs = np.array(tr.data, float) / (tr.data[i0] or 1.0)
     tobs = (np.arange(len(obs)) - i0) * dt
-    syn, sdt, _ = hrftn96_rf(sed_layers(h), rayp, work)
-    jP = int(np.argmax(syn))                  # hrftn96 direct-P = global max
-    syn = syn / (syn[jP] or 1.0)
-    tsyn = (np.arange(len(syn)) - jP) * sdt
+    # Best-fit sediment thickness by hrftn96 FORWARD MODELLING (match 0-5 s).
+    best = None
+    for hh in np.arange(0.5, 6.01, 0.25):
+        s2, sdt, _ = hrftn96_rf(sed_layers(hh), rayp, work)
+        jp = int(np.argmax(s2)); s2 = s2 / (s2[jp] or 1.0)
+        ts = (np.arange(len(s2)) - jp) * sdt
+        oo = np.interp(ts, tobs, obs)
+        m = (ts >= 0) & (ts <= 5)
+        mis = float(np.mean((oo[m] - s2[m])**2))
+        if best is None or mis < best[0]:
+            best = (mis, hh, s2, ts)
+    h = best[1]; syn = best[2]; tsyn = best[3]
     fig, ax = plt.subplots(figsize=(8, 4))
     ax.plot(tobs, obs, "k", lw=1.6, label=f"Observed RF ({code})")
     ax.plot(tsyn, syn, "r", lw=1.5, ls="--",
