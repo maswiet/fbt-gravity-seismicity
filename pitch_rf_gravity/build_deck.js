@@ -175,6 +175,17 @@ titleSlide();
   ], { x: 7.2, y: 2.8, w: 4.9, h: 3.5, fontSize: 15, margin: 0, paraSpaceAfter: 12, lineSpacingMultiple: 1.12 });
 })();
 
+// ============================================================ 7b DEEPER INVERSION
+(() => {
+  const s = p.addSlide(); head(s, "DEEPER INVERSION", "Full layered Vs profile from the receiver function");
+  figBox(s, "vs_inversion_BI4.png", 0.9, 2.0, 7.4, 4.3);
+  tb(s, "Station BI4 — linearised, damped, smoothed least-squares Vs inversion (CPS rftn96 scheme, hrftn96 forward). Observed vs predicted RF, RMS 0.08.",
+     { x: 0.9, y: 6.35, w: 7.4, h: 0.6, fontSize: 10, italic: true, color: MUT, margin: 0 });
+  figBox(s, "vs_profiles.png", 8.55, 2.0, 4.0, 4.9);
+  tb(s, "Flagship stations", { x: 8.55, y: 6.9, w: 4.0, h: 0.3, fontSize: 10,
+     italic: true, color: MUT, align: "center", margin: 0 });
+})();
+
 // ============================================================ 8 DATASET
 (() => {
   const s = p.addSlide(); head(s, "THE EXPERIMENT", "MERAMEX 2004 — a dense passive array over Central Java");
