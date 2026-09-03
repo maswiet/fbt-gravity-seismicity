@@ -3,7 +3,26 @@
 // Workshop "From Data Scarcity to Discovery — Unlocking Under-Explored Basin",
 // FMIPA UGM, 22-23 Sep 2026. pptxgenjs. Real MERAMEX/CPS + Indonesia-inversion results.
 const pptxgen = require("pptxgenjs");
+const fs = require("fs");
 const p = new pptxgen();
+
+// Read intrinsic pixel size of a PNG (IHDR) or JPEG (SOFn) so we can place each
+// figure at its true aspect ratio — PowerPoint/Keynote ignore pptxgenjs "contain"
+// and would otherwise stretch the image to the raw box.
+function imgSize(path) {
+  const b = fs.readFileSync(path);
+  if (b.length > 24 && b[0] === 0x89 && b[1] === 0x50)        // PNG
+    return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+  let i = 2;                                                   // JPEG
+  while (i < b.length) {
+    if (b[i] !== 0xff) { i++; continue; }
+    const m = b[i + 1];
+    if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc)
+      return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) };
+    i += 2 + b.readUInt16BE(i + 2);
+  }
+  return { w: 1, h: 1 };
+}
 p.defineLayout({ name: "W", width: 13.333, height: 7.5 });
 p.layout = "W";
 
@@ -21,11 +40,18 @@ function head(s, kicker, title) {
   tb(s, kicker, { x: 0.9, y: 0.55, w: 11.8, h: 0.34, fontSize: 13, bold: true, color: TEAL, charSpacing: 2, margin: 0 });
   tb(s, title, { x: 0.88, y: 0.86, w: 11.9, h: 0.95, fontSize: 29, bold: true, color: INK, fontFace: HSER, margin: 0 });
 }
+// Fit the image inside the (x,y,w,h) box at its true aspect ratio, centred, and
+// draw the framed card tight around the fitted image (not the whole box).
 function figBox(s, file, x, y, w, h) {
-  s.addShape(p.ShapeType.roundRect, { x: x-0.06, y: y-0.06, w: w+0.12, h: h+0.12,
+  const sz = imgSize(FIG + file);
+  const ar = sz.w / sz.h;
+  let iw = w, ih = w / ar;
+  if (ih > h) { ih = h; iw = h * ar; }
+  const ix = x + (w - iw) / 2, iy = y + (h - ih) / 2;
+  s.addShape(p.ShapeType.roundRect, { x: ix-0.06, y: iy-0.06, w: iw+0.12, h: ih+0.12,
      rectRadius: 0.06, fill: { color: LIGHT }, line: { color: "D3DEE5", width: 1 },
      shadow: { type: "outer", color: "9AA9B2", blur: 6, offset: 2, angle: 90, opacity: 0.35 } });
-  s.addImage({ path: FIG + file, x, y, w, h, sizing: { type: "contain", w, h } });
+  s.addImage({ path: FIG + file, x: ix, y: iy, w: iw, h: ih });
 }
 function card(s, x, y, w, h, hdr, body, accent) {
   s.addShape(p.ShapeType.roundRect, { x, y, w, h, rectRadius: 0.08, fill: { color: LIGHT }, line: { color: "DCE6EB", width: 1 } });
