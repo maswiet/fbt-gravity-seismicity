@@ -19,6 +19,36 @@ PROJ = "M17c"
 STA_REGION = [109.3, 111.7, -8.45, -5.7]     # includes northern Karimunjawa arm
 GRID_REGION = [109.3, 111.6, -8.4, -6.3]
 
+# Holocene volcanoes (lon, lat, name) and cities for geographic context.
+VOLCANOES = [
+    (110.446, -7.540, "Merapi"), (110.442, -7.454, "Merbabu"),
+    (110.070, -7.384, "Sumbing"), (109.992, -7.300, "Sundoro"),
+    (109.920, -7.200, "Dieng"), (111.192, -7.625, "Lawu"),
+    (110.330, -7.180, "Ungaran"), (110.880, -6.620, "Muria"),
+]
+CITIES = [
+    (110.370, -7.797, "Yogyakarta"), (110.421, -6.966, "Semarang"),
+    (110.828, -7.566, "Surakarta"),
+]
+
+
+def overlay_geo(fig, region, labels=True):
+    """Red triangles = Holocene volcanoes; black squares = cities."""
+    import pygmt
+    vx = [v[0] for v in VOLCANOES]; vy = [v[1] for v in VOLCANOES]
+    fig.plot(x=vx, y=vy, style="t0.32c", fill="red2", pen="0.6p,black",
+             region=region, projection=PROJ)
+    cx = [c[0] for c in CITIES]; cy = [c[1] for c in CITIES]
+    fig.plot(x=cx, y=cy, style="s0.24c", fill="white", pen="1.0p,black",
+             region=region, projection=PROJ)
+    if labels:
+        for lon, lat, nm in VOLCANOES:
+            fig.text(x=lon, y=lat + 0.06, text=nm, font="7p,Helvetica-Bold,red3",
+                     justify="CB", fill="white@30", region=region, projection=PROJ)
+        for lon, lat, nm in CITIES:
+            fig.text(x=lon, y=lat - 0.07, text=nm, font="9p,Helvetica-Bold,black",
+                     justify="CT", fill="white@20", region=region, projection=PROJ)
+
 
 def _cfg(pygmt):
     pygmt.config(MAP_FRAME_TYPE="fancy+", MAP_FRAME_PEN="1.2p,gray15",
@@ -46,6 +76,7 @@ def sediment_station_map(pygmt, sed):
     pygmt.makecpt(cmap="turbo", series=[0, vmax, 0.5], reverse=False)
     fig.plot(x=res.lon, y=res.lat, fill=res.h_sed_km, cmap=True,
              style="c0.24c", pen="0.4p,gray10")
+    overlay_geo(fig, STA_REGION, labels=True)
     fig.colorbar(frame=["x+lSediment thickness", "y+lkm"],
                  position="JBC+o0c/0.9c+w9c/0.35c+h")
     fig.savefig(str(C.FIGURES / "sediment_rf_map.png"), dpi=250)
@@ -53,7 +84,7 @@ def sediment_station_map(pygmt, sed):
 
 
 def grid_map(pygmt, da, out, title, cbar, cmap, series, reverse=False,
-             stations=None, region=GRID_REGION):
+             stations=None, region=GRID_REGION, geo_labels=True):
     fig = pygmt.Figure(); _cfg(pygmt)
     if "x" in da.dims:
         da = da.rename({"x": "lon", "y": "lat"})
@@ -67,6 +98,7 @@ def grid_map(pygmt, da, out, title, cbar, cmap, series, reverse=False,
     if stations is not None:
         fig.plot(x=stations.lon, y=stations.lat, style="c0.10c",
                  fill="black", pen="0.3p,white")
+    overlay_geo(fig, region, labels=geo_labels)
     fig.colorbar(frame="x+l" + cbar, position="JBC+o0c/0.9c+w9c/0.35c+h")
     fig.savefig(str(C.FIGURES / out), dpi=250)
     print("Wrote", out)
@@ -88,7 +120,7 @@ def main():
         boug = boug.rename({"x": "lon", "y": "lat"})
     grid_map(pygmt, boug, "bouguer.png",
              "GGM+WGM complete Bouguer anomaly — Central Java", "mGal",
-             "turbo", [-100, 200, 20])
+             "turbo", [-100, 200, 20], geo_labels=False)
 
     # residual (same 40 km Gaussian high-pass as rf_gravity_join)
     lat = boug["lat"].values
@@ -96,7 +128,7 @@ def main():
     resid = boug.copy(data=boug.values - gaussian_filter(boug.values, sigma=sig, mode="nearest"))
     grid_map(pygmt, resid, "residual.png",
              "Residual Bouguer (40 km high-pass) — basin-scale signal", "mGal",
-             "polar", [-40, 40, 10])
+             "polar", [-40, 40, 10], geo_labels=False)
 
     sedgrid = xr.open_dataarray(C.GRID_SED_GRAV)
     vmax = float(np.ceil(np.nanpercentile(sedgrid.values, 97)))

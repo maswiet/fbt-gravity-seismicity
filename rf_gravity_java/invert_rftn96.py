@@ -33,12 +33,19 @@ DELAY = 10.0
 ALP = C.RF_GAUSS_CRUST
 FIT_T = (-1.0, 12.0)          # RF fit window (s)
 SMOOTH_S = 0.25
-# Fixed layer thicknesses (km); last is the half-space (0).
-THICK = [0.5, 0.5, 1.0, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 0.0]
-N_ITER = 10
-LAM = 0.03                    # damping
-MU = 0.6                     # smoothing (2nd-difference)
+# Fixed layer thicknesses (km); last is the half-space (0). Extended to upper mantle.
+THICK = [0.5, 0.5, 1.0, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 0.0]
+# AK135/PREM-like continental reference & starting model (Vs increases with depth).
+REF_VS = np.array([1.4, 1.9, 2.5, 2.9, 3.1, 3.3, 3.45, 3.55, 3.65, 3.75, 3.9,
+                   4.3, 4.45, 4.5])
+DEPTH_TOP = np.array([0, 0.5, 1, 2, 3, 4.5, 6.5, 9, 12, 16, 21, 27, 35, 45.0])
+N_ITER = 12
+LAM = 0.05                    # prior damping toward REF_VS (light — let data shape crust)
+MU = 0.4                      # smoothing (2nd-difference)
 VS_MIN, VS_MAX = 0.6, 4.8
+VS_CRUST_MAX = 4.0            # crustal layers (<28 km) capped below mantle speed
+MANTLE_Z = 28.0              # depth (km) above which layers stay crustal
+N_MONO = 3                    # top 3 layers (sediment) free; below forced increasing
 N_FLAGSHIP = 4
 
 
@@ -91,10 +98,12 @@ def invert_station(code, rayp, work):
     obs = np.interp(tref, tobs, d, left=0, right=0)
 
     n = len(THICK)
-    vs = np.linspace(1.3, 4.3, n)                    # starting model
+    ref = REF_VS.copy()
+    vs = ref.copy()                                   # start from the PREM-like model
     L = np.zeros((n-2, n))                            # 2nd-difference smoothing
     for i in range(n-2):
         L[i, i:i+3] = [1, -2, 1]
+    I = np.eye(n)
     hist = []
     for it in range(N_ITER):
         pred = forward(vs, rayp, work, tref)
@@ -105,10 +114,19 @@ def invert_station(code, rayp, work):
             dv = 0.05
             vj = vs.copy(); vj[j] = np.clip(vj[j] + dv, VS_MIN, VS_MAX)
             G[:, j] = (forward(vj, rayp, work, tref) - pred) / dv
-        A = G.T @ G + (LAM**2)*np.eye(n) + (MU**2)*(L.T @ L)
-        dvs = np.linalg.solve(A, G.T @ r)
-        dvs = np.clip(dvs, -0.4, 0.4)
+        # damped, smoothed, prior-constrained Gauss-Newton step
+        A = G.T @ G + (LAM**2)*I + (MU**2)*(L.T @ L)
+        rhs = G.T @ r - (LAM**2)*(vs - ref) - (MU**2)*(L.T @ (L @ vs))
+        dvs = np.clip(np.linalg.solve(A, rhs), -0.4, 0.4)
         vs = np.clip(vs + dvs, VS_MIN, VS_MAX)
+        # keep crustal layers crustal (<VS_CRUST_MAX above the mantle depth)
+        for i in range(n):
+            if DEPTH_TOP[i] < MANTLE_Z:
+                vs[i] = min(vs[i], VS_CRUST_MAX)
+        # enforce velocity increasing with depth below the sediment (PREM-like)
+        for i in range(max(N_MONO, 1), n):
+            vs[i] = max(vs[i], vs[i-1])
+        vs[-1] = REF_VS[-1]                            # fix mantle half-space
     pred = forward(vs, rayp, work, tref)
     rms = float(np.sqrt(np.mean((obs-pred)**2))); hist.append(rms)
     depth = np.concatenate([[0], np.cumsum([t for t in THICK[:-1]])])
@@ -125,7 +143,7 @@ def plot_station(res):
     z = list(res["depth_top"]) + [res["depth_top"][-1] + 6]
     v = list(res["vs"]) + [res["vs"][-1]]
     a1.step(v, z, where="post", color="C0", lw=2)
-    a1.invert_yaxis(); a1.set_ylim(35, 0)
+    a1.invert_yaxis(); a1.set_ylim(52, 0)
     a1.set_xlabel("Vs (km/s)"); a1.set_ylabel("Depth (km)")
     a1.set_title(f"Vs model — {res['code']}"); a1.grid(alpha=.3)
     # RF fit
@@ -171,7 +189,7 @@ def main():
         z = list(res["depth_top"]) + [res["depth_top"][-1] + 6]
         v = list(res["vs"]) + [res["vs"][-1]]
         ax.step(v, z, where="post", lw=2, label=res["code"])
-    ax.invert_yaxis(); ax.set_ylim(35, 0)
+    ax.invert_yaxis(); ax.set_ylim(52, 0)
     ax.set_xlabel("Vs (km/s)"); ax.set_ylabel("Depth (km)")
     ax.set_title("RF Vs inversion — flagship stations (Central Java)")
     ax.legend(); ax.grid(alpha=.3); fig.tight_layout()
