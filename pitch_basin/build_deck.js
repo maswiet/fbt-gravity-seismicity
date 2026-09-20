@@ -352,14 +352,34 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   pageno(s, "27");
 })();
 
-// ---------------------------------------------------------------- 28 RF-constrained gravity
+// ---------------------------------------------------------------- 28 CJ validation
+(() => {
+  const s = S(); head(s, "PART 5 · VALIDATION (CENTRAL JAVA)", "Test: does gravity alone see the sediment?");
+  figBox(s, "cj_gravity_vs_validation.png", 0.9, 2.0, 11.5, 4.15, false);
+  tb(s, "90 MERAMEX stations · residual Bouguer sampled at each RF site · Pearson r = +0.08 (p = 0.44).",
+     { x: 0.9, y: 6.2, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
+  note(s, "Di Jawa Tengah, gravity satelit TIDAK berkorelasi dengan ketebalan sedimen RF (r≈0.1, tidak signifikan) — sinyal sedimen (~20 mGal) tertimbun variasi Moho/volkanik (~58 mGal). Bukti kuantitatif non-uniqueness.");
+  pageno(s, "28");
+})();
+
+// ---------------------------------------------------------------- 29 CJ constraint
+(() => {
+  const s = S(); head(s, "PART 5 · CONSTRAINT (CENTRAL JAVA)", "Seismology unlocks the gravity interpretation");
+  figBox(s, "cj_seismology_constraint.png", 0.9, 2.0, 11.5, 4.15, false);
+  tb(s, "RF supplies absolute depth & Vs → fix density×depth → the coherent basin model gravity alone could not yield.",
+     { x: 0.9, y: 6.2, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
+  note(s, "Justru karena gravity ambigu, receiver function menjadi kunci: kedalaman & Vs absolut per stasiun mengunci skala densitas → model cekungan koheren. Di Central Java kita punya data RF & model Vs — inilah keunggulannya.");
+  pageno(s, "29");
+})();
+
+// ---------------------------------------------------------------- 30 RF-constrained gravity
 (() => {
   const s = S(); head(s, "PART 5 · THE BRIDGE", "RF-constrained gravity — the anchor pays off");
   figBox(s, "cj_sediment_constrained.png", 0.9, 1.95, 7.2, 4.6);
   card(s, 8.4, 2.05, 4.0, 2.1, "Gravity alone drifts", "Unconstrained gravity inversion trades depth against density — weak correlation with true structure.", RUST);
   card(s, 8.4, 4.25, 4.0, 2.05, "RF locks the scale", "Feeding RF depths as constraints fixes the density×depth trade — gravity now resolves basin geometry.", MINT);
   note(s, "Gravity sendirian ambigu (kedalaman vs densitas). Dengan kedalaman RF sebagai constraint, skala terkunci → gravity menghasilkan geometri cekungan yang benar.");
-  pageno(s, "28");
+  pageno(s, "30");
 })();
 
 // ---------------------------------------------------------------- 29 synthesis (dark)
@@ -383,7 +403,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   tb(s, "When we add seismological constraints, gravity + magnetics become far more powerful.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: MINT, align: "center" });
-  pageno(s, "29");
+  pageno(s, "31");
 })();
 
 // ---------------------------------------------------------------- 30 roadmap
@@ -404,7 +424,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   card(s, 6.95, 4.85, 5.45, 1.4, "Data already on the table", "MIGAS legacy wells & 2-D seismic + permanent broadband networks — the anchor stations largely exist.", NAVY);
   note(s, "Resep: screening satelit → reprosesing → jangkar RF di stasiun broadband yang sudah ada → inversi gabungan → peta depocentre & lead. Banyak data sudah tersedia.");
-  pageno(s, "30");
+  pageno(s, "32");
 })();
 
 // ---------------------------------------------------------------- 31 closing
