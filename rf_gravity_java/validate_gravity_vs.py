@@ -29,6 +29,7 @@ from scipy.stats import pearsonr
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import config as C
+from _coast import add_coast
 
 D = C.DATA_PROCESSED
 FIG = C.FIGURES
@@ -98,6 +99,7 @@ def fig_validation(boug, lat, lon, res, s, r, pv, budget):
                    vmin=-40, vmax=40, aspect="auto")
     sc = ax.scatter(s.lon, s.lat, c=s.h_sed_km, cmap="viridis", s=40,
                     edgecolor="k", lw=.5, vmax=np.percentile(s.h_sed_km, 95))
+    add_coast(ax, [lon.min(), lon.max(), lat.min(), lat.max()])
     ax.set_title("(a) Residual gravity vs RF sediment sites", fontweight="bold", fontsize=12)
     ax.set_xlabel("Longitude"); ax.set_ylabel("Latitude")
     cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.03); cb.set_label("residual (mGal)", fontsize=9)
@@ -150,6 +152,7 @@ def fig_constraint(s):
                    extent=[lon.min(), lon.max(), lat.min(), lat.max()],
                    cmap="turbo", aspect="auto")
     ax.scatter(s.lon, s.lat, c="k", s=8)
+    add_coast(ax, [lon.min(), lon.max(), lat.min(), lat.max()])
     ax.set_title("(a) RF-CONSTRAINED sediment model", fontweight="bold", fontsize=12)
     ax.set_xlabel("Longitude"); ax.set_ylabel("Latitude")
     cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.03); cb.set_label("sediment thickness (km)", fontsize=9)
