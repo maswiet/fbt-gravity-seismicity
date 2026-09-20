@@ -48,6 +48,7 @@ REGION = (109.5, 111.5, -8.2, -6.4)             # Central Java model window
 SPACING = 0.06                                   # deg (~6.6 km) model tesseroids
 N_ITER = 12
 MU = 6.0e-4                                       # smoothness weight (tuned)
+WRF2_FACTOR = 90.0                                 # RF-constraint weight (x A^2)
 B_MIN = 30.0                                       # floor (m) — avoid zero-height tesseroids
 B_MAX = 12000.0                                   # cap basement depth (m)
 DRHO_GRID = [-250., -300., -350., -400., -450., -500.]   # kg/m3 candidates
@@ -91,21 +92,32 @@ def forward(lon2d, lat2d, b, drho, zref, obs):
     return np.asarray(g)
 
 
-def invert(lon2d, lat2d, dobs, drho, zref, mu=MU, n_iter=N_ITER):
-    """Regularised Bott inversion (Uieda & Barbosa 2017, eq. 13) for basement b."""
+def invert(lon2d, lat2d, dobs, drho, zref, mu=MU, n_iter=N_ITER,
+           rf_idx=None, rf_z=None, wrf2=0.0):
+    """Regularised Bott inversion (Uieda & Barbosa 2017, eq. 13) for basement b.
+
+    When rf_idx/rf_z are given, a soft equality constraint b[cell]=RF-depth is
+    added (weight wrf2) — the RF-CONSTRAINED joint inversion (seismology anchor).
+    """
     ny, nx = lon2d.shape
     obs = (lon2d, lat2d, np.full(lon2d.shape, R_E))
     A = TWO_PI_G * drho                                     # mGal per m (scalar)
     Rm = smoothness_operator(ny, nx)
     RtR = (Rm.T @ Rm).tocsr()
-    LHS = (A * A) * sparse.identity(ny * nx, format="csr") + mu * RtR
-    b = np.full(ny * nx, zref)                              # start at the reference
+    n = ny * nx
+    LHS = (A * A) * sparse.identity(n, format="csr") + mu * RtR
+    if rf_idx is not None and wrf2 > 0:
+        sel = sparse.csr_matrix((np.full(len(rf_idx), wrf2), (rf_idx, rf_idx)), shape=(n, n))
+        LHS = LHS + sel
+    b = np.full(n, zref)                                    # start at the reference
     hist = []
     for it in range(n_iter):
         d = forward(lon2d, lat2d, b.reshape(ny, nx), drho, zref, obs).ravel()
         r = dobs.ravel() - d
         hist.append(float(np.sqrt(np.mean(r**2))))
         rhs = A * r - mu * (RtR @ (b - zref))
+        if rf_idx is not None and wrf2 > 0:
+            rhs[rf_idx] += wrf2 * (rf_z - b[rf_idx])
         db = spsolve(LHS, rhs)
         b = np.clip(b + db, B_MIN, B_MAX)
     d = forward(lon2d, lat2d, b.reshape(ny, nx), drho, zref, obs).ravel()
@@ -150,9 +162,23 @@ def main():
     # drho slice at best z_ref for the calibration plot
     cal_drho = cal[cal[:, 0] == zref_best][:, [1, 2]]
 
-    b, dpred, hist = invert(lon2d, lat2d, dobs, drho_best, zref_best)
-    thick = b / 1000.0                                       # km
+    # --- FINAL model: RF-CONSTRAINED joint inversion (seismology anchor) -------
     latc, lonc = lat2d[:, 0], lon2d[0]
+    ny, nx = lon2d.shape
+    col = np.array([int(np.argmin(np.abs(lonc - lo))) for lo in s.lon.values])
+    row = np.array([int(np.argmin(np.abs(latc - la))) for la in s.lat.values])
+    flat = row * nx + col
+    zt = s.h_sed_km.values * 1000.0                          # RF depth (m)
+    cells = {}
+    for f_, z_ in zip(flat, zt):
+        cells.setdefault(int(f_), []).append(z_)
+    rf_idx = np.array(sorted(cells))
+    rf_z = np.array([np.mean(cells[c]) for c in rf_idx])
+    A = TWO_PI_G * drho_best
+    wrf2 = WRF2_FACTOR * A * A
+    b, dpred, hist = invert(lon2d, lat2d, dobs, drho_best, zref_best,
+                            rf_idx=rf_idx, rf_z=rf_z, wrf2=wrf2)
+    thick = b / 1000.0                                       # km
     da = xr.DataArray(thick, coords={"lat": latc, "lon": lonc}, dims=["lat", "lon"])
     da.to_netcdf(D / "sediment_uieda3d.nc")
 
@@ -188,17 +214,22 @@ def main():
     fig = plt.figure(figsize=(16, 5.4))
     gs = GridSpec(1, 3, width_ratios=[1.25, 0.9, 0.95], wspace=0.5)
     vmax_t = np.nanpercentile(thick, 98)
+    prof_j = int(np.argmax(np.nanmean(thick, axis=1)))
+    prof_lat = float(latc[prof_j])
     a = fig.add_subplot(gs[0])
     im = a.imshow(thick, origin="lower", extent=ext, cmap="turbo", aspect="auto",
                   vmin=thick.min(), vmax=vmax_t)
     a.scatter(s.lon, s.lat, c=s.h_sed_km, cmap="turbo", s=46, edgecolor="k", lw=.6,
               vmin=thick.min(), vmax=vmax_t)
+    a.plot([lonc.min(), lonc.max()], [prof_lat, prof_lat], color="k", lw=1.6, ls=(0, (6, 3)))
+    a.text(lonc.min() + 0.03, prof_lat + 0.05, "A", fontweight="bold", fontsize=12)
+    a.text(lonc.max() - 0.12, prof_lat + 0.05, "A'", fontweight="bold", fontsize=12)
     add_coast(a, REGION)
-    a.set_title("(a) 3-D gravity sediment thickness", fontweight="bold", fontsize=11, pad=8)
+    a.set_title("(a) RF-constrained 3-D sediment thickness", fontweight="bold", fontsize=11, pad=8)
     a.set_xlabel("Longitude (°E)"); a.set_ylabel("Latitude (°)")
     fig.colorbar(im, ax=a, fraction=0.046, pad=0.03, label="sediment thickness (km)")
-    a.text(0.02, 0.02, "dots = RF (same colour scale)", transform=a.transAxes,
-           fontsize=9, style="italic", color="white",
+    a.text(0.02, 0.02, "dots = RF (same colour scale) · A–A' = section",
+           transform=a.transAxes, fontsize=8.5, style="italic", color="white",
            bbox=dict(boxstyle="round", fc="#00000066", ec="none"))
     a = fig.add_subplot(gs[1])
     a.plot(cal_drho[:, 0], cal_drho[:, 1], "o-", color="#065A82")
@@ -212,26 +243,26 @@ def main():
     lim = max(s.h_sed_km.max(), s.h_grav.max()) * 1.05
     a.plot([0, lim], [0, lim], "k--", lw=1)
     a.set_xlabel("RF sediment thickness (km)"); a.set_ylabel("Gravity 3-D thickness (km)")
-    a.set_title("(c) Gravity model vs RF", fontweight="bold", fontsize=11, pad=8)
+    a.set_title("(c) RF-constrained gravity vs RF", fontweight="bold", fontsize=11, pad=8)
     a.text(0.05, 0.95, f"r = {r:+.2f}\nRMS = {rms:.1f} km\nn = {len(s)}",
            transform=a.transAxes, va="top", fontsize=11,
            bbox=dict(boxstyle="round", fc="#FFF3E0", ec="#C98A1A"))
     a.grid(alpha=.3); a.set_xlim(0, lim); a.set_ylim(0, lim)
-    fig.suptitle("Central Java — 3-D gravity basin model (Uieda & Barbosa 2017) vs receiver functions",
+    fig.suptitle("Central Java — RF-constrained 3-D gravity basin model (Uieda & Barbosa 2017)",
                  fontsize=14, fontweight="bold", y=1.0)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     fig.savefig(FIG / "cj_uieda_vs_rf.png", dpi=200); plt.close(fig)
     print("Wrote cj_uieda_vs_rf.png")
 
     # ---- Figure 3: representative DENSITY cross-section -----------------------
-    density_section(lonc, latc, thick, s, drho_best)
+    density_section(lonc, latc, thick, s, drho_best, lat0=prof_lat)
 
 
-def density_section(lonc, latc, thick, s, drho, rho_base=2670.0):
+def density_section(lonc, latc, thick, s, drho, rho_base=2670.0, lat0=None):
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     # profile at the latitude of the thickest mean sediment (through the depocentre)
-    j = int(np.argmax(np.nanmean(thick, axis=1)))
+    j = int(np.argmax(np.nanmean(thick, axis=1))) if lat0 is None else int(np.argmin(np.abs(latc - lat0)))
     lat0 = latc[j]
     b_prof = thick[j]                                  # km, basement depth along profile
     x_km = (lonc - lonc.mean()) * 111.32 * np.cos(np.deg2rad(lat0))

@@ -28,9 +28,15 @@ def _segments(region):
     return segs
 
 
-def add_coast(ax, region, color="k", lw=0.7, z=6):
-    """Draw GSHHG/Natural-Earth coastline on an axes whose data coords are lon/lat."""
+def add_coast(ax, region, color="k", lw=0.7, z=6, set_aspect=True):
+    """Draw GSHHG/Natural-Earth coastline on a lon/lat axes and fix the map aspect.
+
+    set_aspect uses 1/cos(mid-latitude) so 1 km E-W and 1 km N-S plot equal
+    (no horizontal stretching)."""
     for x, y in _segments(region):
         ax.plot(x, y, color=color, lw=lw, zorder=z)
     ax.set_xlim(region[0], region[1])
     ax.set_ylim(region[2], region[3])
+    if set_aspect:
+        midlat = 0.5 * (region[2] + region[3])
+        ax.set_aspect(1.0 / np.cos(np.deg2rad(midlat)))
