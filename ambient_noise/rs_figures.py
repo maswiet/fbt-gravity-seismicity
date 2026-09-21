@@ -86,7 +86,8 @@ def fig3(code="BI4"):
     import matplotlib.pyplot as plt
     days, M, total, lag = daily_traces(code)
     H = rf_sed(code); twt = 2 * H / VP_SED if H else None
-    m = lag <= 6
+    LAG0 = 1.0                                    # start at 1 s (cf. R&S Fig 3)
+    m = (lag >= LAG0) & (lag <= 6)
     fig, (ax, axs) = plt.subplots(1, 2, figsize=(11, 6.5), sharey=True,
                                   gridspec_kw=dict(width_ratios=[6, 1], wspace=0.03))
     x = np.arange(M.shape[0])
@@ -95,7 +96,7 @@ def fig3(code="BI4"):
         tr = norm[i] * 0.9 + x[i]
         ax.plot(tr, lag[m], color="k", lw=0.3)
         ax.fill_betweenx(lag[m], x[i], tr, where=(tr > x[i]), color="#B22", lw=0)
-    ax.set_ylim(6, 0); ax.set_xlabel("day index"); ax.set_ylabel("two-way time (s)")
+    ax.set_ylim(6, LAG0); ax.set_xlabel("day index"); ax.set_ylabel("two-way time (s)")
     ax.set_title(f"{code} — daily PCC autocorrelation section", fontweight="bold", fontsize=11)
     t2 = total[m] / (np.max(np.abs(total[m])) + 1e-9)
     axs.plot(t2, lag[m], "k", lw=1.2); axs.fill_betweenx(lag[m], 0, t2, where=(t2 > 0), color="#B22")
@@ -168,7 +169,8 @@ def fig7(code="BI4"):
     import matplotlib.pyplot as plt
     days, M, total, lag = daily_traces(code)
     H = rf_sed(code); twt = 2 * H / VP_SED if H else None
-    m = lag <= 6
+    LAG0 = 1.0                                    # start at 1 s (cf. R&S Fig 3/7)
+    m = (lag >= LAG0) & (lag <= 6)
     norm = M[:, m] / (np.max(np.abs(M[:, m]), axis=1, keepdims=True) + 1e-9)
     corr = np.array([np.corrcoef(M[i, m], total[m])[0, 1] for i in range(M.shape[0])])
     fig, (axt, axb) = plt.subplots(2, 1, figsize=(11, 6.5), sharex=True,
@@ -177,7 +179,7 @@ def fig7(code="BI4"):
     axt.set_ylim(0, 1.02); axt.grid(alpha=.3)
     axt.set_title(f"{code} — reflection-response time stability (cf. R&S Fig 7)", fontweight="bold", fontsize=11)
     im = axb.imshow(norm.T, aspect="auto", origin="upper", cmap="bwr", vmin=-1, vmax=1,
-                    extent=[0, M.shape[0], lag[m][-1], 0])
+                    extent=[0, M.shape[0], lag[m][-1], lag[m][0]])
     axb.set_ylabel("two-way time (s)"); axb.set_xlabel("day index")
     if twt:
         axb.axhline(twt, color="green", ls="--", lw=1.4)
