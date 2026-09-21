@@ -412,6 +412,26 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   pageno(s, "33");
 })();
 
+// ---------------------------------------------------------------- two seismic routes
+(() => {
+  const s = S(); head(s, "PART 5 · TWO SEISMIC ROUTES", "Two independent seismological routes to the basin");
+  figBox(s, "an_two_approaches.png", 0.9, 1.95, 11.5, 4.35, false);
+  tb(s, "(a) Receiver functions (Ps move-out)   vs   (b) Ambient-noise autocorrelation (Romero & Schimmel 2018) — same stations, independent physics.",
+     { x: 0.9, y: 6.35, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
+  note(s, "Dua jalur seismologi independen ke basement: RF (konversi Ps) & autokorelasi ambient noise (Romero). RF cenderung lebih dalam, AN lebih dangkal — selisihnya mengukur ketidakpastian dan memandu inversi gabungan.");
+  pageno(s, "34");
+})();
+
+// ---------------------------------------------------------------- ambient-noise method
+(() => {
+  const s = S(); head(s, "PART 5 · AMBIENT NOISE (ROMERO)", "Basement from noise alone — no earthquakes, no source");
+  figBox(s, "an_daily_section.png", 0.9, 1.95, 7.6, 4.7);
+  card(s, 8.7, 2.05, 3.7, 2.15, "Autocorrelation = reflection response", "Single-station autocorrelation of continuous ambient noise (PCC + phase-weighted stack) returns the zero-offset P-wave reflection response beneath each site.", DEEP);
+  card(s, 8.7, 4.3, 3.7, 2.1, "RF-independent basement", "Multi-band sidelobe discrimination keeps only real reflectors; the deepest band-stable one → basement TWT → depth (independent Vp). 111 stations mapped.", MINT);
+  note(s, "Metode Romero & Schimmel: autokorelasi ambient noise satu-stasiun (PCC+PWS) → respons refleksi-P. Diskriminasi multi-band memisahkan reflektor asli dari sidelobe. Basement murni dari korelasi — tanpa RF.");
+  pageno(s, "35");
+})();
+
 // ---------------------------------------------------------------- 29 synthesis (dark)
 (() => {
   const s = S(); bg(s, NAVY);
@@ -433,7 +453,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   tb(s, "When we add seismological constraints, gravity + magnetics become far more powerful.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: MINT, align: "center" });
-  pageno(s, "34");
+  pageno(s, "36");
 })();
 
 // ---------------------------------------------------------------- 30 roadmap
@@ -454,7 +474,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   card(s, 6.95, 4.85, 5.45, 1.4, "Data already on the table", "MIGAS legacy wells & 2-D seismic + permanent broadband networks — the anchor stations largely exist.", NAVY);
   note(s, "Resep: screening satelit → reprosesing → jangkar RF di stasiun broadband yang sudah ada → inversi gabungan → peta depocentre & lead. Banyak data sudah tersedia.");
-  pageno(s, "35");
+  pageno(s, "37");
 })();
 
 // ---------------------------------------------------------------- 31 closing
