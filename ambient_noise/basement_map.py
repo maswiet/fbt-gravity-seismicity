@@ -106,10 +106,11 @@ def draw_map(df):
                  MAP_FRAME_TYPE="fancy+", MAP_FRAME_PEN="1.4p,black",
                  MAP_FRAME_WIDTH="0.18c", FONT_ANNOT_PRIMARY="10p,Times-Roman")
     fig = pygmt.Figure()
-    # interpolate basement depth (km) to a grid, minimum curvature
-    grd = pygmt.surface(x=df.lon, y=df.lat, z=df.depth_km, spacing=0.03,
-                        region=REGION, tension=0.35)
-    series = "0/6.5/0.5"
+    # tame single-station outliers, then minimum-curvature interpolation
+    d = df.copy(); d["depth_km"] = d.depth_km.clip(0.5, 6.0)
+    bm = pygmt.blockmedian(x=d.lon, y=d.lat, z=d.depth_km, spacing=0.05, region=REGION)
+    grd = pygmt.surface(data=bm, spacing=0.02, region=REGION, tension=0.4)
+    series = "0/6/0.5"
     pygmt.makecpt(cmap="turbo", series=series, reverse=True, continuous=False)
     fig.basemap(region=REGION, projection=proj,
                 frame=["WSne+tCentral Java basement depth from ambient-noise autocorrelation",
