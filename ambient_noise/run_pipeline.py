@@ -29,11 +29,29 @@ FIG = ROOT / "figures" / "ambient_noise"; FIG.mkdir(parents=True, exist_ok=True)
 DATA = ROOT / "data" / "processed" / "rf_java"
 
 FS = 100.0
-BAND = (0.8, 8.0)
+DECI = 5                    # decimate 100 -> 20 Hz (Nyquist 10 Hz)
+FS_EFF = FS / DECI
+BAND = (1.0, 6.0)          # tuned basement band (Hz)
+WHITEN = True              # spectral whitening + running-abs temporal norm
 WIN = 1800
 MAXLAG = 8.0
 VP_SED = 3.0
 STATIONS = {"BI4": ["3080"], "AF1": ["3135"], "AI4": ["3043", "3092"], "BG2": ["3121"]}
+
+
+def whiten_window(w, fs, band):
+    """Running-absolute-mean temporal normalisation + spectral whitening (Bensen 2007)."""
+    from scipy.ndimage import uniform_filter1d
+    w = w - w.mean()
+    env = uniform_filter1d(np.abs(w), size=max(1, int(fs)))          # ~1 s window
+    w = w / (env + 1e-9 * env.max())
+    W = np.fft.rfft(w)
+    freqs = np.fft.rfftfreq(len(w), 1.0 / fs)
+    amp = np.abs(W)
+    sm = uniform_filter1d(amp, size=max(3, int(len(amp) * 0.02)))
+    W = W / (sm + 1e-6 * sm.max())
+    W[(freqs < band[0]) | (freqs > band[1])] = 0                     # keep the band
+    return np.fft.irfft(W, len(w))
 
 
 def station_meta(code):
@@ -84,7 +102,8 @@ def autocorr_pcc2(x, nlag):
 
 
 def process_day(code, day, files, nlag, nwin):
-    cache = CACHE / f"{code}_{day}.npy"
+    tag = f"b{BAND[0]:g}-{BAND[1]:g}_w{int(WHITEN)}_d{DECI}"
+    cache = CACHE / f"{code}_{day}_{tag}.npy"
     if cache.exists():
         return np.load(cache)
     import obspy
@@ -99,13 +118,19 @@ def process_day(code, day, files, nlag, nwin):
     st.merge(method=1, fill_value=0)
     tr = st[0]
     tr.detrend("demean"); tr.detrend("linear")
+    if DECI > 1:
+        tr.filter("lowpass", freq=0.4 * FS_EFF, corners=4, zerophase=True)
+        tr.decimate(int(DECI), no_filter=True)
     tr.filter("bandpass", freqmin=BAND[0], freqmax=BAND[1], corners=4, zerophase=True)
     d = tr.data.astype(np.float64)
+    fs = tr.stats.sampling_rate
     acs = []
     for i in range(0, len(d) - nwin, nwin):
         w = d[i:i + nwin]
         if np.std(w) < 1e-9:
             continue
+        if WHITEN:
+            w = whiten_window(w, fs, BAND)
         acs.append(autocorr_pcc2(w, nlag))
     arr = np.array(acs) if acs else np.zeros((0, nlag + 1))
     np.save(cache, arr)
@@ -125,7 +150,7 @@ def run_station(code, allpaths, max_days):
     h_rf = rf_thickness(code)
     days = days_for(STATIONS[code], allpaths)
     daylist = sorted(days)[:max_days] if max_days else sorted(days)
-    nlag, nwin = int(MAXLAG * FS), int(WIN * FS)
+    nlag, nwin = int(MAXLAG * FS_EFF), int(WIN * FS_EFF)
     print(f"[{code}] serial {STATIONS[code]} ({lat},{lon})  {len(days)} days available, "
           f"processing {len(daylist)}; RF sed = {h_rf} km")
     allacs = []
@@ -140,14 +165,14 @@ def run_station(code, allpaths, max_days):
         print(f"   [{code}] no windows"); return None
     A = np.vstack(allacs)
     pw, lin, coh = pws(A)
-    lag = np.arange(nlag + 1) / FS
+    lag = np.arange(nlag + 1) / FS_EFF
     return dict(code=code, lat=lat, lon=lon, h_rf=h_rf, lag=lag, lin=lin, pws=pw,
                 nwin=A.shape[0], ndays=len(daylist))
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--max-days", type=int, default=45)
+    ap.add_argument("--max-days", type=int, default=0)   # 0 = all days
     ap.add_argument("--stations", default="BI4,AF1,AI4,BG2")
     a = ap.parse_args()
     allpaths = index_paths()
