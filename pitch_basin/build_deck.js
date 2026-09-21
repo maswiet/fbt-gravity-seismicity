@@ -382,6 +382,36 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   pageno(s, "30");
 })();
 
+// ---------------------------------------------------------------- 3-D inversion (method)
+(() => {
+  const s = S(); head(s, "PART 5 · 3-D INVERSION", "3-D gravity basin inversion (Uieda & Barbosa, 2017)");
+  figBox(s, "cj_uieda_vs_rf.png", 0.9, 1.95, 8.15, 4.5);
+  card(s, 9.25, 2.05, 3.15, 2.15, "Tesseroid + Bott", "Spherical-prism forward modelling + regularised Bott inversion (harmonica) for the sediment–basement relief around a reference level.", DEEP);
+  card(s, 9.25, 4.3, 3.15, 2.1, "RF-calibrated & constrained", "Δρ and z_ref fixed from RF depths (paper §2.6.2); RF depths added as constraints → the model honours seismology (r = 0.93).", MINT);
+  note(s, "Inversi 3D gravity cara Uieda (tesseroid + Bott + Tikhonov). Δρ & z_ref dikalibrasi RF; kedalaman RF jadi constraint → geometri cekungan terkunci ke data seismik.");
+  pageno(s, "31");
+})();
+
+// ---------------------------------------------------------------- 3-D inversion (density section)
+(() => {
+  const s = S(); head(s, "PART 5 · BASIN MODEL", "Representative density cross-section (A–A')");
+  figBox(s, "cj_uieda_density_section.png", 0.9, 2.05, 11.5, 4.15, false);
+  tb(s, "Low-density fill (ρ≈2170) over basement (ρ≈2670); the RF-constrained basement (line) tracks the RF picks (dots).  Vertical exaggeration ×6.",
+     { x: 0.9, y: 6.35, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
+  note(s, "Penampang densitas cekungan: isi sedimen ringan di atas batuan dasar; garis basement (inversi ter-constrain RF) mengikuti titik RF. Depocentre jelas, VE ×6.");
+  pageno(s, "32");
+})();
+
+// ---------------------------------------------------------------- 3-D inversion (the sharp test)
+(() => {
+  const s = S(); head(s, "PART 5 · A SHARP TEST", "Why predicted ≠ observed — and the residual looks like the field");
+  figBox(s, "cj_uieda_profile.png", 0.9, 1.95, 7.65, 4.7);
+  card(s, 8.75, 2.05, 3.65, 2.15, "Gravity vs RF: incompatible", "Fit the gravity → wrong depths (r=−0.1). Match RF → gravity misfit doubles (6→12 mGal). You cannot satisfy both — they carry independent information.", RUST);
+  card(s, 8.75, 4.3, 3.65, 2.1, "The low is NOT sediment", "Where the residual is most negative, RF says sediment is THIN → the low comes from a deeper/denser source that gravity-alone would misread as a basin.", DEEP);
+  note(s, "Predicted (ter-constrain RF) kecil & tak mirip observed → residual ≈ observed. Sebab: low gravity terbesar justru di tempat sedimen RF tipis — sumbernya lebih dalam, bukan cekungan. Justifikasi kuat perlunya seismologi.");
+  pageno(s, "33");
+})();
+
 // ---------------------------------------------------------------- 29 synthesis (dark)
 (() => {
   const s = S(); bg(s, NAVY);
@@ -403,7 +433,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   tb(s, "When we add seismological constraints, gravity + magnetics become far more powerful.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: MINT, align: "center" });
-  pageno(s, "31");
+  pageno(s, "34");
 })();
 
 // ---------------------------------------------------------------- 30 roadmap
@@ -424,7 +454,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   card(s, 6.95, 4.85, 5.45, 1.4, "Data already on the table", "MIGAS legacy wells & 2-D seismic + permanent broadband networks — the anchor stations largely exist.", NAVY);
   note(s, "Resep: screening satelit → reprosesing → jangkar RF di stasiun broadband yang sudah ada → inversi gabungan → peta depocentre & lead. Banyak data sudah tersedia.");
-  pageno(s, "32");
+  pageno(s, "35");
 })();
 
 // ---------------------------------------------------------------- 31 closing

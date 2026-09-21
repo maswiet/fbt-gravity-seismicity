@@ -257,6 +257,60 @@ def main():
     # ---- Figure 3: representative DENSITY cross-section -----------------------
     density_section(lonc, latc, thick, s, drho_best, lat0=prof_lat)
 
+    # ---- Figure 4: gravity & basement PROFILE (observed vs predicted) ---------
+    A = TWO_PI_G * drho_best
+    print("RF-weight trade-off (gravity fit vs RF agreement):")
+    swp = {}
+    for fac in [0, 30, 90, 300]:
+        bb, dd, hh = invert(lon2d, lat2d, dobs, drho_best, zref_best,
+                            rf_idx=rf_idx, rf_z=rf_z, wrf2=fac * A * A)
+        hg = RGI((latc, lonc), bb / 1000.0, bounds_error=False,
+                 fill_value=np.nan)(np.c_[s.lat, s.lon])
+        rr = pearsonr(hg, s.h_sed_km.values)[0]
+        swp[fac] = (bb, dd, hh[-1], rr)
+        print(f"  weight x{fac:4d} A^2 : gravity-RMS={hh[-1]:5.1f} mGal   RF-r={rr:+.2f}")
+    b0, dpred0 = swp[0][0], swp[0][1]                       # gravity-only end-member
+    gravity_profile(lonc, latc, dobs, dpred0, dpred, b0 / 1000.0, thick, s,
+                    prof_lat, swp[0][2], hist[-1])
+
+
+def gravity_profile(lonc, latc, dobs, dpred_g, dpred_rf, thick_g, thick_rf, s,
+                    lat0, rms_g, rms_rf):
+    """A-A' profile: (top) gravity observed vs predicted, (bottom) basement depth.
+
+    Shows why predicted != observed for the RF-constrained model: the gravity-only
+    model fits the field but gets the depth wrong; the RF-constrained model gets the
+    depth right but explains only PART of the field (the rest is deeper/denser
+    sources, not sediment) -> its predicted is small and the residual ~ observed."""
+    import matplotlib; matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    j = int(np.argmin(np.abs(latc - lat0)))
+    x = (lonc - lonc.mean()) * 111.32 * np.cos(np.deg2rad(lat0))
+    fig, (a1, a2) = plt.subplots(2, 1, figsize=(12, 6.6), sharex=True,
+                                 gridspec_kw=dict(height_ratios=[1, 1], hspace=0.16))
+    a1.axhline(0, color="gray", lw=.6)
+    a1.plot(x, dobs[j], color="k", lw=2.4, label="observed residual gravity")
+    a1.plot(x, dpred_g[j], color="#065A82", lw=1.8,
+            label=f"predicted — gravity-only (RMS {rms_g:.1f} mGal)")
+    a1.plot(x, dpred_rf[j], color="#B0512F", lw=1.8, ls="--",
+            label=f"predicted — RF-constrained (RMS {rms_rf:.1f} mGal)")
+    a1.set_ylabel("residual gravity (mGal)"); a1.grid(alpha=.3)
+    a1.legend(fontsize=9, loc="upper right", framealpha=.9)
+    a1.set_title(f"A–A' profile at {lat0:.2f}°S — gravity: observed vs predicted",
+                 fontweight="bold", fontsize=12)
+    a2.plot(x, thick_g[j], color="#065A82", lw=2, label="basement — gravity-only")
+    a2.plot(x, thick_rf[j], color="#B0512F", lw=2, label="basement — RF-constrained")
+    near = s[np.abs(s.lat - lat0) < 0.25]
+    xr = (near.lon.values - lonc.mean()) * 111.32 * np.cos(np.deg2rad(lat0))
+    a2.scatter(xr, near.h_sed_km, c="#0353A4", s=46, zorder=6, edgecolor="white",
+               label="RF basement (±0.25°)")
+    a2.invert_yaxis(); a2.set_ylabel("depth to basement (km)")
+    a2.set_xlabel("Distance W–E (km)"); a2.grid(alpha=.3)
+    a2.legend(fontsize=9, loc="lower right", framealpha=.9)
+    fig.savefig(FIG / "cj_uieda_profile.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print("Wrote cj_uieda_profile.png")
+
 
 def density_section(lonc, latc, thick, s, drho, rho_base=2670.0, lat0=None):
     import matplotlib; matplotlib.use("Agg")
