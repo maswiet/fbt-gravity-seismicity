@@ -27,18 +27,27 @@ p.author = "Pak Zuhdi research group";
 p.title = "Unlocking Under-Explored Basins in Indonesia";
 
 const FIG = __dirname + "/media/";
-const NAVY = "10233A", DEEP = "065A82", TEAL = "1C7293", MINT = "02C39A",
-      LIGHT = "EEF3F6", INK = "10233A", MUT = "5A6B78", WHITE = "FFFFFF",
-      RUST = "B0512F", GOLD = "C98A1A", PAPER = "F5F8FA";
-const HSER = "Cambria", BODY = "Calibri";
+// "Blue" style (FMIPA UGM): navy background, gold accents, white text.
+const NAVY = "013A5C", NAVY2 = "014A73", PANEL = "0A5580", LINE = "13699A",
+      DEEP = "5AA9D9", TEAL = "43C6C0", MINT = "3FD69C",
+      LIGHT = "0A5580", INK = "FFFFFF", MUT = "AEC6D8", WHITE = "FFFFFF",
+      RUST = "F0925E", GOLD = "E9A83C", GOLDS = "D9BD59", PAPER = "012E49";
+const HSER = "Calibri", BODY = "Calibri";
+function chrome(s) {
+  s.addShape(p.ShapeType.rect, { x: 13.16, y: 0, w: 0.17, h: 7.5, fill: { color: GOLD } });
+  tb(s, "FMIPA  ·  UNIVERSITAS GADJAH MADA  ·  2026", { x: 9.75, y: 3.5, w: 6.0, h: 0.3, fontSize: 8, color: "6E93AD", align: "center", rotate: 270, margin: 0 });
+}
 
 function bg(s, c) { s.background = { color: c }; }
 function tb(s, t, o) { s.addText(t, Object.assign({ isTextBox: true, fontFace: BODY }, o)); }
 function head(s, kicker, title) {
-  bg(s, WHITE);
-  s.addShape(p.ShapeType.ellipse, { x: 0.6, y: 0.62, w: 0.18, h: 0.18, fill: { color: MINT } });
-  tb(s, kicker, { x: 0.9, y: 0.55, w: 11.8, h: 0.34, fontSize: 13, bold: true, color: TEAL, charSpacing: 2, margin: 0 });
-  tb(s, title, { x: 0.88, y: 0.86, w: 11.9, h: 0.95, fontSize: 27, bold: true, color: INK, fontFace: HSER, margin: 0 });
+  bg(s, NAVY2);
+  chrome(s);
+  s.addShape(p.ShapeType.rect, { x: 0.62, y: 0.64, w: 0.14, h: 0.62, fill: { color: GOLD } });
+  tb(s, kicker, { x: 0.95, y: 0.6, w: 11.4, h: 0.34, fontSize: 12.5, bold: true, color: GOLD, charSpacing: 2, margin: 0 });
+  const per = /[.?!:)]$/.test(title) ? "" : ".";
+  tb(s, [{ text: title, options: {} }, { text: per, options: { color: GOLD } }],
+     { x: 0.9, y: 0.94, w: 11.9, h: 0.9, fontSize: 26, bold: true, color: WHITE, fontFace: HSER, margin: 0 });
 }
 function figBox(s, file, x, y, w, h, frame = true) {
   const sz = imgSize(FIG + file);
@@ -46,42 +55,43 @@ function figBox(s, file, x, y, w, h, frame = true) {
   let iw = w, ih = w / ar;
   if (ih > h) { ih = h; iw = h * ar; }
   const ix = x + (w - iw) / 2, iy = y + (h - ih) / 2;
-  if (frame) s.addShape(p.ShapeType.roundRect, { x: ix-0.05, y: iy-0.05, w: iw+0.1, h: ih+0.1,
-     rectRadius: 0.05, fill: { color: LIGHT }, line: { color: "D3DEE5", width: 1 },
-     shadow: { type: "outer", color: "9AA9B2", blur: 6, offset: 2, angle: 90, opacity: 0.35 } });
+  if (frame) s.addShape(p.ShapeType.roundRect, { x: ix-0.06, y: iy-0.06, w: iw+0.12, h: ih+0.12,
+     rectRadius: 0.05, fill: { color: WHITE }, line: { color: GOLD, width: 1 },
+     shadow: { type: "outer", color: "01283F", blur: 7, offset: 3, angle: 90, opacity: 0.45 } });
   s.addImage({ path: FIG + file, x: ix, y: iy, w: iw, h: ih });
 }
 function card(s, x, y, w, h, hdr, body, accent) {
-  s.addShape(p.ShapeType.roundRect, { x, y, w, h, rectRadius: 0.08, fill: { color: LIGHT }, line: { color: "DCE6EB", width: 1 } });
-  s.addShape(p.ShapeType.ellipse, { x: x+0.26, y: y+0.26, w: 0.3, h: 0.3, fill: { color: accent || TEAL } });
-  tb(s, hdr, { x: x+0.72, y: y+0.2, w: w-0.9, h: 0.5, fontSize: 14.5, bold: true, color: INK, margin: 0 });
-  tb(s, body, { x: x+0.3, y: y+0.76, w: w-0.6, h: h-1.0, fontSize: 12, color: MUT, margin: 0, lineSpacingMultiple: 1.05 });
+  s.addShape(p.ShapeType.roundRect, { x, y, w, h, rectRadius: 0.08, fill: { color: PANEL }, line: { color: LINE, width: 1 } });
+  s.addShape(p.ShapeType.rect, { x, y: y+0.16, w: 0.09, h: h-0.32, fill: { color: accent || GOLD } });
+  tb(s, hdr, { x: x+0.32, y: y+0.2, w: w-0.55, h: 0.5, fontSize: 14.5, bold: true, color: GOLD, margin: 0 });
+  tb(s, body, { x: x+0.32, y: y+0.76, w: w-0.62, h: h-1.0, fontSize: 12, color: MUT, margin: 0, lineSpacingMultiple: 1.05 });
 }
 function statRow(s, y, stats) {
   const n = stats.length, gap = 0.2, w = (12.43 - 0.9 - gap*(n-1)) / n;
   let x = 0.9;
   stats.forEach(([num, lab, col]) => {
-    s.addShape(p.ShapeType.roundRect, { x, y, w, h: 1.7, rectRadius: 0.08, fill: { color: LIGHT }, line: { color: "DCE6EB", width: 1 } });
-    tb(s, num, { x: x+0.1, y: y+0.22, w: w-0.2, h: 0.8, fontSize: 29, bold: true, color: col || DEEP, fontFace: HSER, align: "center", margin: 0 });
+    s.addShape(p.ShapeType.roundRect, { x, y, w, h: 1.7, rectRadius: 0.08, fill: { color: PANEL }, line: { color: LINE, width: 1 } });
+    tb(s, num, { x: x+0.1, y: y+0.22, w: w-0.2, h: 0.8, fontSize: 30, bold: true, color: GOLD, fontFace: HSER, align: "center", margin: 0 });
     tb(s, lab, { x: x+0.12, y: y+1.06, w: w-0.24, h: 0.55, fontSize: 11.5, color: MUT, align: "center", margin: 0, lineSpacingMultiple: 1.0 });
     x += w + gap;
   });
 }
-function caption(s, t, x, y, w) { tb(s, t, { x, y, w, h: 0.4, fontSize: 9.5, italic: true, color: MUT, margin: 0 }); }
-function note(s, t) {   // bilingual ID note strip at the bottom
-  s.addShape(p.ShapeType.roundRect, { x: 0.9, y: 6.86, w: 11.53, h: 0.5, rectRadius: 0.06, fill: { color: PAPER }, line: { color: "DCE6EB", width: 1 } });
-  tb(s, t, { x: 1.1, y: 6.9, w: 11.2, h: 0.42, fontSize: 11, italic: true, color: MUT, margin: 0, valign: "middle" });
+function caption(s, t, x, y, w) { tb(s, t, { x, y, w, h: 0.4, fontSize: 9.5, italic: true, color: "8FB0C6", margin: 0 }); }
+function note(s, t) {
+  s.addShape(p.ShapeType.roundRect, { x: 0.9, y: 6.86, w: 11.5, h: 0.5, rectRadius: 0.06, fill: { color: PAPER }, line: { color: LINE, width: 1 } });
+  s.addShape(p.ShapeType.rect, { x: 0.9, y: 6.86, w: 0.09, h: 0.5, fill: { color: GOLD } });
+  tb(s, t, { x: 1.18, y: 6.9, w: 11.1, h: 0.42, fontSize: 11, italic: true, color: "C9DDEA", margin: 0, valign: "middle" });
 }
-function pageno(s) { tb(s, String(PAGE).padStart(2, "0"), { x: 12.4, y: 7.06, w: 0.7, h: 0.3, fontSize: 10, color: MUT, align: "right", margin: 0 }); }
+function pageno(s) { tb(s, String(PAGE).padStart(2, "0"), { x: 12.5, y: 7.05, w: 0.55, h: 0.3, fontSize: 10, bold: true, color: GOLD, align: "right", margin: 0 }); }
 let PAGE = 0;
 function S() { PAGE++; return p.addSlide(); }
 
 // ---------------------------------------------------------------- title
 (() => {
   const s = S(); bg(s, NAVY);
-  s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.22, fill: { color: MINT } });
+  s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.22, fill: { color: GOLD } });
   s.addShape(p.ShapeType.rect, { x: 0, y: 7.28, w: 13.333, h: 0.22, fill: { color: GOLD } });
-  tb(s, "WORKSHOP · UNLOCKING UNDER-EXPLORED BASINS IN INDONESIA", { x: 0.9, y: 1.5, w: 11.5, h: 0.4, fontSize: 14, bold: true, color: MINT, charSpacing: 2 });
+  tb(s, "WORKSHOP · UNLOCKING UNDER-EXPLORED BASINS IN INDONESIA", { x: 0.9, y: 1.5, w: 11.5, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 2 });
   tb(s, "From Potential Fields to Seismological Constraints", { x: 0.9, y: 2.05, w: 11.6, h: 1.6, fontSize: 40, bold: true, color: WHITE, fontFace: HSER, lineSpacingMultiple: 0.98 });
   tb(s, "Gravity & magnetics map where basins are — receiver functions tell us how deep. Together they turn reconnaissance into a drillable model.",
      { x: 0.9, y: 3.9, w: 11.2, h: 1.0, fontSize: 16, color: "C7D3DC", lineSpacingMultiple: 1.1 });
@@ -216,7 +226,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   figBox(s, mag, 6.85, 1.95, 5.55, 4.35);
   tb(s, "Isostatic gravity (deep + shallow)", { x: 0.9, y: 6.32, w: 5.75, h: 0.3, fontSize: 11, bold: true, color: DEEP, align: "center", margin: 0 });
   tb(s, "Total magnetic intensity — RTP", { x: 6.85, y: 6.32, w: 5.55, h: 0.3, fontSize: 11, bold: true, color: RUST, align: "center", margin: 0 });
-  note(s, "Baca cepat: " + read);
+  note(s, read);
   pageno(s, String(9 + i).padStart(2, "0"));
 });
 
@@ -501,8 +511,8 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
 // ---------------------------------------------------------------- 29 synthesis (dark)
 (() => {
   const s = S(); bg(s, NAVY);
-  s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.16, fill: { color: MINT } });
-  tb(s, "THE SYNTHESIS", { x: 0.9, y: 0.9, w: 11, h: 0.4, fontSize: 14, bold: true, color: MINT, charSpacing: 2 });
+  s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.16, fill: { color: GOLD } });
+  tb(s, "THE SYNTHESIS", { x: 0.9, y: 0.9, w: 11, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 2 });
   tb(s, "Gravity + magnetics + seismology", { x: 0.9, y: 1.35, w: 11.5, h: 0.9, fontSize: 32, bold: true, color: WHITE, fontFace: HSER });
   const cols = [
     ["Gravity + magnetics", "WHERE the basins are: extent, depocentres, bounding faults, basement relief — over every basin, cheaply.", DEEP, "Reconnaissance"],
@@ -518,7 +528,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
     x += 3.85;
   });
   tb(s, "When we add seismological constraints, gravity + magnetics become far more powerful.",
-     { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: MINT, align: "center" });
+     { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: GOLD, align: "center" });
   pageno(s);
 })();
 
@@ -548,16 +558,16 @@ function eqp(s, x, y, w, h, tit, eq, txt, c) {
   s.addShape(p.ShapeType.roundRect, { x, y, w, h, rectRadius: 0.08, fill: { color: LIGHT }, line: { color: "DCE6EB", width: 1 } });
   tb(s, tit, { x: x+0.25, y: y+0.2, w: w-0.5, h: 0.4, fontSize: 14, bold: true, color: c, margin: 0 });
   s.addShape(p.ShapeType.roundRect, { x: x+0.2, y: y+0.66, w: w-0.4, h: 0.72, rectRadius: 0.05, fill: { color: "FFFFFF" }, line: { color: "D3DEE5", width: 1 } });
-  tb(s, eq, { x: x+0.28, y: y+0.72, w: w-0.56, h: 0.6, fontSize: 14.5, bold: true, color: INK, fontFace: HSER, align: "center", valign: "middle", margin: 0 });
+  tb(s, eq, { x: x+0.28, y: y+0.72, w: w-0.56, h: 0.6, fontSize: 14.5, bold: true, color: "013A5C", fontFace: HSER, align: "center", valign: "middle", margin: 0 });
   tb(s, txt, { x: x+0.25, y: y+1.5, w: w-0.5, h: h-1.65, fontSize: 11.5, color: MUT, margin: 0, lineSpacingMultiple: 1.06 });
 }
 
 // ---------------------------------------------------------------- 31 closing
 (() => {
   const s = S(); bg(s, NAVY);
-  s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.22, fill: { color: MINT } });
+  s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.22, fill: { color: GOLD } });
   s.addShape(p.ShapeType.rect, { x: 0, y: 7.28, w: 13.333, h: 0.22, fill: { color: GOLD } });
-  tb(s, "THANK YOU", { x: 0.9, y: 1.7, w: 11, h: 0.4, fontSize: 14, bold: true, color: MINT, charSpacing: 3 });
+  tb(s, "THANK YOU", { x: 0.9, y: 1.7, w: 11, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 3 });
   tb(s, "From data scarcity to a drillable basin", { x: 0.9, y: 2.2, w: 11.5, h: 1.5, fontSize: 34, bold: true, color: WHITE, fontFace: HSER, lineSpacingMultiple: 1.0 });
   tb(s, "Satellite gravity & magnetics screen and delineate every Indonesian frontier basin. Receiver functions supply the absolute depth that potential fields cannot. Together they are far more powerful than either alone.",
      { x: 0.9, y: 3.85, w: 11.2, h: 1.4, fontSize: 16, color: "C7D3DC", lineSpacingMultiple: 1.2 });
