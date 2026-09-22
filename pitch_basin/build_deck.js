@@ -23,7 +23,7 @@ function imgSize(path) {
 }
 p.defineLayout({ name: "W", width: 13.333, height: 7.5 });
 p.layout = "W";
-p.author = "Pak Zuhdi research group";
+p.author = "Geoscience Research Group";
 p.title = "Unlocking Under-Explored Basins in Indonesia";
 
 const FIG = __dirname + "/media/";
@@ -35,7 +35,10 @@ const NAVY = "013A5C", NAVY2 = "014A73", PANEL = "0A5580", LINE = "13699A",
 const HSER = "Calibri", BODY = "Calibri";
 function chrome(s) {
   s.addShape(p.ShapeType.rect, { x: 13.16, y: 0, w: 0.17, h: 7.5, fill: { color: GOLD } });
-  tb(s, "FMIPA  ·  UNIVERSITAS GADJAH MADA  ·  2026", { x: 9.75, y: 3.5, w: 6.0, h: 0.3, fontSize: 8, color: "6E93AD", align: "center", rotate: 270, margin: 0 });
+  s.addImage({ path: FIG + "ugm_seal.png", x: 12.44, y: 0.28, w: 0.58, h: 0.58 });
+  tb(s, [{ text: "MIPA", options: { color: GOLD } }, { text: " UGM", options: { color: WHITE } }],
+     { x: 11.9, y: 0.9, w: 1.64, h: 0.28, fontSize: 11, bold: true, align: "center", margin: 0 });
+  tb(s, "Geoscience Research Group", { x: 9.8, y: 3.7, w: 6.0, h: 0.28, fontSize: 7.5, color: "6E93AD", align: "center", rotate: 270, margin: 0 });
 }
 
 function bg(s, c) { s.background = { color: c }; }
@@ -44,10 +47,10 @@ function head(s, kicker, title) {
   bg(s, NAVY2);
   chrome(s);
   s.addShape(p.ShapeType.rect, { x: 0.62, y: 0.64, w: 0.14, h: 0.62, fill: { color: GOLD } });
-  tb(s, kicker, { x: 0.95, y: 0.6, w: 11.4, h: 0.34, fontSize: 12.5, bold: true, color: GOLD, charSpacing: 2, margin: 0 });
+  tb(s, kicker, { x: 0.95, y: 0.6, w: 10.6, h: 0.34, fontSize: 12.5, bold: true, color: GOLD, charSpacing: 2, margin: 0 });
   const per = /[.?!:)]$/.test(title) ? "" : ".";
   tb(s, [{ text: title, options: {} }, { text: per, options: { color: GOLD } }],
-     { x: 0.9, y: 0.94, w: 11.9, h: 0.9, fontSize: 26, bold: true, color: WHITE, fontFace: HSER, margin: 0 });
+     { x: 0.9, y: 0.94, w: 11.2, h: 0.9, fontSize: 26, bold: true, color: WHITE, fontFace: HSER, margin: 0 });
 }
 function figBox(s, file, x, y, w, h, frame = true) {
   const sz = imgSize(FIG + file);
@@ -88,7 +91,7 @@ function S() { PAGE++; return p.addSlide(); }
 
 // ---------------------------------------------------------------- title
 (() => {
-  const s = S(); bg(s, NAVY);
+  const s = S(); bg(s, NAVY); chrome(s);
   s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.22, fill: { color: GOLD } });
   s.addShape(p.ShapeType.rect, { x: 0, y: 7.28, w: 13.333, h: 0.22, fill: { color: GOLD } });
   tb(s, "WORKSHOP · UNLOCKING UNDER-EXPLORED BASINS IN INDONESIA", { x: 0.9, y: 1.5, w: 11.5, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 2 });
@@ -97,7 +100,7 @@ function S() { PAGE++; return p.addSlide(); }
      { x: 0.9, y: 3.9, w: 11.2, h: 1.0, fontSize: 16, color: "C7D3DC", lineSpacingMultiple: 1.1 });
   tb(s, [{ text: "Gravity + Magnetic reconnaissance of 9 frontier basins", options: { color: "9FB3C0" } }],
      { x: 0.9, y: 5.5, w: 11, h: 0.4, fontSize: 13, italic: true });
-  tb(s, "Pak Zuhdi Research Group  ·  Satellite gravity + magnetics + MERAMEX receiver functions  ·  60-minute keynote",
+  tb(s, "Geoscience Research Group  ·  Satellite gravity + magnetics + MERAMEX receiver functions  ·  60-minute keynote",
      { x: 0.9, y: 6.5, w: 11.5, h: 0.4, fontSize: 12.5, color: "8FA6B4" });
 })();
 
@@ -300,7 +303,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
 
 // ---------------------------------------------------------------- 23 the wall
 (() => {
-  const s = S(); bg(s, NAVY);
+  const s = S(); bg(s, NAVY); chrome(s);
   tb(s, "PART 4 · THE LIMIT", { x: 0.9, y: 1.35, w: 11, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 2 });
   tb(s, "Potential fields are non-unique", { x: 0.9, y: 1.85, w: 11.5, h: 1.0, fontSize: 34, bold: true, color: WHITE, fontFace: HSER });
   tb(s, "A gravity or magnetic low can be a thin low-density layer — or a thick, slightly-less-low-density one. Infinitely many density×thickness models fit the same map.",
@@ -510,7 +513,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
 
 // ---------------------------------------------------------------- 29 synthesis (dark)
 (() => {
-  const s = S(); bg(s, NAVY);
+  const s = S(); bg(s, NAVY); chrome(s);
   s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.16, fill: { color: GOLD } });
   tb(s, "THE SYNTHESIS", { x: 0.9, y: 0.9, w: 11, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 2 });
   tb(s, "Gravity + magnetics + seismology", { x: 0.9, y: 1.35, w: 11.5, h: 0.9, fontSize: 32, bold: true, color: WHITE, fontFace: HSER });
@@ -564,7 +567,7 @@ function eqp(s, x, y, w, h, tit, eq, txt, c) {
 
 // ---------------------------------------------------------------- 31 closing
 (() => {
-  const s = S(); bg(s, NAVY);
+  const s = S(); bg(s, NAVY); chrome(s);
   s.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.22, fill: { color: GOLD } });
   s.addShape(p.ShapeType.rect, { x: 0, y: 7.28, w: 13.333, h: 0.22, fill: { color: GOLD } });
   tb(s, "THANK YOU", { x: 0.9, y: 1.7, w: 11, h: 0.4, fontSize: 14, bold: true, color: GOLD, charSpacing: 3 });
@@ -572,7 +575,7 @@ function eqp(s, x, y, w, h, tit, eq, txt, c) {
   tb(s, "Satellite gravity & magnetics screen and delineate every Indonesian frontier basin. Receiver functions supply the absolute depth that potential fields cannot. Together they are far more powerful than either alone.",
      { x: 0.9, y: 3.85, w: 11.2, h: 1.4, fontSize: 16, color: "C7D3DC", lineSpacingMultiple: 1.2 });
   tb(s, "Discussion / Q&A  ·  30 minutes", { x: 0.9, y: 5.5, w: 11, h: 0.5, fontSize: 16, bold: true, color: GOLD });
-  tb(s, "Pak Zuhdi Research Group  ·  Gravity + Magnetics + Receiver Functions  ·  Unlocking Under-Explored Basins in Indonesia",
+  tb(s, "Geoscience Research Group  ·  Gravity + Magnetics + Receiver Functions  ·  Unlocking Under-Explored Basins in Indonesia",
      { x: 0.9, y: 6.4, w: 11.5, h: 0.4, fontSize: 12, color: "8FA6B4" });
 })();
 
