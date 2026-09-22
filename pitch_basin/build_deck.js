@@ -70,11 +70,11 @@ function statRow(s, y, stats) {
 function caption(s, t, x, y, w) { tb(s, t, { x, y, w, h: 0.4, fontSize: 9.5, italic: true, color: MUT, margin: 0 }); }
 function note(s, t) {   // bilingual ID note strip at the bottom
   s.addShape(p.ShapeType.roundRect, { x: 0.9, y: 6.86, w: 11.53, h: 0.5, rectRadius: 0.06, fill: { color: PAPER }, line: { color: "DCE6EB", width: 1 } });
-  tb(s, [{ text: "ID  ", options: { bold: true, color: TEAL } }, { text: t, options: { color: MUT } }],
-     { x: 1.1, y: 6.9, w: 11.2, h: 0.42, fontSize: 11, italic: true, margin: 0, valign: "middle" });
+  tb(s, t, { x: 1.1, y: 6.9, w: 11.2, h: 0.42, fontSize: 11, italic: true, color: MUT, margin: 0, valign: "middle" });
 }
-function pageno(s, n) { tb(s, n, { x: 12.4, y: 7.06, w: 0.7, h: 0.3, fontSize: 10, color: MUT, align: "right", margin: 0 }); }
-function S() { return p.addSlide(); }
+function pageno(s) { tb(s, String(PAGE).padStart(2, "0"), { x: 12.4, y: 7.06, w: 0.7, h: 0.3, fontSize: 10, color: MUT, align: "right", margin: 0 }); }
+let PAGE = 0;
+function S() { PAGE++; return p.addSlide(); }
 
 // ---------------------------------------------------------------- title
 (() => {
@@ -100,7 +100,7 @@ function S() { return p.addSlide(); }
   card(s, 0.9, 5.32, 5.1, 1.35, "The question", "Can potential fields alone give a drillable basin model? Or do we need a seismological anchor?", GOLD);
   caption(s, "Sedimentary basins of Indonesia (Badan Geologi, 2020).", 6.5, 6.62, 6.2);
   note(s, "Peta cekungan Indonesia: banyak cekungan timur masih frontier — data sumur & seismik terbatas. Gravity/magnetik satelit menutup semuanya secara merata.");
-  pageno(s, "02");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 3 agenda
@@ -121,7 +121,7 @@ function S() { return p.addSlide(); }
     if (i % 2) y += 1.6;
   });
   note(s, "Alur 60 menit: konsep → portfolio 9 cekungan → reprosesing Tomini → keterbatasan potensi-lapangan → receiver function sebagai kunci → integrasi.");
-  pageno(s, "03");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 4 why potential fields
@@ -131,7 +131,7 @@ function S() { return p.addSlide(); }
   card(s, 0.9, 4.35, 5.7, 2.15, "Magnetics — susceptibility contrast (Δκ)", "Sediments are near-non-magnetic; basement & intrusions carry the signal. Magnetics image BASEMENT relief and volcanic/fault trends beneath the fill.", RUST);
   card(s, 6.85, 2.05, 5.55, 4.45, "Why use both", "Gravity senses total mass deficit; magnetics senses basement/structure. Read together they cut the ambiguity of either field alone (Gibson & Millegan, 1998) — the first step toward a basin model.\n\nBut note: both are POTENTIAL fields — smooth, non-unique, and depth-ambiguous. Hold that thought for Part 4.", TEAL);
   note(s, "Gravity peka ke kontras densitas (isi cekungan lebih ringan → anomali rendah); magnetik peka ke kontras suseptibilitas (relief batuan dasar). Dipakai bersama mengurangi ambiguitas.");
-  pageno(s, "04");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 5 gravity chain
@@ -154,7 +154,7 @@ function S() { return p.addSlide(); }
   });
   card(s, 0.9, 4.85, 11.5, 1.75, "The residual is the interpretation field", "Regional–residual separation (upward continuation / Gaussian high-pass) isolates shallow basin structure from deep lithospheric trends. Residual gravity LOWS mark sediment depocentres; HIGHS mark basement highs and horsts.", DEEP);
   note(s, "Rantai gravity: free-air → Bouguer (koreksi terrain) → isostatik → residual. Anomali residual RENDAH = depocentre cekungan; TINGGI = tinggian batuan dasar.");
-  pageno(s, "05");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 6 magnetic RTP
@@ -165,7 +165,7 @@ function S() { return p.addSlide(); }
   card(s, 0.9, 4.25, 5.1, 2.25, "RTP / RTE fix", "Reduce-to-Pole (or Equator) re-centres anomalies over their sources, so magnetic highs/lows line up with basement structure and can be co-interpreted with gravity.", DEEP);
   caption(s, "Total magnetic intensity, reduced to pole (EMAG2 V3 + WDMAM).", 6.35, 6.55, 6.3);
   note(s, "Di lintang magnetik rendah, anomali magnetik bergeser dari sumbernya. Reduce-to-Pole mengembalikan anomali tepat di atas sumber agar bisa dipadu dengan gravity.");
-  pageno(s, "06");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 7 edge detection + criteria
@@ -176,7 +176,7 @@ function S() { return p.addSlide(); }
   card(s, 0.9, 4.2, 5.35, 2.3, "A basin = converging evidence", "Diagnose a basin where a residual gravity LOW, a smooth low-gradient magnetic interior, and edge-detected bounding faults all coincide — not from one map alone.", DEEP);
   caption(s, "Basin delineation criteria (source deck).", 6.7, 6.62, 6.0);
   note(s, "Filter turunan (THD/TDR/analytic signal/theta) menandai tepi & sesar. Cekungan didiagnosis saat gravity rendah + interior magnetik tenang + sesar pembatas saling bertemu.");
-  pageno(s, "07");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 8 portfolio intro + data
@@ -186,7 +186,7 @@ function S() { return p.addSlide(); }
   card(s, 0.9, 4.05, 5.7, 2.5, "Gravity — GGMPlus 2013 + WGM2012", "Isostatic-corrected satellite gravity, band-pass filtered into deep, crustal and shallow depth slices (wavelength → depth). Deep+shallow composite shown per basin.", DEEP);
   card(s, 6.75, 4.05, 5.65, 2.5, "Magnetics — EMAG2 V3 + WDMAM", "Total magnetic intensity, merged and reduced-to-pole. Same footprint as gravity so the two fields are co-registered and jointly interpreted for each basin.", RUST);
   note(s, "Satu alur untuk 9 cekungan: gravity isostatik (GGMPlus+WGM2012) di-slice per kedalaman + magnetik RTP (EMAG2V3+WDMAM). Semua data publik satelit.");
-  pageno(s, "08");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 9..17 nine basins
@@ -242,7 +242,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "Ranking uses RELATIVE anomaly strength and pattern — the maps do not yet give absolute depth, thickness, or volume.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.4, fontSize: 12, italic: true, bold: true, color: RUST, margin: 0 });
   note(s, "Peringkat berdasarkan kekuatan & pola anomali relatif. Peta ini belum memberi kedalaman/ketebalan/volume absolut — itu keterbatasan mendasarnya.");
-  pageno(s, "18");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 19 deep dive intro
@@ -253,7 +253,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   figBox(s, "tomini_bouguer_smooth.png", 6.7, 2.0, 6.0, 4.5);
   caption(s, "Complete Bouguer anomaly, reprocessed (this study).", 6.7, 6.55, 6.0);
   note(s, "Tomini/Gorontalo = depocentre frontier laut-dalam Indonesia Timur. Gravity satelit gratis diproses ulang: gridding minimum-curvature + smoothing → peta halus & kontur bersih.");
-  pageno(s, "19");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 20 before/after
@@ -264,7 +264,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "Before — stepped / blocky", { x: 0.9, y: 6.2, w: 5.75, h: 0.3, fontSize: 12, bold: true, color: MUT, align: "center", margin: 0 });
   tb(s, "After — minimum-curvature + smooth contours", { x: 6.85, y: 6.2, w: 5.55, h: 0.3, fontSize: 12, bold: true, color: MINT, align: "center", margin: 0 });
   note(s, "Kiri: gridding lama (bertingkat). Kanan: minimum-curvature (surface, tension) + Gaussian + kontur halus. Depocentre & tepi cekungan jauh lebih terbaca.");
-  pageno(s, "20");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 21 residual interp
@@ -274,7 +274,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 9.2, 2.05, 3.2, 2.1, "Blue = basin low", "Deep residual lows in central Tomini Bay mark the main depocentres — thickest low-density fill.", DEEP);
   card(s, 9.2, 4.25, 3.2, 2.05, "Red = basement high", "Highs flank the North & East arms — structural highs / horsts separating sub-basins.", RUST);
   note(s, "Residual Bouguer: biru = anomali rendah (isi cekungan tebal / depocentre); merah = tinggian batuan dasar. Pola memisahkan sub-cekungan di Teluk Tomini.");
-  pageno(s, "21");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 22 edges
@@ -285,7 +285,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "Total horizontal derivative (edges)", { x: 0.9, y: 6.32, w: 5.75, h: 0.3, fontSize: 11, bold: true, color: RUST, align: "center", margin: 0 });
   tb(s, "Tilt derivative — 0° contour = source outline", { x: 6.85, y: 6.32, w: 5.55, h: 0.3, fontSize: 11, bold: true, color: DEEP, align: "center", margin: 0 });
   note(s, "THD menandai tepi/sesar; tilt derivative (kontur 0°) menggambar garis batas sumber. Bersama-sama memberi kerangka struktur & batas depocentre Tomini.");
-  pageno(s, "22");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 23 the wall
@@ -308,7 +308,20 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
     x += 3.85;
   });
   note(s, "Gravity/magnetik itu ambigu: satu anomali cocok untuk tak-hingga kombinasi densitas×ketebalan. Butuh jangkar kedalaman independen.");
-  pageno(s, "23");
+  pageno(s);
+})();
+
+// ---------------------------------------------------------------- physics I: RF
+(() => {
+  const s = S(); head(s, "PHYSICS I · RECEIVER FUNCTIONS", "How receiver functions read absolute depth");
+  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · P → S conversion", "P  →  Ps  at each Δ(ρV)",
+      "A teleseismic P wave converts part of its energy to a delayed S wave (Ps) at every velocity / impedance boundary beneath the station.", DEEP);
+  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Source-equalised", "RF = Radial ⊘ Vertical⁻¹",
+      "Deconvolving the vertical from the radial component removes the earthquake source and deep path, leaving the local Ps response (iterative time-domain deconvolution).", TEAL);
+  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Delay → depth", "H = t_Ps / (√(Vs⁻²−p²) − √(Vp⁻²−p²))",
+      "The Ps–P delay t_Ps and the ray parameter p give the ABSOLUTE interface depth H — the sediment–basement pick that gravity lacks.", MINT);
+  note(s, "Fisika RF: gelombang P jauh → konversi Ps di tiap batas; dekonvolusi vertikal menghi­langkan sumber; jeda Ps + ray parameter → kedalaman absolut interface.");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 24 seismology 101
@@ -319,7 +332,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   figBox(s, "cj_rf_demo_BI1.png", 6.7, 2.05, 6.0, 4.4);
   caption(s, "Receiver function, station BI1 (MERAMEX, Central Java).", 6.7, 6.5, 6.0);
   note(s, "Gempa jauh → gelombang P menembus kerak di bawah satu stasiun. Sebagian P berubah jadi S (Ps) di tiap batas; jeda Ps = kedalaman batas. Inilah jangkar yang tak dimiliki gravity.");
-  pageno(s, "24");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 25 RF -> sediment + Vs
@@ -329,7 +342,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 8.5, 2.05, 3.9, 2.1, "Ps move-out → depth", "Convert Ps delay + ray parameter into an ABSOLUTE sediment / basement depth per station.", DEEP);
   card(s, 8.5, 4.25, 3.9, 2.25, "Full Vs inversion", "Herrmann CPS rftn96 inverts the waveform for a layered Vs(z) — physically constrained, PREM-like increase with depth.", MINT);
   note(s, "Move-out Ps → kedalaman absolut sedimen/basement; inversi penuh (CPS rftn96) → profil Vs(z) berlapis yang fisis. Kalibrasi densitas untuk gravity.");
-  pageno(s, "25");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 26 Central Java result
@@ -339,7 +352,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 8.6, 2.05, 3.8, 2.15, "MERAMEX 2004", "Dozens of temporary broadband stations across Central Java — teleseismic RF at each yields sediment thickness.", DEEP);
   card(s, 8.6, 4.3, 3.8, 2.0, "A depth grid, not a guess", "Each dot is an absolute, station-based sediment estimate — the calibration gravity needs.", MINT);
   note(s, "Central Java (MERAMEX 2004): receiver function tiap stasiun → ketebalan sedimen absolut. Titik-titik ini menjadi kalibrasi untuk inversi gravity.");
-  pageno(s, "26");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 27 Western Indonesia Vs
@@ -349,7 +362,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   figBox(s, "wi_vs_profiles_by_region.png", 7.5, 2.1, 4.9, 3.9);
   caption(s, "Moho depth (left) and regional Vs(z) profiles (right) — Sumatra, Java-Bali, Kalimantan.", 0.9, 6.5, 11.4);
   note(s, "91 stasiun broadband Indonesia Barat: model Vs 1-D → kedalaman Moho & profil kecepatan per wilayah. Kerangka kecepatan regional untuk membatasi densitas & kedalaman.");
-  pageno(s, "27");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 28 CJ validation
@@ -359,7 +372,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "90 MERAMEX stations · residual Bouguer sampled at each RF site · Pearson r = +0.08 (p = 0.44).",
      { x: 0.9, y: 6.2, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
   note(s, "Di Jawa Tengah, gravity satelit TIDAK berkorelasi dengan ketebalan sedimen RF (r≈0.1, tidak signifikan) — sinyal sedimen (~20 mGal) tertimbun variasi Moho/volkanik (~58 mGal). Bukti kuantitatif non-uniqueness.");
-  pageno(s, "28");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 29 CJ constraint
@@ -369,7 +382,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "RF supplies absolute depth & Vs → fix density×depth → the coherent basin model gravity alone could not yield.",
      { x: 0.9, y: 6.2, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
   note(s, "Justru karena gravity ambigu, receiver function menjadi kunci: kedalaman & Vs absolut per stasiun mengunci skala densitas → model cekungan koheren. Di Central Java kita punya data RF & model Vs — inilah keunggulannya.");
-  pageno(s, "29");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 30 RF-constrained gravity
@@ -379,7 +392,20 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 8.4, 2.05, 4.0, 2.1, "Gravity alone drifts", "Unconstrained gravity inversion trades depth against density — weak correlation with true structure.", RUST);
   card(s, 8.4, 4.25, 4.0, 2.05, "RF locks the scale", "Feeding RF depths as constraints fixes the density×depth trade — gravity now resolves basin geometry.", MINT);
   note(s, "Gravity sendirian ambigu (kedalaman vs densitas). Dengan kedalaman RF sebagai constraint, skala terkunci → gravity menghasilkan geometri cekungan yang benar.");
-  pageno(s, "30");
+  pageno(s);
+})();
+
+// ---------------------------------------------------------------- physics II: gravity+inversion
+(() => {
+  const s = S(); head(s, "PHYSICS II · GRAVITY & INVERSION", "Gravity: strong signal, weak uniqueness");
+  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · Mass → gravity", "Δg = 2πG·Δρ·h",
+      "Low-density fill (Δρ<0) of thickness h makes a negative Bouguer anomaly (infinite slab). Tesseroids sum this over a spherical Earth (Uieda & Barbosa 2017).", DEEP);
+  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Non-uniqueness", "Δg fixes Δρ·h — not each",
+      "Infinitely many density×thickness models fit the same field → gravity ALONE cannot resolve depth. This is why a seismological anchor is essential.", RUST);
+  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Regularised Bott", "(AᵀA + μRᵀR)Δb = Aᵀr − μRᵀRb",
+      "Iterative relief update; Jacobian A ≈ 2πGΔρ (Bouguer-plate), μ = Tikhonov smoothing. Solved with sparse conjugate gradients.", MINT);
+  note(s, "Fisika gravity: anomali ∝ Δρ·h (slab); ambigu (densitas×ketebalan tak terpisah) → non-unik. Inversi Bott ter-regularisasi (tesseroid) memperbaiki relief basement.");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 3-D inversion (method)
@@ -389,7 +415,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 9.25, 2.05, 3.15, 2.15, "Tesseroid + Bott", "Spherical-prism forward modelling + regularised Bott inversion (harmonica) for the sediment–basement relief around a reference level.", DEEP);
   card(s, 9.25, 4.3, 3.15, 2.1, "RF-calibrated & constrained", "Δρ and z_ref fixed from RF depths (paper §2.6.2); RF depths added as constraints → the model honours seismology (r = 0.93).", MINT);
   note(s, "Inversi 3D gravity cara Uieda (tesseroid + Bott + Tikhonov). Δρ & z_ref dikalibrasi RF; kedalaman RF jadi constraint → geometri cekungan terkunci ke data seismik.");
-  pageno(s, "31");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 3-D inversion (density section)
@@ -399,7 +425,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "Low-density fill (ρ≈2170) over basement (ρ≈2670); the RF-constrained basement (line) tracks the RF picks (dots).  Vertical exaggeration ×6.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
   note(s, "Penampang densitas cekungan: isi sedimen ringan di atas batuan dasar; garis basement (inversi ter-constrain RF) mengikuti titik RF. Depocentre jelas, VE ×6.");
-  pageno(s, "32");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 3-D inversion (the sharp test)
@@ -409,7 +435,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 8.75, 2.05, 3.65, 2.15, "Gravity vs RF: incompatible", "Fit the gravity → wrong depths (r=−0.1). Match RF → gravity misfit doubles (6→12 mGal). You cannot satisfy both — they carry independent information.", RUST);
   card(s, 8.75, 4.3, 3.65, 2.1, "The low is NOT sediment", "Where the residual is most negative, RF says sediment is THIN → the low comes from a deeper/denser source that gravity-alone would misread as a basin.", DEEP);
   note(s, "Predicted (ter-constrain RF) kecil & tak mirip observed → residual ≈ observed. Sebab: low gravity terbesar justru di tempat sedimen RF tipis — sumbernya lebih dalam, bukan cekungan. Justifikasi kuat perlunya seismologi.");
-  pageno(s, "33");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- two seismic routes
@@ -419,7 +445,20 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   tb(s, "(a) Receiver functions (Ps move-out)   vs   (b) Ambient-noise autocorrelation (Romero & Schimmel 2018) — same stations, independent physics.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.3, fontSize: 11, italic: true, color: MUT, align: "center", margin: 0 });
   note(s, "Dua jalur seismologi independen ke basement: RF (konversi Ps) & autokorelasi ambient noise (Romero). RF cenderung lebih dalam, AN lebih dangkal — selisihnya mengukur ketidakpastian dan memandu inversi gabungan.");
-  pageno(s, "34");
+  pageno(s);
+})();
+
+// ---------------------------------------------------------------- physics III: Romero
+(() => {
+  const s = S(); head(s, "PHYSICS III · AMBIENT-NOISE AUTOCORRELATION", "Turning noise into a reflection seismogram");
+  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · Claerbout principle", "AC[u(t)]  ≈  reflection response",
+      "The autocorrelation of the transmitted ambient wavefield equals the zero-offset P reflection response beneath the station — no earthquake, no active source.", DEEP);
+  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Phase cross-correlation", "c(τ) = ⟨cos[φ(t+τ)−φ(t)]⟩",
+      "Amplitude-unbiased (Schimmel 1999): uses only the instantaneous phase φ of the analytic signal, then a phase-weighted stack — robust to transients & noise bursts.", TEAL);
+  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Two-way time → depth", "H = Vp · t_bsm / 2",
+      "The basement reflection’s two-way time gives depth. Multi-band stacking keeps real reflections (fixed TWT) and rejects zero-lag sidelobes (which move with band).", MINT);
+  note(s, "Fisika Romero: autokorelasi noise = respons refleksi (Claerbout); PCC pakai fase sesaat (amplitude-unbiased); TWT basement → kedalaman; multi-band menyaring sidelobe.");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- ambient-noise method
@@ -429,7 +468,23 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 8.7, 2.05, 3.7, 2.15, "Autocorrelation = reflection response", "Single-station autocorrelation of continuous ambient noise (PCC + phase-weighted stack) returns the zero-offset P-wave reflection response beneath each site.", DEEP);
   card(s, 8.7, 4.3, 3.7, 2.1, "RF-independent basement", "Multi-band sidelobe discrimination keeps only real reflectors; the deepest band-stable one → basement TWT → depth (independent Vp). 111 stations mapped.", MINT);
   note(s, "Metode Romero & Schimmel: autokorelasi ambient noise satu-stasiun (PCC+PWS) → respons refleksi-P. Diskriminasi multi-band memisahkan reflektor asli dari sidelobe. Basement murni dari korelasi — tanpa RF.");
-  pageno(s, "35");
+  pageno(s);
+})();
+
+// ---------------------------------------------------------------- physics IV: joint
+(() => {
+  const s = S(); head(s, "PHYSICS IV · JOINT INVERSION", "Fusing three physics into one basement");
+  s.addShape(p.ShapeType.roundRect, { x: 0.9, y: 2.05, w: 11.5, h: 1.15, rectRadius: 0.08, fill: { color: NAVY } });
+  tb(s, "Φ(b) = ‖g(b) − d_grav‖²  +  μ‖Rb‖²  +  w_RF² Σ(b−z_RF)²  +  w_AN² Σ(b−z_AN)²",
+     { x: 1.1, y: 2.28, w: 11.1, h: 0.7, fontSize: 17, bold: true, color: WHITE, fontFace: HSER, align: "center", valign: "middle", margin: 0 });
+  eqp(s, 0.9, 3.45, 3.7, 3.0, "gravity + smoothness", "shape between stations",
+      "The dense gravity term sets the smooth LATERAL geometry of the basement; μ‖Rb‖² keeps the model stable where data are sparse.", DEEP);
+  eqp(s, 4.77, 3.45, 3.7, 3.0, "RF + AN = absolute depth", "z_RF , z_AN as anchors",
+      "Two independent seismological depths pin the vertical scale as soft constraints; where they disagree, the model takes a weight-balanced compromise.", MINT);
+  eqp(s, 8.63, 3.45, 3.7, 3.0, "weights = confidence", "w² ∝ 1/σ²",
+      "Each dataset enters with a weight = its inverse variance (a Bayesian likelihood). Result: r=0.69 vs RF and r=0.63 vs AN at once.", GOLD);
+  note(s, "Fisika joint: satu fungsi objektif menggabungkan gravity (bentuk), kehalusan, dan kedalaman RF & AN (skala). Bobot = 1/σ² (Bayesian). Basement terpadu yang konsisten dengan semua data.");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- joint basement
@@ -440,7 +495,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   card(s, 8.15, 3.72, 4.25, 1.5, "Honours both probes", "The unified model correlates with RF (r = 0.69) and with ambient noise (r = 0.63) at once — the RF/AN tension is reconciled, not ignored.", MINT);
   figBox(s, "joint_section.png", 8.15, 5.32, 4.25, 1.35, false);
   note(s, "Model basement TERPADU Central Java: gravity (bentuk lateral) + kedalaman RF & autokorelasi ambient-noise (skala absolut) dalam satu inversi tesseroid. Menghormati kedua data seismik sekaligus — depocentre ~4–5 km, tinggian ~2 km.");
-  pageno(s, "36");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 29 synthesis (dark)
@@ -464,7 +519,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   tb(s, "When we add seismological constraints, gravity + magnetics become far more powerful.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: MINT, align: "center" });
-  pageno(s, "37");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- 30 roadmap
@@ -485,7 +540,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   card(s, 6.95, 4.85, 5.45, 1.4, "Data already on the table", "MIGAS legacy wells & 2-D seismic + permanent broadband networks — the anchor stations largely exist.", NAVY);
   note(s, "Resep: screening satelit → reprosesing → jangkar RF di stasiun broadband yang sudah ada → inversi gabungan → peta depocentre & lead. Banyak data sudah tersedia.");
-  pageno(s, "38");
+  pageno(s);
 })();
 
 // ---------------------------------------------------------------- physics helper
@@ -496,61 +551,6 @@ function eqp(s, x, y, w, h, tit, eq, txt, c) {
   tb(s, eq, { x: x+0.28, y: y+0.72, w: w-0.56, h: 0.6, fontSize: 14.5, bold: true, color: INK, fontFace: HSER, align: "center", valign: "middle", margin: 0 });
   tb(s, txt, { x: x+0.25, y: y+1.5, w: w-0.5, h: h-1.65, fontSize: 11.5, color: MUT, margin: 0, lineSpacingMultiple: 1.06 });
 }
-
-// ---------------------------------------------------------------- physics I: RF
-(() => {
-  const s = S(); head(s, "PHYSICS I · RECEIVER FUNCTIONS", "How receiver functions read absolute depth");
-  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · P → S conversion", "P  →  Ps  at each Δ(ρV)",
-      "A teleseismic P wave converts part of its energy to a delayed S wave (Ps) at every velocity / impedance boundary beneath the station.", DEEP);
-  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Source-equalised", "RF = Radial ⊘ Vertical⁻¹",
-      "Deconvolving the vertical from the radial component removes the earthquake source and deep path, leaving the local Ps response (iterative time-domain deconvolution).", TEAL);
-  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Delay → depth", "H = t_Ps / (√(Vs⁻²−p²) − √(Vp⁻²−p²))",
-      "The Ps–P delay t_Ps and the ray parameter p give the ABSOLUTE interface depth H — the sediment–basement pick that gravity lacks.", MINT);
-  note(s, "Fisika RF: gelombang P jauh → konversi Ps di tiap batas; dekonvolusi vertikal menghi­langkan sumber; jeda Ps + ray parameter → kedalaman absolut interface.");
-  pageno(s, "39");
-})();
-
-// ---------------------------------------------------------------- physics II: gravity+inversion
-(() => {
-  const s = S(); head(s, "PHYSICS II · GRAVITY & INVERSION", "Gravity: strong signal, weak uniqueness");
-  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · Mass → gravity", "Δg = 2πG·Δρ·h",
-      "Low-density fill (Δρ<0) of thickness h makes a negative Bouguer anomaly (infinite slab). Tesseroids sum this over a spherical Earth (Uieda & Barbosa 2017).", DEEP);
-  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Non-uniqueness", "Δg fixes Δρ·h — not each",
-      "Infinitely many density×thickness models fit the same field → gravity ALONE cannot resolve depth. This is why a seismological anchor is essential.", RUST);
-  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Regularised Bott", "(AᵀA + μRᵀR)Δb = Aᵀr − μRᵀRb",
-      "Iterative relief update; Jacobian A ≈ 2πGΔρ (Bouguer-plate), μ = Tikhonov smoothing. Solved with sparse conjugate gradients.", MINT);
-  note(s, "Fisika gravity: anomali ∝ Δρ·h (slab); ambigu (densitas×ketebalan tak terpisah) → non-unik. Inversi Bott ter-regularisasi (tesseroid) memperbaiki relief basement.");
-  pageno(s, "40");
-})();
-
-// ---------------------------------------------------------------- physics III: Romero
-(() => {
-  const s = S(); head(s, "PHYSICS III · AMBIENT-NOISE AUTOCORRELATION", "Turning noise into a reflection seismogram");
-  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · Claerbout principle", "AC[u(t)]  ≈  reflection response",
-      "The autocorrelation of the transmitted ambient wavefield equals the zero-offset P reflection response beneath the station — no earthquake, no active source.", DEEP);
-  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Phase cross-correlation", "c(τ) = ⟨cos[φ(t+τ)−φ(t)]⟩",
-      "Amplitude-unbiased (Schimmel 1999): uses only the instantaneous phase φ of the analytic signal, then a phase-weighted stack — robust to transients & noise bursts.", TEAL);
-  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Two-way time → depth", "H = Vp · t_bsm / 2",
-      "The basement reflection’s two-way time gives depth. Multi-band stacking keeps real reflections (fixed TWT) and rejects zero-lag sidelobes (which move with band).", MINT);
-  note(s, "Fisika Romero: autokorelasi noise = respons refleksi (Claerbout); PCC pakai fase sesaat (amplitude-unbiased); TWT basement → kedalaman; multi-band menyaring sidelobe.");
-  pageno(s, "41");
-})();
-
-// ---------------------------------------------------------------- physics IV: joint
-(() => {
-  const s = S(); head(s, "PHYSICS IV · JOINT INVERSION", "Fusing three physics into one basement");
-  s.addShape(p.ShapeType.roundRect, { x: 0.9, y: 2.05, w: 11.5, h: 1.15, rectRadius: 0.08, fill: { color: NAVY } });
-  tb(s, "Φ(b) = ‖g(b) − d_grav‖²  +  μ‖Rb‖²  +  w_RF² Σ(b−z_RF)²  +  w_AN² Σ(b−z_AN)²",
-     { x: 1.1, y: 2.28, w: 11.1, h: 0.7, fontSize: 17, bold: true, color: WHITE, fontFace: HSER, align: "center", valign: "middle", margin: 0 });
-  eqp(s, 0.9, 3.45, 3.7, 3.0, "gravity + smoothness", "shape between stations",
-      "The dense gravity term sets the smooth LATERAL geometry of the basement; μ‖Rb‖² keeps the model stable where data are sparse.", DEEP);
-  eqp(s, 4.77, 3.45, 3.7, 3.0, "RF + AN = absolute depth", "z_RF , z_AN as anchors",
-      "Two independent seismological depths pin the vertical scale as soft constraints; where they disagree, the model takes a weight-balanced compromise.", MINT);
-  eqp(s, 8.63, 3.45, 3.7, 3.0, "weights = confidence", "w² ∝ 1/σ²",
-      "Each dataset enters with a weight = its inverse variance (a Bayesian likelihood). Result: r=0.69 vs RF and r=0.63 vs AN at once.", GOLD);
-  note(s, "Fisika joint: satu fungsi objektif menggabungkan gravity (bentuk), kehalusan, dan kedalaman RF & AN (skala). Bobot = 1/σ² (Bayesian). Basement terpadu yang konsisten dengan semua data.");
-  pageno(s, "42");
-})();
 
 // ---------------------------------------------------------------- 31 closing
 (() => {
