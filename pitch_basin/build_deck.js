@@ -432,6 +432,17 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   pageno(s, "35");
 })();
 
+// ---------------------------------------------------------------- joint basement
+(() => {
+  const s = S(); head(s, "PART 5 · THE UNIFIED MODEL", "One basement from three datasets: RF + noise + gravity");
+  figBox(s, "joint_map.png", 0.9, 1.95, 7.05, 4.55);
+  card(s, 8.15, 2.05, 4.25, 1.55, "Joint tesseroid inversion", "Gravity gives the smooth lateral shape; RF & ambient-noise depths pin the absolute scale as soft point constraints (Uieda + Bott).", DEEP);
+  card(s, 8.15, 3.72, 4.25, 1.5, "Honours both probes", "The unified model correlates with RF (r = 0.69) and with ambient noise (r = 0.63) at once — the RF/AN tension is reconciled, not ignored.", MINT);
+  figBox(s, "joint_section.png", 8.15, 5.32, 4.25, 1.35, false);
+  note(s, "Model basement TERPADU Central Java: gravity (bentuk lateral) + kedalaman RF & autokorelasi ambient-noise (skala absolut) dalam satu inversi tesseroid. Menghormati kedua data seismik sekaligus — depocentre ~4–5 km, tinggian ~2 km.");
+  pageno(s, "36");
+})();
+
 // ---------------------------------------------------------------- 29 synthesis (dark)
 (() => {
   const s = S(); bg(s, NAVY);
@@ -453,7 +464,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   tb(s, "When we add seismological constraints, gravity + magnetics become far more powerful.",
      { x: 0.9, y: 6.35, w: 11.5, h: 0.5, fontSize: 15, bold: true, italic: true, color: MINT, align: "center" });
-  pageno(s, "36");
+  pageno(s, "37");
 })();
 
 // ---------------------------------------------------------------- 30 roadmap
@@ -474,7 +485,7 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   });
   card(s, 6.95, 4.85, 5.45, 1.4, "Data already on the table", "MIGAS legacy wells & 2-D seismic + permanent broadband networks — the anchor stations largely exist.", NAVY);
   note(s, "Resep: screening satelit → reprosesing → jangkar RF di stasiun broadband yang sudah ada → inversi gabungan → peta depocentre & lead. Banyak data sudah tersedia.");
-  pageno(s, "37");
+  pageno(s, "38");
 })();
 
 // ---------------------------------------------------------------- 31 closing
