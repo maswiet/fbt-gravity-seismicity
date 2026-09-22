@@ -488,6 +488,70 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   pageno(s, "38");
 })();
 
+// ---------------------------------------------------------------- physics helper
+function eqp(s, x, y, w, h, tit, eq, txt, c) {
+  s.addShape(p.ShapeType.roundRect, { x, y, w, h, rectRadius: 0.08, fill: { color: LIGHT }, line: { color: "DCE6EB", width: 1 } });
+  tb(s, tit, { x: x+0.25, y: y+0.2, w: w-0.5, h: 0.4, fontSize: 14, bold: true, color: c, margin: 0 });
+  s.addShape(p.ShapeType.roundRect, { x: x+0.2, y: y+0.66, w: w-0.4, h: 0.72, rectRadius: 0.05, fill: { color: "FFFFFF" }, line: { color: "D3DEE5", width: 1 } });
+  tb(s, eq, { x: x+0.28, y: y+0.72, w: w-0.56, h: 0.6, fontSize: 14.5, bold: true, color: INK, fontFace: HSER, align: "center", valign: "middle", margin: 0 });
+  tb(s, txt, { x: x+0.25, y: y+1.5, w: w-0.5, h: h-1.65, fontSize: 11.5, color: MUT, margin: 0, lineSpacingMultiple: 1.06 });
+}
+
+// ---------------------------------------------------------------- physics I: RF
+(() => {
+  const s = S(); head(s, "PHYSICS I · RECEIVER FUNCTIONS", "How receiver functions read absolute depth");
+  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · P → S conversion", "P  →  Ps  at each Δ(ρV)",
+      "A teleseismic P wave converts part of its energy to a delayed S wave (Ps) at every velocity / impedance boundary beneath the station.", DEEP);
+  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Source-equalised", "RF = Radial ⊘ Vertical⁻¹",
+      "Deconvolving the vertical from the radial component removes the earthquake source and deep path, leaving the local Ps response (iterative time-domain deconvolution).", TEAL);
+  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Delay → depth", "H = t_Ps / (√(Vs⁻²−p²) − √(Vp⁻²−p²))",
+      "The Ps–P delay t_Ps and the ray parameter p give the ABSOLUTE interface depth H — the sediment–basement pick that gravity lacks.", MINT);
+  note(s, "Fisika RF: gelombang P jauh → konversi Ps di tiap batas; dekonvolusi vertikal menghi­langkan sumber; jeda Ps + ray parameter → kedalaman absolut interface.");
+  pageno(s, "39");
+})();
+
+// ---------------------------------------------------------------- physics II: gravity+inversion
+(() => {
+  const s = S(); head(s, "PHYSICS II · GRAVITY & INVERSION", "Gravity: strong signal, weak uniqueness");
+  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · Mass → gravity", "Δg = 2πG·Δρ·h",
+      "Low-density fill (Δρ<0) of thickness h makes a negative Bouguer anomaly (infinite slab). Tesseroids sum this over a spherical Earth (Uieda & Barbosa 2017).", DEEP);
+  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Non-uniqueness", "Δg fixes Δρ·h — not each",
+      "Infinitely many density×thickness models fit the same field → gravity ALONE cannot resolve depth. This is why a seismological anchor is essential.", RUST);
+  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Regularised Bott", "(AᵀA + μRᵀR)Δb = Aᵀr − μRᵀRb",
+      "Iterative relief update; Jacobian A ≈ 2πGΔρ (Bouguer-plate), μ = Tikhonov smoothing. Solved with sparse conjugate gradients.", MINT);
+  note(s, "Fisika gravity: anomali ∝ Δρ·h (slab); ambigu (densitas×ketebalan tak terpisah) → non-unik. Inversi Bott ter-regularisasi (tesseroid) memperbaiki relief basement.");
+  pageno(s, "40");
+})();
+
+// ---------------------------------------------------------------- physics III: Romero
+(() => {
+  const s = S(); head(s, "PHYSICS III · AMBIENT-NOISE AUTOCORRELATION", "Turning noise into a reflection seismogram");
+  eqp(s, 0.9, 2.05, 3.7, 4.4, "1 · Claerbout principle", "AC[u(t)]  ≈  reflection response",
+      "The autocorrelation of the transmitted ambient wavefield equals the zero-offset P reflection response beneath the station — no earthquake, no active source.", DEEP);
+  eqp(s, 4.77, 2.05, 3.7, 4.4, "2 · Phase cross-correlation", "c(τ) = ⟨cos[φ(t+τ)−φ(t)]⟩",
+      "Amplitude-unbiased (Schimmel 1999): uses only the instantaneous phase φ of the analytic signal, then a phase-weighted stack — robust to transients & noise bursts.", TEAL);
+  eqp(s, 8.63, 2.05, 3.7, 4.4, "3 · Two-way time → depth", "H = Vp · t_bsm / 2",
+      "The basement reflection’s two-way time gives depth. Multi-band stacking keeps real reflections (fixed TWT) and rejects zero-lag sidelobes (which move with band).", MINT);
+  note(s, "Fisika Romero: autokorelasi noise = respons refleksi (Claerbout); PCC pakai fase sesaat (amplitude-unbiased); TWT basement → kedalaman; multi-band menyaring sidelobe.");
+  pageno(s, "41");
+})();
+
+// ---------------------------------------------------------------- physics IV: joint
+(() => {
+  const s = S(); head(s, "PHYSICS IV · JOINT INVERSION", "Fusing three physics into one basement");
+  s.addShape(p.ShapeType.roundRect, { x: 0.9, y: 2.05, w: 11.5, h: 1.15, rectRadius: 0.08, fill: { color: NAVY } });
+  tb(s, "Φ(b) = ‖g(b) − d_grav‖²  +  μ‖Rb‖²  +  w_RF² Σ(b−z_RF)²  +  w_AN² Σ(b−z_AN)²",
+     { x: 1.1, y: 2.28, w: 11.1, h: 0.7, fontSize: 17, bold: true, color: WHITE, fontFace: HSER, align: "center", valign: "middle", margin: 0 });
+  eqp(s, 0.9, 3.45, 3.7, 3.0, "gravity + smoothness", "shape between stations",
+      "The dense gravity term sets the smooth LATERAL geometry of the basement; μ‖Rb‖² keeps the model stable where data are sparse.", DEEP);
+  eqp(s, 4.77, 3.45, 3.7, 3.0, "RF + AN = absolute depth", "z_RF , z_AN as anchors",
+      "Two independent seismological depths pin the vertical scale as soft constraints; where they disagree, the model takes a weight-balanced compromise.", MINT);
+  eqp(s, 8.63, 3.45, 3.7, 3.0, "weights = confidence", "w² ∝ 1/σ²",
+      "Each dataset enters with a weight = its inverse variance (a Bayesian likelihood). Result: r=0.69 vs RF and r=0.63 vs AN at once.", GOLD);
+  note(s, "Fisika joint: satu fungsi objektif menggabungkan gravity (bentuk), kehalusan, dan kedalaman RF & AN (skala). Bobot = 1/σ² (Bayesian). Basement terpadu yang konsisten dengan semua data.");
+  pageno(s, "42");
+})();
+
 // ---------------------------------------------------------------- 31 closing
 (() => {
   const s = S(); bg(s, NAVY);
