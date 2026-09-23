@@ -484,6 +484,16 @@ BASINS.forEach(([name, region, grav, mag, read], i) => {
   pageno(s);
 })();
 
+// ---------------------------------------------------------------- spica vs romero
+(() => {
+  const s = S(); head(s, "PART 5 · TWO NOISE METHODS", "Autocorrelation vs cross-correlation — reflection vs velocity");
+  figBox(s, "an_compare_spica.png", 0.9, 1.9, 8.0, 4.75, false);
+  card(s, 9.1, 2.05, 3.3, 2.15, "Romero → depth", "Single-station AUTOcorrelation gives the P reflection → basement DEPTH. Robust even on the temporary 1-Hz array (126 days).", MINT);
+  card(s, 9.1, 4.3, 3.3, 2.15, "Spica → velocity", "Inter-station CROSS-correlation (C¹) gives Rayleigh DISPERSION → Vs. Needs long broadband records; a median ~1 km/s (soft basin) emerges with all days + PWS.", DEEP);
+  note(s, "Dua rute ambient-noise: Romero (autokorelasi → refleksi → kedalaman, robust) vs Spica (cross-correlation → dispersi → kecepatan Vs, butuh rekaman panjang). Komplementer — Vs dari Spica bisa mengonversi TWT Romero menjadi kedalaman.");
+  pageno(s);
+})();
+
 // ---------------------------------------------------------------- physics IV: joint
 (() => {
   const s = S(); head(s, "PHYSICS IV · JOINT INVERSION", "Fusing three physics into one basement");
