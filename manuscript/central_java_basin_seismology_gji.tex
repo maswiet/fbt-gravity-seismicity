@@ -75,9 +75,10 @@ anchoring the density/reference level raises the fit to $r=0.93$ and converts a
 qualitative anomaly map into a metric basin model. The autocorrelation basement
 map (111 stations, median depth $2.1$~km, range $0.9$--$8.8$~km) reproduces the
 gravity low \emph{without} using receiver functions, providing an independent
-check, while the cross-correlation route yields slow apparent group velocities
-($\sim\!0.8$--$1.5$~\si{\km\per\s}) consistent with soft fill but with limited
-resolution from a short-period array. A joint receiver-function\,+\,autocorrelation
+check, while inter-station cross-correlation yields a physically coherent Rayleigh
+group-velocity dispersion that rises from $\sim\!2.2$ to $\sim\!2.6$~\si{\km\per\s}
+between 3.5 and 8~s period, diagnostic of slow sedimentary fill over a faster
+basement. A joint receiver-function\,+\,autocorrelation
 \,+\,gravity inversion produces a single basement model (median $2.7$~km, $1.2$--$5.4$~km)
 consistent with both seismic estimates ($r=0.69$ and $0.63$). We conclude that for
 Indonesian frontier basins the decisive step is not more potential-field data but
@@ -344,16 +345,24 @@ phases and autocorrelated ambient noise --- is the strongest internal evidence
 that the recovered basin is real.
 
 \subsection{Cross-correlation dispersion}
-All-day, microseism-band, phase-weighted cross-correlation retrieves a Rayleigh
-move-out in the distance-binned record section (Fig.~\ref{fig:spica}a), with
-apparent group velocities of $\sim$0.8--1.5~\si{\km\per\s}; the FTAN dispersion
-(Fig.~\ref{fig:spica}b) clusters near $\sim$1~\si{\km\per\s} but remains
-scattered. These low velocities are consistent with soft, slow basin fill, but the
-short-period (1~Hz) temporary instrumentation and the limited deployment length
-restrict the usable band and hence the depth resolution of this route. We report
-it as corroborating (slow shallow $V_S$) rather than as a primary depth
-constraint, and we discuss below why the reflection-based methods outperform
-dispersion for this particular array.
+All-day, microseism-band, phase-weighted cross-correlation retrieves a symmetric
+Rayleigh empirical Green's function whose move-out in the distance-binned record
+section (Fig.~\ref{fig:spica}a) tracks the $2.5$--$3.0$~\si{\km\per\s} reference
+lines. Restricting the frequency--time analysis to the 80 inter-station pairs with
+adequate signal-to-noise ($\mathrm{SNR}\ge2.3$ in the surface-wave window) and
+separation ($\ge20$~km), and gating to a physical velocity window, yields a
+coherent group-velocity dispersion (Fig.~\ref{fig:spica}b): the stacked FTAN
+energy ridge, and the picked curve, rise monotonically from
+$\sim$2.2~\si{\km\per\s} at 3.5~s period to $\sim$2.5~\si{\km\per\s} at 8~s. This
+positive dispersion --- slower at short period, faster at long period --- is the
+diagnostic signature of a low-velocity sedimentary layer over a faster basement,
+and the absolute velocities are physically consistent with young clastic fill. The
+earlier impression of $\sim$1~\si{\km\per\s} velocities was an artefact of an
+over-permissive velocity gate that admitted near-zero-lag noise; with a physical
+gate the dispersion is well behaved. The short-period (1~Hz) instrumentation
+nonetheless limits the usable band to $\sim$3.5--8~s, so we use the dispersion as
+an independent velocity corroboration of the basin rather than inverting it for a
+fully layered $V_S(z)$ profile.
 
 \subsection{A single joint basement model}
 The joint inversion (Eq.~\ref{eq:joint}) yields one basement grid
@@ -389,9 +398,10 @@ the autocorrelated P reflection --- both measure a \emph{traveltime to an
 interface} and convert cleanly to depth; they agreed with each other and with the
 anchored gravity. The dispersion route measures \emph{propagation velocity across
 the array} and requires a well-converged inter-station EGF over a broad period
-band. With 1~Hz sensors and a few months of recording, the usable band is narrow
-and the EGF noisy, so the dispersion constrained only the shallowest, slowest fill.
-The practical lesson for frontier deployments is that single-station
+band. With 1~Hz sensors and a few months of recording the usable band is narrow,
+so the dispersion --- although now physically coherent (Fig.~\ref{fig:spica}) ---
+constrains the depth-averaged shallow velocity rather than a finely layered
+$V_S(z)$. The practical lesson for frontier deployments is that single-station
 autocorrelation is remarkably powerful: it needs no inter-station coherence, works
 with short-period sensors, and delivers the one quantity --- absolute basement
 depth --- that gravity most needs.
@@ -430,9 +440,10 @@ $\Delta\rho\approx-400$~\si{\kg\per\m\cubed}.
 phase-weighted stacking and a multi-band side-lobe rejection test, provides a
 basement-depth map (111 stations, median $2.1$~km) that is \emph{independent} of
 receiver functions and corroborates them.
-\item Inter-station cross-correlation recovers slow Rayleigh group velocities
-($\sim$1~\si{\km\per\s}) consistent with soft fill but is depth-resolution-limited
-on a short-period temporary array.
+\item Inter-station cross-correlation recovers a physically coherent Rayleigh
+group-velocity dispersion rising from $\sim$2.2 to $\sim$2.6~\si{\km\per\s}
+(3.5--8~s period), diagnostic of slow fill over a faster basement, though
+band-limited by the short-period array.
 \item A joint RF\,+\,autocorrelation\,+\,gravity inversion delivers a single
 basement model (median $2.7$~km) consistent with both seismic estimates
 ($r=0.69$, $0.63$).
@@ -621,10 +632,13 @@ anchored-gravity models using no receiver-function information.}
 \includegraphics[width=0.49\textwidth]{spica_record_section.png}\hfill
 \includegraphics[width=0.49\textwidth]{spica_dispersion.png}
 \caption{Ambient-noise cross-correlation (C1), all days, microseism band
-($0.1$--$0.3$~\si{\hertz}), phase-weighted stack. (a) Distance-binned EGF record
-section with Rayleigh move-out; (b) FTAN group-velocity dispersion, clustering
-near $\sim$1~\si{\km\per\s} (soft fill) but resolution-limited by the short-period
-array.}
+($0.1$--$0.3$~\si{\hertz}), phase-weighted stack. (a) SNR-weighted symmetric
+(causal$+$acausal folded) EGF record section; coherent arrivals track the
+$2.5$--$3.0$~\si{\km\per\s} Rayleigh move-out (dashed). (b) Group-velocity
+dispersion as a stacked FTAN energy diagram (80 SNR-selected pairs, energy
+normalised per period); the picked curve (red; inter-quartile band shaded) rises
+from $\sim$2.2 to $\sim$2.5~\si{\km\per\s} over $3.5$--$8$~s, the signature of
+slow sedimentary fill over a faster basement.}
 \label{fig:spica}
 \end{figure}
 
